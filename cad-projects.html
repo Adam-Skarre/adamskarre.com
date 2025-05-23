@@ -5,12 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CAD Projects | Adam Skarre</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fafc;
+    }
+    .navbar {
+      background: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .logo a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 3rem 1rem;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .project-card img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
   <header>
     <nav class="navbar">
       <div class="nav-container">
-        <h1 class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Adam Skarre</a></h1>
+        <h1 class="logo"><a href="index.html">Adam Skarre</a></h1>
         <ul class="nav-links">
           <li><a href="index.html#about">About</a></li>
           <li><a href="index.html#portfolio">Portfolio</a></li>
@@ -26,42 +96,34 @@
     <section class="section">
       <h2>CAD Projects</h2>
       <div class="project-grid">
-
-        <!-- Airplane -->
         <div class="project-card">
           <h4>Airplane CAD Model</h4>
           <p>WWII-style aircraft modeled for aerodynamic design, SolidWorks surface features, and assembly planning.</p>
-          <img src="assets/images/Airplane.png" alt="Airplane CAD" class="project-image">
-          <p><a href="assets/docs/plane%20pdf" target="_blank">View Report →</a></p>
+          <img src="assets/images/Airplane.png" alt="Airplane CAD" />
+          <p><a href="assets/docs/plane pdf" target="_blank">View Report →</a></p>
         </div>
 
-        <!-- Robotic Arm -->
         <div class="project-card">
           <h4>Robotic Arm</h4>
           <p>Articulated robotic arm using parametric laws and curve-based constraints. Features multi-axis joint simulations.</p>
-          <img src="assets/images/robotic%20arm" alt="Robotic Arm CAD" class="project-image">
-          <p><a href="assets/docs/robotic%20arm" target="_blank">View Report →</a></p>
+          <img src="assets/images/robotic arm" alt="Robotic Arm" />
+          <p><a href="assets/docs/robotic arm" target="_blank">View Report →</a></p>
         </div>
 
-        <!-- Drone Final Assembly -->
         <div class="project-card">
           <h4>Drone Assembly</h4>
           <p>Modular drone model with detailed part files including propeller, drive gear, shafts, and full mechanical layout.</p>
-          <img src="assets/images/propeller" alt="Drone Propeller" class="project-image">
+          <img src="assets/images/propeller" alt="Drone CAD" />
           <p><a href="assets/docs/drone" target="_blank">View Report →</a></p>
         </div>
 
-        <!-- Rear Spinner (Images Only) -->
         <div class="project-card">
           <h4>Rear Spinner Showcase</h4>
           <p>Rear spinner mechanics with front, side, and back views in orthogonal CAD layouts.</p>
-          <div class="image-gallery">
-            <img src="assets/images/RS%20Front" alt="RS Front" class="project-image">
-            <img src="assets/images/RS%20Side" alt="RS Side" class="project-image">
-            <img src="assets/images/RS%20Back" alt="RS Back" class="project-image">
-          </div>
+          <img src="assets/images/RS Front" alt="Spinner Front" />
+          <img src="assets/images/RS Side" alt="Spinner Side" />
+          <img src="assets/images/RS Back" alt="Spinner Back" />
         </div>
-
       </div>
     </section>
   </main>
