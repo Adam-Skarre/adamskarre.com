@@ -5,79 +5,103 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adam Skarre | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <header>
-    <nav>
-      <h1>Adam Skarre</h1>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#case-studies">Case Studies</a></li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+    <nav class="navbar">
+      <div class="nav-container">
+        <h1 class="logo">Adam Skarre</h1>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#case-studies">Case Studies</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
     </nav>
   </header>
 
   <section class="hero">
-    <h2>Engineering Vision. Strategic Precision.</h2>
-    <p>A portfolio showcasing high-impact projects at the intersection of mechanical design, data-driven modeling, and strategic consulting.</p>
+    <div class="hero-inner">
+      <h2>Engineering Vision. Strategic Precision.</h2>
+      <p>A portfolio showcasing high-impact projects at the intersection of mechanical design, data-driven modeling, and strategic consulting.</p>
+      <div class="cta-group">
+        <a href="#portfolio" class="cta-button">Explore Work</a>
+        <a href="#contact" class="cta-button">Connect</a>
+      </div>
+    </div>
   </section>
 
-  <section class="section" id="about">
-    <h3>About Me</h3>
-    <p>I’m an engineer with a strategic mindset—trained in mechanical systems, fluent in data modeling, and experienced in delivering business-impactful solutions. My work spans algorithmic trading platforms, CAD-based engineering design, and consulting deliverables for emerging tech and infrastructure.</p>
-  </section>
+  <main>
+    <section class="section" id="about">
+      <h3>About Me</h3>
+      <p>I’m an engineer with a strategic mindset—trained in mechanical systems, fluent in data modeling, and experienced in delivering business-impactful solutions. My work spans algorithmic trading platforms, CAD-based engineering design, and consulting deliverables for emerging tech and infrastructure.</p>
+    </section>
 
-  <section class="section" id="portfolio">
-    <h3>Portfolio</h3>
-    <p>Explore categorized examples of my technical and strategic work. A complete archive of documents, slides, and code is available in my <a href="https://drive.google.com/drive/folders/1PZVTwsQsjKCVdXT4WR3x8bL8OoGflSd6" target="_blank">Google Drive Portfolio</a>.</p>
+    <section class="section" id="portfolio">
+      <h3>Portfolio</h3>
+      <p>Explore categorized examples of my technical and strategic work. A complete archive of documents, slides, and code is available in my <a href="https://drive.google.com/drive/folders/1PZVTwsQsjKCVdXT4WR3x8bL8OoGflSd6" target="_blank">Google Drive Portfolio</a>.</p>
 
-    <h4>CAD & Mechanical Design</h4>
-    <ul>
-      <li>Airplane Model</li>
-      <li>Drawing Samples</li>
-      <li>Final Drone Project</li>
-      <li>Miscellaneous Parts</li>
-      <li>Rear Spinner</li>
-      <li>Robotic Arm – Parametric Motion Study</li>
-    </ul>
+      <h4>Selected Work</h4>
+      <div class="project-grid">
+        <div class="project-card">
+          <h4>EV Infrastructure Project</h4>
+          <p>1st Place — Strategy proposal for statewide electrification deployment.</p>
+        </div>
+        <div class="project-card">
+          <h4>Harvard | IBM M&A Case</h4>
+          <p>2nd Place — Consulting case on strategic acquisition integration and valuation.</p>
+        </div>
+        <div class="project-card">
+          <h4>Wind Turbine Monte Carlo</h4>
+          <p>Forecast modeling of renewable energy systems in the U.S. and EU grids.</p>
+        </div>
+        <div class="project-card">
+          <h4>Robotic Arm CAD Study</h4>
+          <p>Dynamic control simulation of a multi-joint system using parametric motion curves.</p>
+        </div>
+      </div>
+    </section>
 
-    <h4>Consulting & Strategy</h4>
-    <ul>
-      <li>EV Infrastructure Expansion Project – <em>1st Place</em></li>
-      <li>Harvard x IBM M&A Proposal – <em>2nd Place</em></li>
-      <li>Quantum Connecticut Market Entry Project – <em>1st Place</em></li>
-    </ul>
+    <section class="section" id="case-studies">
+      <h3>Case Studies</h3>
+      <p>In-depth breakdowns of my most strategic and technical work. These reports detail the design process, analytical frameworks, and real-world impact of select projects.</p>
+      <div class="project-grid">
+        <div class="project-card">
+          <h4>Quantum Connecticut Strategy</h4>
+          <p>Developed a regulatory and market positioning strategy for quantum technology integration. Presented to industry judges; awarded 1st Place statewide.</p>
+        </div>
+        <div class="project-card">
+          <h4>Predictive Engineering Study</h4>
+          <p>Created trade-off analysis tools for decision-making in mechanical systems, blending simulation and real-time model calibration.</p>
+        </div>
+      </div>
+    </section>
 
-    <h4>AI, Modeling & Optimization</h4>
-    <ul>
-      <li>Engineering Optimization Models and Trade-off Analysis</li>
-      <li>Wind Turbine Market Simulation – UConn Monte Carlo Study</li>
-    </ul>
-  </section>
+    <section class="section" id="blog">
+      <h3>Blog</h3>
+      <p>Articles coming soon covering insights in engineering optimization, the intersection of AI and finance, and lessons from building independent systems and strategies.</p>
+      <ul class="blog-preview">
+        <li>Why Engineers Should Think Like Investors</li>
+        <li>Designing for Simplicity: Lessons from CAD to Dashboards</li>
+        <li>The Problem with Signal Detection (and What I Did Differently)</li>
+      </ul>
+    </section>
 
-  <section class="section" id="case-studies">
-    <h3>Case Studies</h3>
-    <p>Deep dives into selected projects. These include competition submissions and research-driven strategy reports that demonstrate analytical depth and business relevance.</p>
-  </section>
+    <section class="section" id="contact">
+      <h3>Contact</h3>
+      <p>Email: <a href="mailto:adamskarre@gmail.com">adamskarre@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/adamskarre" target="_blank">linkedin.com/in/adamskarre</a></p>
+      <p>GitHub: <a href="https://github.com/adamskarre" target="_blank">github.com/adamskarre</a></p>
+    </section>
+  </main>
 
-  <section class="section" id="blog">
-    <h3>Blog</h3>
-    <p>Reflections on engineering, analytics, and the thought process behind decision-making. Launching soon with selected posts from technical projects and strategic initiatives.</p>
-  </section>
-
-  <section class="section" id="contact">
-    <h3>Contact</h3>
-    <p>Email: <a href="mailto:adamskarre@gmail.com">adamskarre@gmail.com</a></p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/adamskarre" target="_blank">linkedin.com/in/adamskarre</a></p>
-    <p>GitHub: <a href="https://github.com/adamskarre" target="_blank">github.com/adamskarre</a></p>
-  </section>
-
-  <footer class="footer">
+  <footer>
     <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
   </footer>
 </body>
