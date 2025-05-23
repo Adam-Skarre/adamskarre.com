@@ -11,8 +11,8 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #fdfdfd;
-  color: #111;
+  background-color: #f5f7fa;
+  color: #1a1a1a;
   line-height: 1.6;
   font-size: 16px;
 }
@@ -39,10 +39,10 @@ body {
 }
 
 .logo {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #111;
-} 
+  color: #1a1a1a;
+}
 
 .nav-links {
   list-style: none;
@@ -82,12 +82,13 @@ body {
 .hero {
   padding: 10rem 2rem 5rem;
   text-align: center;
-  background: #f7f8f9;
+  background: linear-gradient(to bottom, #ffffff 0%, #f5f7fa 100%);
 }
 
 .hero h2 {
   font-size: 2.75rem;
   font-weight: 600;
+  color: #0d1a26;
   margin-bottom: 1rem;
 }
 
@@ -111,11 +112,12 @@ body {
   border-radius: 8px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .cta-button:hover {
   background-color: #005fd1;
+  transform: translateY(-2px);
 }
 
 /* Sections */
@@ -129,6 +131,7 @@ body {
   font-size: 2rem;
   margin-bottom: 1.25rem;
   font-weight: 600;
+  color: #0d1a26;
 }
 
 .section h4 {
@@ -148,17 +151,17 @@ body {
 }
 
 .project-card {
-  background: #fff;
-  border: 1px solid #eee;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 /* Blog Preview */
@@ -170,11 +173,13 @@ body {
 .blog-preview li {
   margin-bottom: 0.5rem;
   color: #444;
+  line-height: 1.5;
 }
 
 /* Contact Section */
 #contact a {
   color: #007aff;
+  text-decoration: underline;
 }
 
 /* Footer */
