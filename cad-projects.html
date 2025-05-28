@@ -68,6 +68,16 @@
       border-radius: 4px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+    details {
+      margin-top: 1rem;
+      text-align: left;
+      width: 100%;
+    }
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
     footer {
       text-align: center;
       padding: 2rem;
@@ -81,9 +91,7 @@
     <nav class="navbar">
       <div class="nav-container">
         <h1 class="logo"><a href="index.html">Adam Skarre</a></h1>
-        <ul class="nav-links">
-      
-        </ul>
+        <ul class="nav-links"></ul>
       </div>
     </nav>
   </header>
@@ -96,54 +104,50 @@
           <h4>Airplane CAD Model</h4>
           <p>WWII-style aircraft modeled for aerodynamic design, SolidWorks surface features, and assembly planning.</p>
           <img src="assets/images/Airplane.png" alt="Airplane CAD" />
-           <img src="assets/images/plane3.png" alt="Airplane CAD" />
-           <img src="assets/images/plane2.png" alt="Airplane CAD" />
-          <p><a href="assets/docs/plane pdf" target="_blank">View Report →</a></p>
+          <img src="assets/images/plane3.png" alt="Airplane CAD" />
+          <img src="assets/images/plane2.png" alt="Airplane CAD" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Constructed fuselage and wings using Siemens NX surface modeling techniques with a focus on aerodynamic performance. Digitized and positioned cross-sectional curves based on historical aircraft data. Created watertight surfaces using Through Curve, Bridge Surface, and Edge Blend tools. Performed Gaussian and highlight line curvature analysis to ensure flow continuity. Final model exhibited zero inflection points and verified aerodynamic surface quality.
+            </p>
+          </details>
         </div>
 
         <div class="project-card">
           <h4>Robotic Arm</h4>
           <p>Articulated robotic arm using parametric laws and curve-based constraints. Features multi-axis joint simulations.</p>
           <img src="assets/images/robotic arm" alt="Robotic Arm" />
-           <img src="assets/images/arm2.png" alt="Robotic Arm" />
-           <img src="assets/images/arm3.png" alt="Robotic Arm" />
-          <p><a href="assets/docs/robotic arm" target="_blank">View Report →</a></p>
+          <img src="assets/images/arm2.png" alt="Robotic Arm" />
+          <img src="assets/images/arm3.png" alt="Robotic Arm" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              This project analyzed a 3D serpentine curve to determine curvature, trajectory length, and maximum acceleration, simulating robotic arm motion. Used Siemens NX for surface modeling and MATLAB for curvature simulation. Computed max normal acceleration of 0.44 m/s² at (−465.93, 441.42, 113.74). Trajectory length increased from 7856 mm to 47128 mm by modifying curve frequency and amplitude.
+            </p>
+          </details>
         </div>
 
-     <div class="project-card">
-  <h4>Drone Assembly</h4>
-  <p>
-    Modular drone model with detailed part files including propeller, drive gear, shafts, and full mechanical layout.
-  </p>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; margin-top: 1rem;">
-    <figure>
-      <img src="assets/images/arm" alt="Drone Arm" />
-    </figure>
-    <figure>
-      <img src="assets/images/drive gear" alt="Drive Gear" />
-    </figure>
-    <figure>
-      <img src="assets/images/driven shaft 1" alt="Driven Shaft 1" />
-    </figure>
-    <figure>
-      <img src="assets/images/driven shaft2" alt="Driven Shaft 2" />
-    </figure>
-    <figure>
-      <img src="assets/images/final assembly" alt="Final Assembly" />
-    </figure>
-    <figure>
-      <img src="assets/images/hex bolt" alt="Hex Bolt" />
-    </figure>
-    <figure>
-      <img src="assets/images/main body" alt="Main Body" />
-    </figure>
-    <figure>
-      <img src="assets/images/propeler" alt="Propeller" />
-    </figure>
-  </div>
-  <p><a href="assets/docs/drone" target="_blank">View Report →</a></p>
-</div>
-
+        <div class="project-card">
+          <h4>Drone Assembly</h4>
+          <p>Modular drone model with detailed part files including propeller, drive gear, shafts, and full mechanical layout.</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; margin-top: 1rem;">
+            <figure><img src="assets/images/arm" alt="Drone Arm" /></figure>
+            <figure><img src="assets/images/drive gear" alt="Drive Gear" /></figure>
+            <figure><img src="assets/images/driven shaft 1" alt="Driven Shaft 1" /></figure>
+            <figure><img src="assets/images/driven shaft2" alt="Driven Shaft 2" /></figure>
+            <figure><img src="assets/images/final assembly" alt="Final Assembly" /></figure>
+            <figure><img src="assets/images/hex bolt" alt="Hex Bolt" /></figure>
+            <figure><img src="assets/images/main body" alt="Main Body" /></figure>
+            <figure><img src="assets/images/propeler" alt="Propeller" /></figure>
+          </div>
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Developed a full drone assembly from individual parts including arm, drive gear, propeller, and housing. Each part was dimensioned and modeled for proper fit and kinematic alignment. Assembly involved coordinating concentric, coincident, and distance constraints to ensure structural stability and spatial logic. This modular system highlights design for manufacturing and 3D-printability.
+            </p>
+          </details>
+        </div>
 
         <div class="project-card">
           <h4>Rear Spinner Showcase</h4>
@@ -152,7 +156,8 @@
           <img src="assets/images/RS Side" alt="Spinner Side" />
           <img src="assets/images/RS Back" alt="Spinner Back" />
         </div>
-      <div class="project-card">
+
+        <div class="project-card">
           <h4>Component Sketches</h4>
           <p>2D mechanical sketches showcasing dimensioning, technical drawing standards, and geometric clarity.</p>
           <img src="assets/images/Drawing%201.png" alt="Sketch 1" />
