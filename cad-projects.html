@@ -1,163 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CAD Projects | Adam Skarre</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #f9fafc;
-    }
-    .navbar {
-      background: white;
-      padding: 1rem 2rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .logo a {
-      text-decoration: none;
-      color: black;
-      font-weight: bold;
-      font-size: 1.5rem;
-    }
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-    }
-    .section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 3rem 1rem;
-    }
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-    .project-card {
-      background: white;
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .project-card img {
-      max-width: 100%;
-      height: auto;
-      margin-top: 1rem;
-      border-radius: 4px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    details {
-      margin-top: 1rem;
-      text-align: left;
-      width: 100%;
-    }
-    summary {
-      font-weight: bold;
-      cursor: pointer;
-      margin-bottom: 0.5rem;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: #777;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <nav class="navbar">
-      <div class="nav-container">
-        <h1 class="logo"><a href="index.html">Adam Skarre</a></h1>
-        <ul class="nav-links"></ul>
-      </div>
-    </nav>
-  </header>
+<!-- Airplane CAD Model -->
+<div class="project-card">
+  <h4>Airplane CAD Model</h4>
+  <p>WWII-style aircraft modeled for aerodynamic design, SolidWorks surface features, and assembly planning.</p>
+  <img src="assets/images/Airplane.png" alt="Airplane CAD" />
+  <img src="assets/images/plane3.png" alt="Airplane CAD" />
+  <img src="assets/images/plane2.png" alt="Airplane CAD" />
+  <details>
+    <summary>Project Details</summary>
+    <p>
+      Constructed fuselage and wings using Siemens NX surface modeling techniques with a focus on aerodynamic performance. 
+      Digitized and positioned cross-sectional curves based on historical aircraft data. Created watertight surfaces using Through Curve, Bridge Surface, and Edge Blend tools.
+    </p>
+    <ul>
+      <li>Performed Gaussian and highlight line curvature analysis to ensure flow continuity</li>
+      <li>Final model exhibited zero inflection points and verified aerodynamic surface quality</li>
+    </ul>
+  </details>
+</div>
 
-  <main>
-    <section class="section">
-      <h2>CAD Projects</h2>
-      <div class="project-grid">
-        <div class="project-card">
-          <h4>Rear Spinner Showcase</h4>
-          <p>Rear spinner mechanics with front, side, and back views in orthogonal CAD layouts.</p>
-          <img src="assets/images/RS Front" alt="Spinner Front" />
-          <img src="assets/images/RS Side" alt="Spinner Side" />
-          <img src="assets/images/RS Back" alt="Spinner Back" />
-          <details>
-            <summary>Project Details</summary>
-            <p>The spinner was modeled and displayed using orthogonal perspectives to evaluate design symmetry and component housing integration.</p>
-            <ul>
-              <li>Front view focused on radial uniformity</li>
-              <li>Side view verified axial symmetry and shaft alignment</li>
-              <li>Back view used to confirm slot/vent dimensions and support interface</li>
-            </ul>
-          </details>
-        </div>
+<!-- Robotic Arm -->
+<div class="project-card">
+  <h4>Robotic Arm</h4>
+  <p>Articulated robotic arm using parametric laws and curve-based constraints. Features multi-axis joint simulations.</p>
+  <img src="assets/images/robotic arm" alt="Robotic Arm" />
+  <img src="assets/images/arm2.png" alt="Robotic Arm" />
+  <img src="assets/images/arm3.png" alt="Robotic Arm" />
+  <details>
+    <summary>Project Details</summary>
+    <p>
+      This project analyzed a 3D serpentine curve to determine curvature, trajectory length, and maximum acceleration, simulating robotic arm motion.
+    </p>
+    <ul>
+      <li>Used Siemens NX and MATLAB for curve profile simulation</li>
+      <li>Max normal acceleration: 0.44 m/s² at (-465.93, 441.42, 113.74)</li>
+      <li>Modified frequency to increase curve length from 7856 mm to 47128 mm</li>
+    </ul>
+  </details>
+</div>
 
-        <div class="project-card">
-          <h4>Component Sketches</h4>
-          <p>2D mechanical sketches showcasing dimensioning, technical drawing standards, and geometric clarity.</p>
-          <img src="assets/images/Drawing%201.png" alt="Sketch 1" />
-          <img src="assets/images/Drawing%202.png" alt="Sketch 2" />
-          <img src="assets/images/Drawing%203.png" alt="Sketch 3" />
-          <details>
-            <summary>Project Details</summary>
-            <p>These sketches showcase 2D mechanical communication through dimensioning, projections, and tolerance representation.</p>
-            <ul>
-              <li>Fully constrained sketches following GD&T logic</li>
-              <li>Front, top, and side orthographic views developed with consistent scales</li>
-              <li>Included exploded views and auxiliary sections for interpretability</li>
-            </ul>
-          </details>
-        </div>
+<!-- Drone Assembly -->
+<div class="project-card">
+  <h4>Drone Assembly</h4>
+  <p>Modular drone model with detailed part files including propeller, drive gear, shafts, and full mechanical layout.</p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; margin-top: 1rem;">
+    <figure><img src="assets/images/arm" alt="Drone Arm" /></figure>
+    <figure><img src="assets/images/drive gear" alt="Drive Gear" /></figure>
+    <figure><img src="assets/images/driven shaft 1" alt="Driven Shaft 1" /></figure>
+    <figure><img src="assets/images/driven shaft2" alt="Driven Shaft 2" /></figure>
+    <figure><img src="assets/images/final assembly" alt="Final Assembly" /></figure>
+    <figure><img src="assets/images/hex bolt" alt="Hex Bolt" /></figure>
+    <figure><img src="assets/images/main body" alt="Main Body" /></figure>
+    <figure><img src="assets/images/propeler" alt="Propeller" /></figure>
+  </div>
+  <details>
+    <summary>Project Details</summary>
+    <p>
+      Developed a full drone assembly from individual parts including arm, drive gear, propeller, and housing. Each part was dimensioned and modeled for proper fit and kinematic alignment.
+    </p>
+    <ul>
+      <li>Constrained assembly with concentric, coincident, and offset logic</li>
+      <li>Highlighted design for 3D printing and modular upgrades</li>
+      <li>Used SolidWorks assembly environments for validation</li>
+    </ul>
+  </details>
+</div>
 
-        <div class="project-card">
-          <h4>Miscellaneous CAD Models</h4>
-          <p>Standalone components created for precision modeling and detail exploration in SolidWorks and NX.</p>
-          <img src="assets/images/Mechanical%20Holder.png" alt="Holder" />
-          <img src="assets/images/Gear%20Exercise%20.png" alt="Gear" />
-          <img src="assets/images/Base%20Plate.png" alt="Base" />
-          <img src="assets/images/Adapter%20Plate.png" alt="Adapter" />
-          <details>
-            <summary>Project Details</summary>
-            <p>These models were created to explore mechanical component design and assembly fit. Each part was dimensioned to typical industry standards using SolidWorks and Siemens NX.</p>
-            <ul>
-              <li><strong>Mechanical Holder:</strong> Support fixture with angular walls and base fitting cutouts</li>
-              <li><strong>Gear Exercise:</strong> Parametric gear modeled for meshing tolerances and motion transfer</li>
-              <li><strong>Base & Adapter Plates:</strong> Fabrication-ready fixtures with bolt pattern consistency</li>
-              <li><strong>Threaded Insert:</strong> Designed for torque-fitting applications with pitch and diameter tolerances validated in CAD</li>
-            </ul>
-          </details>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
-  </footer>
-</body>
-</html>
+<!-- Miscellaneous CAD Models -->
+<div class="project-card">
+  <h4>Miscellaneous CAD Models</h4>
+  <p>Standalone components created for precision modeling and detail exploration in SolidWorks and NX.</p>
+  <img src="assets/images/Mechanical%20Holder.png" alt="Holder" />
+  <img src="assets/images/Gear%20Exercise%20.png" alt="Gear" />
+  <img src="assets/images/Base%20Plate.png" alt="Base" />
+  <img src="assets/images/Adapter%20Plate.png" alt="Adapter" />
+  <img src="assets/images/Threaded%20Insert.png" alt="Threaded Insert" />
+  <details>
+    <summary>Project Details</summary>
+    <p>These models were created to explore mechanical component design and assembly fit. Each part was dimensioned to typical industry standards using SolidWorks and Siemens NX.</p>
+    <ul>
+      <li><strong>Mechanical Holder:</strong> Support fixture with angular walls and base fitting cutouts</li>
+      <li><strong>Gear Exercise:</strong> Parametric gear modeled for meshing tolerances and motion transfer</li>
+      <li><strong>Base & Adapter Plates:</strong> Fabrication-ready fixtures with bolt pattern consistency</li>
+      <li><strong>Threaded Insert:</strong> Designed for torque-fitting applications with pitch and diameter tolerances validated in CAD</li>
+    </ul>
+  </details>
+</div>
