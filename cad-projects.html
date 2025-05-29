@@ -37,11 +37,6 @@
       display: flex;
       gap: 1rem;
     }
-    .nav-links a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-    }
     .section {
       max-width: 1100px;
       margin: auto;
@@ -68,12 +63,6 @@
       border-radius: 4px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: #777;
-    }
     details {
       margin-top: 1rem;
       text-align: left;
@@ -83,6 +72,12 @@
       font-weight: bold;
       cursor: pointer;
       margin-bottom: 0.5rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
     }
   </style>
 </head>
@@ -103,69 +98,94 @@
 
         <div class="project-card">
           <h4>Airplane CAD Model</h4>
-          <p>WWII-style aircraft modeled for aerodynamic design, SolidWorks surface features, and assembly planning.</p>
+          <p>WWII-style aircraft modeled for aerodynamic design and surface continuity.</p>
           <img src="assets/images/Airplane.png" alt="Airplane CAD" />
           <img src="assets/images/plane3.png" alt="Airplane CAD" />
           <img src="assets/images/plane2.png" alt="Airplane CAD" />
-          <details><summary>Project Details</summary><p>Full 3D aircraft modeled with aerodynamic consideration and surface lofting techniques. Includes modular wing-body-tail segmentation and propeller mount design using SolidWorks assemblies and mates.</p></details>
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Constructed fuselage and wings using Siemens NX surface modeling techniques with a focus on aerodynamic performance.
+              Created watertight surfaces using Through Curve and Bridge Surface. Verified aerodynamic surface quality using curvature analysis.
+            </p>
+          </details>
         </div>
 
         <div class="project-card">
           <h4>Robotic Arm</h4>
-          <p>Articulated robotic arm using parametric laws and curve-based constraints. Features multi-axis joint simulations.</p>
+          <p>Articulated robotic arm with curvature analysis and multi-axis simulation.</p>
           <img src="assets/images/robotic arm" alt="Robotic Arm" />
           <img src="assets/images/arm2.png" alt="Robotic Arm" />
           <img src="assets/images/arm3.png" alt="Robotic Arm" />
-          <details><summary>Project Details</summary><p>5-DOF robotic manipulator with controlled joint rotation, gear simulation, and parametric constraints. Verified acceleration profile and moment arms across each segment to simulate lifting force in Inventor and NX.</p></details>
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Simulated 3D serpentine curve motion to study curvature, trajectory length, and acceleration using Siemens NX and MATLAB.
+              Calculated max acceleration of 0.44 m/s² at (−465.93, 441.42, 113.74). Demonstrated advanced CAD and analytical techniques.
+            </p>
+          </details>
         </div>
 
         <div class="project-card">
           <h4>Drone Assembly</h4>
-          <p>Modular drone model with detailed part files including propeller, drive gear, shafts, and full mechanical layout.</p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; margin-top: 1rem;">
-            <figure><img src="assets/images/arm" alt="Drone Arm" /></figure>
-            <figure><img src="assets/images/drive gear" alt="Drive Gear" /></figure>
-            <figure><img src="assets/images/driven shaft 1" alt="Driven Shaft 1" /></figure>
-            <figure><img src="assets/images/driven shaft2" alt="Driven Shaft 2" /></figure>
-            <figure><img src="assets/images/final assembly" alt="Final Assembly" /></figure>
-            <figure><img src="assets/images/hex bolt" alt="Hex Bolt" /></figure>
-            <figure><img src="assets/images/main body" alt="Main Body" /></figure>
-            <figure><img src="assets/images/propeler" alt="Propeller" /></figure>
-          </div>
-          <details><summary>Project Details</summary><p>This drone was reverse engineered from sketches and animated for motion simulation. Each part was fabricated virtually and integrated using component constraints in Siemens NX. Stress validation performed on arms and gears.</p></details>
+          <p>Modular drone model featuring individual part files and full mechanical layout.</p>
+          <img src="assets/images/arm" alt="Drone Arm" />
+          <img src="assets/images/drive gear" alt="Drive Gear" />
+          <img src="assets/images/driven shaft 1" alt="Driven Shaft 1" />
+          <img src="assets/images/driven shaft2" alt="Driven Shaft 2" />
+          <img src="assets/images/final assembly" alt="Final Assembly" />
+          <img src="assets/images/hex bolt" alt="Hex Bolt" />
+          <img src="assets/images/main body" alt="Main Body" />
+          <img src="assets/images/propeler" alt="Propeller" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Each component was created using parametric modeling and assembled with concentric, coincident, and offset constraints.
+              The modular design highlights attention to manufacturing and 3D-print compatibility.
+            </p>
+          </details>
         </div>
 
         <div class="project-card">
           <h4>Rear Spinner Showcase</h4>
-          <p>Rear spinner mechanics with front, side, and back views in orthogonal CAD layouts.</p>
+          <p>Rear spinner mechanics in orthogonal CAD layouts.</p>
           <img src="assets/images/RS Front" alt="Spinner Front" />
           <img src="assets/images/RS Side" alt="Spinner Side" />
           <img src="assets/images/RS Back" alt="Spinner Back" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Modeled and displayed from orthogonal perspectives to evaluate design symmetry and component housing integration.
+            </p>
+          </details>
         </div>
 
         <div class="project-card">
           <h4>Component Sketches</h4>
-          <p>2D mechanical sketches showcasing dimensioning, technical drawing standards, and geometric clarity.</p>
+          <p>2D sketches demonstrating orthographic design, dimensioning, and projection logic.</p>
           <img src="assets/images/Drawing%201.png" alt="Sketch 1" />
           <img src="assets/images/Drawing%202.png" alt="Sketch 2" />
           <img src="assets/images/Drawing%203.png" alt="Sketch 3" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Included exploded views and auxiliary sections. Followed GD&T conventions. Practiced layout strategies for mechanical drawings.
+            </p>
+          </details>
         </div>
 
         <div class="project-card">
           <h4>Miscellaneous CAD Models</h4>
-          <p>Standalone components created for precision modeling and detail exploration in SolidWorks and NX.</p>
-          <img src="assets/images/Mechanical%20Holder.png" alt="Holder" />
-          <img src="assets/images/Gear%20Exercise%20.png" alt="Gear" />
-          <img src="assets/images/Base%20Plate.png" alt="Base" />
-          <img src="assets/images/Adapter%20Plate.png" alt="Adapter" />
-          <img src="assets/images/Threaded%20Insert.png" alt="Threaded Insert" />
-          <details><summary>Project Details</summary>
-            <ul>
-              <li><strong>Mechanical Holder:</strong> Support fixture with angular walls and base fitting cutouts</li>
-              <li><strong>Gear Exercise:</strong> Parametric gear modeled for meshing tolerances and motion transfer</li>
-              <li><strong>Base & Adapter Plates:</strong> Fabrication-ready fixtures with bolt pattern consistency</li>
-              <li><strong>Threaded Insert:</strong> Designed for torque-fitting applications with pitch and diameter tolerances validated in CAD</li>
-            </ul>
+          <p>Precision components demonstrating varied mechanical concepts.</p>
+          <img src="assets/images/Mechanical%20Holder.png" alt="Mechanical Holder" />
+          <img src="assets/images/Gear%20Exercise%20.png" alt="Gear Exercise" />
+          <img src="assets/images/Base%20Plate.png" alt="Base Plate" />
+          <img src="assets/images/Adapter%20Plate.png" alt="Adapter Plate" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Parts designed in SolidWorks and Siemens NX to industry tolerances. Included components like gears, holders, and base fixtures to demonstrate mechanical design versatility.
+            </p>
           </details>
         </div>
 
