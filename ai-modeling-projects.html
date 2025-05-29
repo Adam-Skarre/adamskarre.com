@@ -5,6 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI and Data Modeling | Adam Skarre</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fafc;
+    }
+    .navbar {
+      background: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .logo a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 3rem 1rem;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .project-card img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    details {
+      margin-top: 1rem;
+      text-align: left;
+      width: 100%;
+    }
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -21,10 +96,10 @@
       <h2>AI and Data Modeling Projects</h2>
       <div class="project-grid">
 
-        <!-- SKARRE SIGNAL -->
+        <!-- SKARRE SIGNAL PROJECT -->
         <div class="project-card">
           <h4>Independent Study: Skarre Tracking Signal</h4>
-          <p>Live dashboard modeling financial market behavior using engineering-based derivatives.</p>
+          <p>Real-time momentum-based trading dashboard using engineering models.</p>
           <img src="assets/images/skarre-dashboard-preview.png" alt="Skarre Tracking Signal Dashboard" />
           <details>
             <summary>Project Details</summary>
@@ -41,15 +116,15 @@
         <!-- WIND TURBINE CASE STUDY -->
         <div class="project-card">
           <h4>Wind Turbine Monte Carlo Study</h4>
-          <p>Case study forecasting renewable energy impact across the U.S. and Europe using simulation.</p>
+          <p>Statistical modeling of renewable energy output across the U.S. and Europe.</p>
           <img src="assets/images/wind-turbine-preview.png" alt="Wind Turbine Study" />
           <details>
             <summary>Project Details</summary>
             <p>
+              Monte Carlo simulations to predict wind energy variability and output.<br>
+              Compared U.S., Germany, Denmark, and the UK.<br>
               Conducted as part of the Data-Driven Decisions course.<br>
-              Used Monte Carlo simulation in Python with NumPy and Matplotlib.<br>
-              Compared renewable energy output scenarios across four countries.<br>
-              Focused on forecasting and policy implications.
+              Built using NumPy, Matplotlib, and Jupyter Notebook.
             </p>
           </details>
           <p><a href="https://cooperrc.github.io/data-driven-decisions/module_04/wind-turbine-impact.html" target="_blank">🔗 View Case Study</a></p>
