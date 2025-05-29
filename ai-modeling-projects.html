@@ -7,48 +7,60 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>AI and Data Modeling Projects</h1>
-  <p>My projects that apply engineering principles to data modeling, financial systems, and renewable energy analysis.</p>
+  <header>
+    <nav class="navbar">
+      <div class="nav-container">
+        <h1 class="logo"><a href="index.html">Adam Skarre</a></h1>
+        <ul class="nav-links"></ul>
+      </div>
+    </nav>
+  </header>
 
-  <!-- Skarre Signal Dashboard -->
-  <section>
-    <h2>📘 Independent Study: Algorithmic Trading & Engineering Models</h2>
-    <details>
-      <summary>View Summary</summary>
-      <p>
-        A semester-long independent study project that applies mechanical engineering concepts to algorithmic trading through the creation of the <strong>Skarre Tracking Signal</strong> — a strategy that analyzes market momentum using slope and acceleration. 
-      </p>
-      <ul>
-        <li>Developed using Python, NumPy, and Streamlit</li>
-        <li>Applies Savitzky-Golay filters to detect trends in real time</li>
-        <li>Includes backtesting, Sharpe ratio optimization, and walk-forward validation</li>
-        <li>Benchmarking against SPY and QQQ for statistical robustness</li>
-      </ul>
-    </details>
-    <p><a href="https://skarre-tracking-signal.streamlit.app" target="_blank">🔗 Launch Live Dashboard</a></p>
-  </section>
+  <main>
+    <section class="section">
+      <h2>AI and Data Modeling Projects</h2>
+      <div class="project-grid">
 
-  <hr />
+        <!-- SKARRE SIGNAL -->
+        <div class="project-card">
+          <h4>Independent Study: Skarre Tracking Signal</h4>
+          <p>Live dashboard modeling financial market behavior using engineering-based derivatives.</p>
+          <img src="assets/images/skarre-dashboard-preview.png" alt="Skarre Tracking Signal Dashboard" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Developed through a mechanical engineering independent study.<br>
+              Modeled price using slope and acceleration.<br>
+              Includes Sharpe optimization, walk-forward validation, and real-time visualization.<br>
+              Built in Python with NumPy, Streamlit, and Plotly.
+            </p>
+          </details>
+          <p><a href="https://skarre-tracking-signal-dashboard.streamlit.app/" target="_blank">🔗 Launch Live Dashboard</a></p>
+        </div>
 
-  <!-- Wind Turbine Study -->
-  <section>
-    <h2>🌬️ Wind Turbine Impact Study: Monte Carlo Simulation</h2>
-    <details>
-      <summary>View Summary</summary>
-      <p>
-        A case study comparing wind turbine performance in the U.S. and Europe using Monte Carlo simulations. Assesses energy output variability and potential under renewable policy shifts.
-      </p>
-      <ul>
-        <li>Built in Jupyter Notebook with NumPy, Pandas, and Matplotlib</li>
-        <li>Used probabilistic modeling to forecast wind energy impact</li>
-        <li>Compared across Germany, Denmark, and the UK</li>
-        <li>Conducted as part of UConn engineering coursework</li>
-      </ul>
-    </details>
-    <p><a href="ai-modeling/wind-turbine-impact-2.ipynb" download>📥 Download Case Study (.ipynb)</a></p>
-  </section>
+        <!-- WIND TURBINE CASE STUDY -->
+        <div class="project-card">
+          <h4>Wind Turbine Monte Carlo Study</h4>
+          <p>Case study forecasting renewable energy impact across the U.S. and Europe using simulation.</p>
+          <img src="assets/images/wind-turbine-preview.png" alt="Wind Turbine Study" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Conducted as part of the Data-Driven Decisions course.<br>
+              Used Monte Carlo simulation in Python with NumPy and Matplotlib.<br>
+              Compared renewable energy output scenarios across four countries.<br>
+              Focused on forecasting and policy implications.
+            </p>
+          </details>
+          <p><a href="https://cooperrc.github.io/data-driven-decisions/module_04/wind-turbine-impact.html" target="_blank">🔗 View Case Study</a></p>
+        </div>
 
-  <br>
-  <a href="index.html">← Back to Home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
+  </footer>
 </body>
 </html>
