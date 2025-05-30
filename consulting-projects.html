@@ -5,40 +5,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Consulting Projects | Adam Skarre</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fafc;
+    }
+    .navbar {
+      background: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .logo a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 3rem 1rem;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .project-card img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    details {
+      margin-top: 1rem;
+      text-align: left;
+      width: 100%;
+    }
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Consulting Projects</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="cad-projects-4.html">CAD Projects</a></li>
-        <li><a href="ai-modeling.html">AI & Modeling</a></li>
-        <li><a href="consulting-projects.html">Consulting</a></li>
-      </ul>
+    <nav class="navbar">
+      <div class="nav-container">
+        <h1 class="logo"><a href="index.html">Adam Skarre</a></h1>
+        <ul class="nav-links"></ul>
+      </div>
     </nav>
   </header>
 
-  <main class="projects-container">
-    <section class="project-card">
-      <img src="assets/harvard_case_thumbnail.png" alt="Harvard Case Competition" />
-      <h2>Harvard Case Competition</h2>
-      <p>Collaborated with a multi-disciplinary team to develop a merger and acquisition strategy for IBM, focusing on cloud infrastructure and competitive positioning against Oracle and Amazon. Produced financial modeling, competitive analysis, and presented to industry judges.</p>
-      <p><strong>Status:</strong> Please inquire to see the full project.</p>
-    </section>
+  <main>
+    <section class="section">
+      <h2>Consulting Projects</h2>
+      <div class="project-grid">
 
-    <section class="project-card">
-      <img src="assets/kogod_dji_frame.png" alt="Kogod Drone Presentation" />
-      <h2>Kogod ESG Presentation</h2>
-      <p>Developed a business strategy integrating ESG frameworks for sustainable restaurant operations. Captured drone footage using DJI technology and edited a keynote presentation with Final Cut Pro, offering a visual narrative for our business plan.</p>
-      <p><strong>Status:</strong> Please inquire to see the full project.</p>
-    </section>
+        <div class="project-card">
+          <h4>QuantumUP! Challenge Winner</h4>
+          <p>Designed a national framework for quantum technology regulation and ethical oversight.</p>
+          <img src="assets/images/quantum.png" alt="QuantumUP! Cover" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Collaborated with a multi-disciplinary team to present a policy framework before executives from Google, Quantinuum, Travelers, and Capgemini. Integrated ethical AI and quantum standards for future regulation.
+              <br><br><strong>Please inquire to see the full project.</strong>
+            </p>
+          </details>
+        </div>
 
-    <section class="project-card">
-      <img src="assets/quantum_up_framework.png" alt="Quantum UP Challenge" />
-      <h2>Quantum UP! Challenge</h2>
-      <p>Led the winning team in the Quantum UP! Challenge, presenting a government-style regulation framework for quantum technologies. Addressed public trust, ethical AI integration, and industry-wide adoption standards in a simulated global policy panel.</p>
-      <p><strong>Status:</strong> Please inquire to see the full project.</p>
+        <div class="project-card">
+          <h4>Harvard Case Competition: IBM Cloud Acquisition</h4>
+          <p>Developed an M&A proposal focused on IBM’s acquisition strategy in the cloud infrastructure space.</p>
+          <img src="assets/images/harvard_case.png" alt="Harvard Case" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Provided financial modeling, due diligence, and market analysis. Proposed Equinix as a high-value acquisition target. Evaluated synergies, integration risks, and long-term financial upside.
+              <br><br><strong>Please inquire to see the full project.</strong>
+            </p>
+          </details>
+        </div>
+
+        <div class="project-card">
+          <h4>Kogod Growth Strategy Consulting</h4>
+          <p>Directed a real-world consulting engagement with a DMV-based EV infrastructure firm.</p>
+          <img src="assets/images/kogod_case.png" alt="Kogod Drone Video" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Conducted field research using DJI drone technology and edited using Final Cut Pro. Delivered a strategic expansion plan for Lightility. Focused on market penetration, customer persona analysis, and capital efficiency.
+              <br><br><strong>Please inquire to see the full project or video demo.</strong>
+            </p>
+          </details>
+        </div>
+
+      </div>
     </section>
   </main>
 
