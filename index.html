@@ -1,52 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Adam Skarre – Engineering Portfolio">
-    <title>Adam Skarre | Portfolio</title>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: auto; padding: 20px; }
-        h1, h2 { color: #2c3e50; }
-        header img { width: 100%; max-height: 200px; object-fit: cover; margin-bottom: 20px; }
-        .form-section input, .form-section textarea { display: block; width: 100%; margin-bottom: 10px; padding: 10px; font-size: 1rem; }
-        .form-section button { background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
-        ul { list-style-type: square; padding-left: 20px; }
-        footer { margin-top: 40px; font-size: 0.9rem; color: #777; text-align: center; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adam Skarre | Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fafc;
+      color: #111;
+    }
+    .navbar {
+      background: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .logo a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    .section {
+      max-width: 900px;
+      margin: auto;
+      padding: 4rem 1rem;
+    }
+    .intro {
+      text-align: center;
+    }
+    .intro h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .intro p {
+      font-size: 1.1rem;
+      color: #444;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+    }
+    .form-section {
+      max-width: 600px;
+      margin: 4rem auto 2rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, textarea {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem;
+      background: #111;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #333;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
-    
+  <header>
+    <nav class="navbar">
+      <div class="nav-container">
+        <h1 class="logo"><a href="index.html">Adam Skarre</a></h1>
+        <ul class="nav-links">
+          <li><a href="cad-projects.html">CAD Projects</a></li>
+          <li><a href="ai-modeling.html">AI & Modeling</a></li>
+          <li><a href="consulting.html">Consulting</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-    <h1>Adam Skarre</h1>
-    <p>A personal archive of selected academic, technical, and design work completed during my time at university.</p>
+  <main class="section intro">
+    <h1>Welcome</h1>
+    <p>
+      I’m Adam Skarre, an aspiring engineer and strategist passionate about the intersection of technology, business, and innovation. This site showcases my work across CAD modeling, AI/data projects, and real-world consulting competitions. Feel free to explore and reach out.
+    </p>
+  </main>
 
-    <h2>About</h2>
-    <p>I’m a recent engineering graduate who focused on mechanical systems, artificial intelligence applications, and interdisciplinary problem-solving. This site serves as a curated record of projects and course-based deliverables that demonstrate my technical development, learning process, and hands-on experience with design, simulation, and analytics.</p>
-
-    <h2>Project Categories</h2>
-    <p>Explore categorized examples of my undergraduate portfolio:</p>
-    <ul>
-        <li><a href="cad-projects.html">CAD and Product Design</a> – 3D modeling, component design, and technical engineering drawings.</li>
-        <li><a href="ai-modeling-projects.html">Quantitative Systems and Simulation Projects</a> – Projects focused on data-driven forecasting, algorithmic strategy design, and simulation-based analysis in engineering and finance..</li>
-        <li><a href="consulting-projects.html">Consulting and Strategy</a> – Client-facing case studies and interdisciplinary research-driven recommendations.</li>
-    </ul>
-
+  <section class="form-section">
     <h2>Contact</h2>
-    <div class="form-section">
-        <form action="https://formspree.io/f/xwpogapy" method="POST">
-            <label for="name">Name</label>
-            <input type="text" name="name" required>
-            <label for="email">Email</label>
-            <input type="email" name="email" required>
-            <label for="message">Message</label>
-            <textarea name="message" rows="5" required></textarea>
-            <button type="submit">Send</button>
-        </form>
-    </div>
+    <form action="https://formspree.io/f/xwpogapy" method="POST">
+      <label for="name">Name</label>
+      <input type="text" name="name" required>
+      <label for="email">Email</label>
+      <input type="email" name="email" required>
+      <label for="message">Message</label>
+      <textarea name="message" rows="5" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
 
-    <footer>
-        <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
-    </footer>
+  <footer>
+    &copy; 2025 Adam Skarre. All rights reserved.
+  </footer>
 </body>
 </html>
