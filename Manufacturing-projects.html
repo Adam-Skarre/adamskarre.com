@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manufacturing Projects | Adam Skarre</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { margin: 0; font-family: 'Inter', sans-serif; background-color: #f9fafc; }
+    .navbar { background: white; padding: 1rem 2rem; box-shadow: 0 1px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; }
+    .logo a { text-decoration: none; color: black; font-weight: bold; font-size: 1.5rem; }
+    .nav-links { list-style: none; display: flex; gap: 1rem; }
+    .section { max-width: 1100px; margin: auto; padding: 3rem 1rem; }
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .project-card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; }
+    .project-card img { max-width: 100%; height: auto; margin-top: 1rem; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    details { margin-top: 1rem; text-align: left; width: 100%; }
+    summary { font-weight: bold; cursor: pointer; margin-bottom: 0.5rem; }
+    footer { text-align: center; padding: 2rem; font-size: 0.9rem; color: #777; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="nav-container">
+        <h1 class="logo"><a href="index.html">Adam Skarre</a></h1>
+        <ul class="nav-links">
+          <li><a href="cad-projects.html">CAD</a></li>
+          <li><a href="ai-modeling-projects.html">Quant Modeling</a></li>
+          <li><a href="consulting-projects.html">Consulting</a></li>
+          <li><a href="manufacturing-projects.html">Manufacturing</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section">
+      <h2>Manufacturing Projects</h2>
+      <div class="project-grid">
+
+        <!-- Project 1 -->
+        <div class="project-card">
+          <h4>AI in Manufacturing</h4>
+          <p>Industry 4.0 analysis on how AI drives quality, predictive maintenance, and production efficiency.</p>
+          <!-- Replace image paths with your actual assets -->
+          <img src="assets/images/ai-mfg-hero.jpg" alt="AI in Manufacturing" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Synthesized research on AI-enabled inspection, forecasting, and scheduling to quantify impacts on cost,
+              throughput, and sustainability. Discussed integration challenges and workforce implications to guide adoption
+              strategies for advanced manufacturing.
+            </p>
+          </details>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+          <h4>Six Sigma Process Improvement (Additive Mfg.)</h4>
+          <p>DMAIC-based evaluation of a 3D printing process to reduce variability and improve repeatability.</p>
+          <img src="assets/images/six-sigma-3dp.jpg" alt="Six Sigma Additive Manufacturing" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Collected dimensional data; built X̄–R control charts; performed ANOVA/DOE and nested Gage R&R.
+              Confirmed overall process stability; identified measurement repeatability as primary source of residual error; proposed
+              calibration and sampling improvements for tighter tolerances in additive manufacturing.
+            </p>
+          </details>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card">
+          <h4>Manufacturing Systems Optimization Study</h4>
+          <p>Integrated line balancing, MRP/BOM, and reliability modeling into one applied manufacturing study.</p>
+          <img src="assets/images/mem1151-systems.jpg" alt="Manufacturing Systems Study" />
+          <details>
+            <summary>Project Details</summary>
+            <ul>
+              <li><strong>Assembly Line Balancing:</strong> Achieved simulated <strong>92.5% line efficiency</strong>; minimized idle time via precedence sequencing and workstation allocation.</li>
+              <li><strong>MRP & BOM:</strong> Built product structure trees and dependent-demand schedules to plan materials and lot-sizing for scalable production.</li>
+              <li><strong>Reliability Engineering:</strong> Modeled series/parallel configurations; recommended redundancy to raise system reliability while managing cost.</li>
+              <li><strong>Process Strategy & Layout:</strong> Evaluated product vs. process layouts, capacity, and flow to support lean operations.</li>
+            </ul>
+          </details>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
+  </footer>
+</body>
+</html>
