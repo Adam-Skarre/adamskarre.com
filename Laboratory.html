@@ -10,7 +10,14 @@
     /* Page-local polish that respects your existing style.css */
     :root { --bg:#f9fafc; --ink:#111827; --muted:#6b7280; --card:#fff; --shadow:0 8px 24px rgba(0,0,0,.06); --ring:#eef2ff; --ring-ink:#3730a3; }
     body { margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--ink); }
-    .section { max-width:1100px; margin:0 auto; padding:3rem 1rem; }
+
+    /* NEW: minimal header with brand link back home */
+    header.brandbar { padding: 1rem 2rem; }
+    header.brandbar a.brand {
+      text-decoration: none; color: var(--ink); font-weight: 700; font-size: 1.25rem;
+    }
+
+    .section { max-width:1100px; margin:0 auto; padding:2rem 1rem 3rem; }
     h1,h2,h3,h4 { margin:0 0 .75rem; line-height:1.2; }
     .intro p { color:var(--muted); margin-top:.25rem; }
     .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:2rem; margin-top:1.5rem; }
@@ -26,6 +33,11 @@
   </style>
 </head>
 <body>
+  <!-- NEW: simple brand link back to home -->
+  <header class="brandbar">
+    <a class="brand" href="index.html">Adam Skarre</a>
+  </header>
+
   <main class="section intro">
     <h2>Laboratory</h2>
     <p>Hands-on experiments demonstrating measurement, thermal systems, controls, and structural testing applicable to modern manufacturing. Tools: <strong>LabVIEW</strong>, <strong>MATLAB/Simulink</strong>, <strong>ANSYS</strong>.</p>
