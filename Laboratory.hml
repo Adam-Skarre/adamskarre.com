@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laboratory | Adam Skarre</title>
+  <meta name="description" content="Adam Skarre — laboratory projects in thermal systems, controls, and instrumentation using LabVIEW, MATLAB/Simulink, and ANSYS." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Page-local polish that respects your existing style.css */
+    :root { --bg:#f9fafc; --ink:#111827; --muted:#6b7280; --card:#fff; --shadow:0 8px 24px rgba(0,0,0,.06); --ring:#eef2ff; --ring-ink:#3730a3; }
+    body { margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--ink); }
+    .section { max-width:1100px; margin:0 auto; padding:3rem 1rem; }
+    h1,h2,h3,h4 { margin:0 0 .75rem; line-height:1.2; }
+    .intro p { color:var(--muted); margin-top:.25rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:2rem; margin-top:1.5rem; }
+    .card { background:var(--card); border-radius:12px; box-shadow:var(--shadow); padding:1.5rem; display:flex; flex-direction:column; }
+    figure { margin:0; }
+    .media { width:100%; aspect-ratio: 16/10; display:block; object-fit:cover; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,.08); }
+    figcaption { font-size:.85rem; color:var(--muted); margin-top:.5rem; }
+    .tags { margin-top:.75rem; display:flex; flex-wrap:wrap; gap:.5rem; }
+    .tag { font-size:.8rem; background:var(--ring); color:var(--ring-ink); padding:.2rem .55rem; border-radius:999px; white-space:nowrap; }
+    details { margin-top:.75rem; }
+    summary { cursor:pointer; font-weight:600; }
+    footer { text-align:center; padding:2rem; color:var(--muted); font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <main class="section intro">
+    <h2>Laboratory</h2>
+    <p>Hands-on experiments demonstrating measurement, thermal systems, controls, and structural testing applicable to modern manufacturing. Tools: <strong>LabVIEW</strong>, <strong>MATLAB/Simulink</strong>, <strong>ANSYS</strong>.</p>
+  </main>
+
+  <section class="section">
+    <div class="grid">
+
+      <!-- Heat Pipe -->
+      <article class="card">
+        <h4>Heat Pipe Experiment</h4>
+        <p>Characterized passive thermal transport using thermocouples and <strong>LabVIEW</strong> DAQ; benchmarked against solid conduction and quantified uncertainty.</p>
+        <figure>
+          <!-- Replace image paths with your files -->
+          <picture>
+            <source srcset="assets/images/lab-heat-pipe.webp" type="image/webp" />
+            <img loading="lazy" class="media" src="assets/images/lab-heat-pipe.jpg" alt="Heat pipe test rig with thermocouples and DAQ on benchtop" />
+          </picture>
+          <figcaption>Instrumentation &amp; analysis: thermocouples, DAQ, uncertainty propagation.</figcaption>
+        </figure>
+        <div class="tags">
+          <span class="tag">Thermal Management</span><span class="tag">LabVIEW</span><span class="tag">Uncertainty</span>
+        </div>
+        <details>
+          <summary>Methods</summary>
+          <ul>
+            <li>Evaporator/Condenser instrumentation; steady-state gradient logging in LabVIEW.</li>
+            <li>Comparison vs. copper rod to illustrate effective conductivity gains.</li>
+            <li>Calibration &amp; RSS uncertainty for defensible results.</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- Heat Exchanger -->
+      <article class="card">
+        <h4>Heat Exchanger Performance</h4>
+        <p>Evaluated effectiveness–NTU and UA across operating conditions; compared measured trends with <strong>ANSYS Fluent</strong> predictions for sizing.</p>
+        <figure>
+          <picture>
+            <source srcset="assets/images/lab-heat-exchanger.webp" type="image/webp" />
+            <img loading="lazy" class="media" src="assets/images/lab-heat-exchanger.jpg" alt="Compact heat exchanger with tubing, flow meters, and sensors" />
+          </picture>
+          <figcaption>Model vs. data: ε–NTU, capacity ratio, UA, pressure-drop trade-offs.</figcaption>
+        </figure>
+        <div class="tags">
+          <span class="tag">Heat Transfer</span><span class="tag">ANSYS Fluent</span><span class="tag">Model vs. Data</span>
+        </div>
+        <details>
+          <summary>Methods</summary>
+          <ul>
+            <li>Computed ε–NTU/UA; validated trends against correlations and CFD.</li>
+            <li>Discussed deviations and design implications for target outlet temperatures.</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- PID Control -->
+      <article class="card">
+        <h4>PID Control of DC Motors</h4>
+        <p>Tuned P/PI/PID in <strong>MATLAB/Simulink</strong> to balance rise time, overshoot, and steady-state error; linked simulation to benchtop response.</p>
+        <figure>
+          <picture>
+            <source srcset="assets/images/lab-pid-motor.webp" type="image/webp" />
+            <img loading="lazy" class="media" src="assets/images/lab-pid-motor.jpg" alt="DC motor with encoder, power supply, and control interface" />
+          </picture>
+          <figcaption>System ID, controller tuning, and verification against physical step tests.</figcaption>
+        </figure>
+        <div class="tags">
+          <span class="tag">Automation</span><span class="tag">MATLAB/Simulink</span><span class="tag">Control Tuning</span>
+        </div>
+        <details>
+          <summary>Methods</summary>
+          <ul>
+            <li>Time-constant estimation and first-order approximation near operating point.</li>
+            <li>Transient metrics vs. design targets; robustness considerations.</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- Strain Gauge / Beam -->
+      <article class="card">
+        <h4>Strain Gauge Beam Deflection</h4>
+        <p>Measured strain on a cantilever with bonded gauges and <strong>LabVIEW</strong> DAQ; validated Young’s modulus against <strong>ANSYS</strong> structural analysis.</p>
+        <figure>
+          <picture>
+            <source srcset="assets/images/lab-strain-gauge.webp" type="image/webp" />
+            <img loading="lazy" class="media" src="assets/images/lab-strain-gauge.jpg" alt="Strain-gauged beam with weights and DAQ wiring" />
+          </picture>
+          <figcaption>Curvature–moment regression, calibration checks, and uncertainty bounds.</figcaption>
+        </figure>
+        <div class="tags">
+          <span class="tag">Instrumentation</span><span class="tag">LabVIEW</span><span class="tag">ANSYS</span>
+        </div>
+        <details>
+          <summary>Methods</summary>
+          <ul>
+            <li>Gauge calibration, repeated trials, drift checks; RSS uncertainty.</li>
+            <li>FEA cross-check of deflection/stress to support modulus estimate.</li>
+          </ul>
+        </details>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Adam Skarre. All rights reserved.
+  </footer>
+</body>
+</html>
