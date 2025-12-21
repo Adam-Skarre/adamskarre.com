@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects | Adam Skarre</title>
 
-  <!-- Keep your global styles -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Page-local styles (includes the correct toggle styles from index.html) -->
   <style>
-    /* ---- Theme vars (keep consistent with index) ---- */
-    :root{
+    /* ---------- THEME VARIABLES (IDENTICAL) ---------- */
+    :root {
       --bg:#ffffff;
       --text:#111111;
       --muted:#555;
@@ -19,38 +17,27 @@
       --border:#e5e7eb;
       --shadow:0 10px 30px rgba(0,0,0,0.08);
     }
-    [data-theme="dark"]{
+
+    [data-theme="dark"] {
       --bg:#0f1115;
       --text:#e5e7eb;
       --muted:#9ca3af;
       --card:#1c1f26;
       --border:#2a2f3a;
       --shadow:0 12px 40px rgba(0,0,0,0.35);
-
-      --pill: rgba(229,231,235,0.08);
-      --pillText: rgba(229,231,235,0.85);
-
-      --weatherBlue1:#0f2a66;
-      --weatherBlue2:#103680;
-      --weatherBlue3:#2f6feb;
-      --weatherInk:#eaf1ff;
-
-      --btnBg: rgba(255,255,255,0.14);
-      --btnText:#eaf1ff;
-      --btnBorder: rgba(255,255,255,0.18);
-      --btnShadow:0 10px 26px rgba(0,0,0,0.45);
     }
 
-    body{
-      background:var(--bg);
-      color:var(--text);
+    body {
       margin:0;
       font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      background:var(--bg);
+      color:var(--text);
     }
-    a{ color:inherit; text-decoration:none; }
 
-    /* ---- NAV (match index feel) ---- */
-    header{
+    a { color:inherit; text-decoration:none; }
+
+    /* ---------- NAV ---------- */
+    header {
       position:sticky;
       top:0;
       background:var(--bg);
@@ -58,19 +45,29 @@
       z-index:100;
       backdrop-filter:saturate(140%) blur(10px);
     }
-    .nav{
+
+    .nav {
       max-width:1100px;
       margin:0 auto;
       padding:1rem;
       display:flex;
-      align-items:center;
       justify-content:space-between;
+      align-items:center;
     }
-    .nav-left{ font-weight:600; font-size:1.1rem; }
-    .nav-right{ display:flex; gap:1.5rem; align-items:center; }
 
-    /* ---- THEME TOGGLE (correct, no extra icons) ---- */
-    .theme-switch{
+    .nav-left {
+      font-weight:600;
+      font-size:1.1rem;
+    }
+
+    .nav-right {
+      display:flex;
+      gap:1.5rem;
+      align-items:center;
+    }
+
+    /* ---------- TOGGLE (EXACT MATCH) ---------- */
+    .theme-switch {
       width:66px;
       height:34px;
       border-radius:999px;
@@ -83,7 +80,8 @@
       align-items:center;
       padding:4px;
     }
-    .theme-knob{
+
+    .theme-knob {
       width:26px;
       height:26px;
       border-radius:999px;
@@ -95,175 +93,179 @@
       display:grid;
       place-items:center;
     }
-    [data-theme="dark"] .theme-knob{ transform:translateX(32px); }
 
-    .icon-sun,.icon-moon{ width:18px; height:18px; display:none; }
-    [data-theme="light"] .icon-sun{ display:block; }
-    [data-theme="dark"]  .icon-moon{ display:block; }
-    .icon-sun svg{ fill:#f5c518; }
-    .icon-moon svg{ fill:#cfd6e6; }
-
-    .theme-switch:focus-visible{
-      outline:2px solid rgba(47,111,235,0.55);
-      outline-offset:3px;
+    [data-theme="dark"] .theme-knob {
+      transform:translateX(32px);
     }
 
-    /* ---- PAGE LAYOUT ---- */
-    main{
+    .icon-sun, .icon-moon {
+      width:18px;
+      height:18px;
+      display:none;
+    }
+
+    [data-theme="light"] .icon-sun { display:block; }
+    [data-theme="dark"] .icon-moon { display:block; }
+
+    .icon-sun svg { fill:#f5c518; }
+    .icon-moon svg { fill:#cfd6e6; }
+
+    /* ---------- PAGE ---------- */
+    main {
       max-width:1100px;
       margin:0 auto;
-      padding:3.25rem 1rem 4rem;
+      padding:3rem 1rem 4rem;
     }
-    h1{
-      margin:0 0 0.65rem 0;
+
+    h1 {
+      margin:0 0 0.75rem 0;
       font-size:2.6rem;
       letter-spacing:-0.02em;
     }
-    .sub{
+
+    .sub {
       margin:0 0 2.25rem 0;
       color:var(--muted);
       max-width:70ch;
       line-height:1.6;
     }
-    .grid{
+
+    .grid {
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
       gap:1.2rem;
     }
-    .card{
+
+    .card {
       background:var(--card);
       border:1px solid var(--border);
       border-radius:16px;
-      padding:1.35rem 1.35rem 1.15rem;
+      padding:1.35rem;
       box-shadow:var(--shadow);
       transition:transform 160ms ease;
     }
-    .card:hover{ transform:translateY(-2px); }
-    .kicker{
+
+    .card:hover { transform:translateY(-2px); }
+
+    .kicker {
       font-size:0.72rem;
       letter-spacing:0.12em;
       text-transform:uppercase;
       color:var(--muted);
-      margin:0 0 0.55rem 0;
+      margin-bottom:0.55rem;
     }
-    .card h3{
+
+    .card h3 {
       margin:0 0 0.5rem 0;
       font-size:1.15rem;
     }
-    .card p{
+
+    .card p {
       margin:0 0 1.05rem 0;
       color:var(--muted);
       line-height:1.55;
     }
-    .open{
-      display:inline-flex;
-      align-items:center;
-      gap:0.5rem;
-      font-weight:600;
-      border-bottom:1px solid rgba(0,0,0,0.0);
-    }
-    .open span{ opacity:0.9; }
-    .open:hover{ border-bottom-color:var(--text); }
 
-    @media (max-width:520px){
-      .nav-right{ gap:1rem; }
-      h1{ font-size:2.2rem; }
+    footer {
+      max-width:1100px;
+      margin:0 auto;
+      padding:2rem 1rem 3rem;
+      text-align:center;
+      font-size:0.9rem;
+      color:var(--muted);
+      border-top:1px solid var(--border);
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="nav">
-      <div class="nav-left">
-        <a href="index.html">Adam Skarre</a>
-      </div>
 
-      <nav class="nav-right">
-        <a href="projects.html">Projects</a>
-        <a href="blog.html">Blog</a>
-        <a href="contact.html">Contact</a>
-
-        <!-- Correct toggle (same structure as your index) -->
-        <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
-          <div class="theme-knob" aria-hidden="true">
-            <span class="icon-sun" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-14a1 1 0 0 0 1-1V1a1 1 0 1 0-2 0v2a1 1 0 0 0 1 1Zm0 20a1 1 0 0 0 1-1v-2a1 1 0 1 0-2 0v2a1 1 0 0 0 1 1ZM4 13a1 1 0 0 0 1-1 1 1 0 0 0-1-1H2a1 1 0 1 0 0 2h2Zm20 0a1 1 0 0 0 1-1 1 1 0 0 0-1-1h-2a1 1 0 1 0 0 2h2ZM5.64 6.64a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41L5.64 3.81a1 1 0 1 0-1.41 1.41l1.41 1.42Zm12.72 12.72a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-1.41-1.41a1 1 0 1 0-1.41 1.41l1.41 1.41ZM18.36 6.64l1.41-1.42a1 1 0 1 0-1.41-1.41l-1.41 1.42a1 1 0 1 0 1.41 1.41ZM5.64 20.19l1.41-1.41a1 1 0 1 0-1.41-1.41l-1.41 1.41a1 1 0 1 0 1.41 1.41Z"/>
-              </svg>
-            </span>
-
-            <span class="icon-moon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7.5 7.5 0 1 0 21 14.5Z"/>
-              </svg>
-            </span>
-          </div>
-        </button>
-      </nav>
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <a href="index.html">Adam Skarre</a>
     </div>
-  </header>
 
-  <main>
-    <h1>Projects</h1>
-    <p class="sub">
-      A structured view of my work across design, manufacturing, laboratory testing, quantitative modeling, and consulting—each section links to the full write-ups and artifacts.
-    </p>
+    <nav class="nav-right">
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
 
-    <section class="grid" aria-label="Project categories">
-      <a class="card" href="cad-projects.html">
-        <div class="kicker">Category</div>
-        <h3>Design (CAD / NX)</h3>
-        <p>CAD, layouts, constraints, assemblies, drawings.</p>
-        <div class="open"><span>Open</span> →</div>
-      </a>
+      <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
+        <span class="theme-knob">
+          <span class="icon-sun">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/>
+            </svg>
+          </span>
+          <span class="icon-moon">
+            <svg viewBox="0 0 24 24">
+              <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7.5 7.5 0 1 0 21 14.5Z"/>
+            </svg>
+          </span>
+        </span>
+      </button>
+    </nav>
+  </div>
+</header>
 
-      <a class="card" href="Manufacturing-projects.html">
-        <div class="kicker">Category</div>
-        <h3>Manufacturing</h3>
-        <p>DFM context, process thinking, production realities.</p>
-        <div class="open"><span>Open</span> →</div>
-      </a>
+<main>
+  <h1>Projects</h1>
+  <p class="sub">
+    A structured view of my work across design, manufacturing, laboratory testing,
+    quantitative modeling, and consulting.
+  </p>
 
-      <a class="card" href="Laboratory.html">
-        <div class="kicker">Category</div>
-        <h3>Laboratory</h3>
-        <p>Testing, instrumentation, measurement-driven work.</p>
-        <div class="open"><span>Open</span> →</div>
-      </a>
+  <section class="grid">
+    <a class="card" href="cad-projects.html">
+      <div class="kicker">Category</div>
+      <h3>Design (CAD / NX)</h3>
+      <p>CAD, layouts, assemblies, drawings.</p>
+    </a>
 
-      <a class="card" href="ai-modeling-projects.html">
-        <div class="kicker">Category</div>
-        <h3>Quant Modeling</h3>
-        <p>Signals, simulation, optimization, analysis workflows.</p>
-        <div class="open"><span>Open</span> →</div>
-      </a>
+    <a class="card" href="Manufacturing-projects.html">
+      <div class="kicker">Category</div>
+      <h3>Manufacturing</h3>
+      <p>DFM, production logic, process thinking.</p>
+    </a>
 
-      <a class="card" href="consulting-projects.html">
-        <div class="kicker">Category</div>
-        <h3>Consulting</h3>
-        <p>Analysis, strategy, execution, communication.</p>
-        <div class="open"><span>Open</span> →</div>
-      </a>
-    </section>
-  </main>
+    <a class="card" href="Laboratory.html">
+      <div class="kicker">Category</div>
+      <h3>Laboratory</h3>
+      <p>Testing, instrumentation, measurement.</p>
+    </a>
 
-  <script>
-    /* ---------- Theme toggle (same as index) ---------- */
-    const html = document.documentElement;
-    const toggle = document.getElementById("themeToggle");
+    <a class="card" href="ai-modeling-projects.html">
+      <div class="kicker">Category</div>
+      <h3>Quant Modeling</h3>
+      <p>Signals, simulation, optimization.</p>
+    </a>
 
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) html.setAttribute("data-theme", savedTheme);
+    <a class="card" href="consulting-projects.html">
+      <div class="kicker">Category</div>
+      <h3>Consulting</h3>
+      <p>Strategy, analysis, execution.</p>
+    </a>
+  </section>
+</main>
 
-    toggle.addEventListener("click", () => {
-      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      html.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    });
-  </script>
-  <footer class="site-footer">
+<footer>
   © 2025 Adam Skarre. All rights reserved.
 </footer>
+
+<script>
+  const html = document.documentElement;
+  const toggle = document.getElementById("themeToggle");
+
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) html.setAttribute("data-theme", savedTheme);
+
+  toggle.addEventListener("click", () => {
+    const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
+</script>
+
 </body>
 </html>
