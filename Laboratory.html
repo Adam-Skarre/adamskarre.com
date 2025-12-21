@@ -1,44 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Laboratory | Adam Skarre</title>
   <link rel="stylesheet" href="style.css" />
+
   <style>
-    /* match site look and feel */
-    body { margin:0; font-family:'Inter', sans-serif; background-color:#f9fafc; color:#111; }
-    .navbar { background:#fff; padding:1rem 2rem; box-shadow:0 1px 4px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
-    .nav-container { display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:auto; }
-    .logo a { text-decoration:none; color:#000; font-weight:bold; font-size:1.5rem; }
-    .nav-links { list-style:none; display:flex; gap:1rem; }
-    .section { max-width:1100px; margin:auto; padding:3rem 1rem; }
-    .project-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:2rem; }
-    .project-card { background:#fff; border-radius:8px; padding:1.5rem; box-shadow:0 4px 12px rgba(0,0,0,0.05); display:flex; flex-direction:column; align-items:center; }
-    .project-card img { max-width:100%; height:auto; margin-top:1rem; border-radius:4px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
-    details { margin-top:1rem; text-align:left; width:100%; }
-    summary { font-weight:bold; cursor:pointer; margin-bottom:0.5rem; }
-    footer { text-align:center; padding:2rem; font-size:0.9rem; color:#777; }
-    .muted { color:#555; }
-    .tags { margin-top:.5rem; display:flex; flex-wrap:wrap; gap:.5rem; width:100%; }
-    .tag { font-size:.8rem; background:#eef2ff; color:#3730a3; padding:.2rem .55rem; border-radius:999px; }
+    /* --- THEME VARIABLES (same system as index.html) --- */
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #555;
+      --card: #f4f4f5;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1115;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card: #1c1f26;
+      --border: #2a2f3a;
+      --shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* --- NAV (match index.html look) --- */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      backdrop-filter: saturate(140%) blur(10px);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-left {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    /* --- THEME TOGGLE (same as index.html) --- */
+    .theme-switch {
+      width: 66px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      position: relative;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+      display: inline-flex;
+      align-items: center;
+      padding: 4px;
+    }
+
+    .theme-knob {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+      transform: translateX(0);
+      transition: transform 220ms ease;
+      display: grid;
+      place-items: center;
+    }
+
+    [data-theme="dark"] .theme-knob { transform: translateX(32px); }
+
+    .icon-sun, .icon-moon {
+      width: 18px;
+      height: 18px;
+      display: none;
+    }
+
+    [data-theme="light"] .icon-sun { display: block; }
+    [data-theme="dark"]  .icon-moon { display: block; }
+
+    .icon-sun svg { fill: #f5c518; }
+    .icon-moon svg { fill: #cfd6e6; }
+
+    .theme-switch:focus-visible {
+      outline: 2px solid rgba(47,111,235,0.55);
+      outline-offset: 3px;
+    }
+
+    /* --- PAGE LAYOUT --- */
+    main { max-width: 1100px; margin: 0 auto; padding: 3rem 1rem; }
+
+    .section h2 { margin: 0 0 0.75rem 0; }
+    .muted { color: var(--muted); line-height: 1.6; margin: 0 0 2rem 0; }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .project-card h4 { margin: 0 0 0.5rem 0; }
+    .project-card p { margin: 0; color: var(--muted); text-align: center; }
+
+    .project-card img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+      background: var(--bg);
+    }
+
+    details { margin-top: 1rem; width: 100%; }
+    summary { font-weight: 700; cursor: pointer; margin-bottom: 0.5rem; }
+
+    .tags { margin-top: .75rem; display: flex; flex-wrap: wrap; gap: .5rem; width: 100%; justify-content: center; }
+    .tag {
+      font-size: .8rem;
+      background: rgba(47,111,235,0.12);
+      color: var(--text);
+      padding: .2rem .55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
   </style>
 </head>
+
 <body>
-  <!-- same navbar as other sections -->
+  <!-- NAV -->
   <header>
-    <nav class="navbar">
-      <div class="nav-container">
-        <h1 class="logo"><a href="index.html">Adam Skarre</a></h1>
-      
+    <div class="nav">
+      <div class="nav-left">
+        <a href="index.html">Adam Skarre</a>
       </div>
-    </nav>
+
+      <nav class="nav-right">
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+
+        <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span class="theme-knob">
+            <span class="icon-sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.41 0l.7.7A1 1 0 1 1 4.92 7.76l-.7-.7a1 1 0 0 1 0-1.41Zm13.45 13.45a1 1 0 0 1 1.41 0l.7.7a1 1 0 0 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 18.36a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Zm13.45-13.45a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
+              </svg>
+            </span>
+            <span class="icon-moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21.64 13a1 1 0 0 0-1.06-.27 8 8 0 0 1-10.31-10.3A1 1 0 0 0 9 1.36 10 10 0 1 0 22.64 14a1 1 0 0 0-1-.99ZM12 20a8 8 0 0 1-3.52-15.2 10 10 0 0 0 10.72 10.72A7.99 7.99 0 0 1 12 20Z"/>
+              </svg>
+            </span>
+          </span>
+        </button>
+      </nav>
+    </div>
   </header>
 
   <main>
     <section class="section">
       <h2>Laboratory</h2>
-      <p class="muted">Hands-on experiments in thermal systems, controls, and instrumentation. Tools used include LabVIEW, MATLAB/Simulink, and ANSYS.</p>
+      <p class="muted">
+        Hands-on experiments in thermal systems, controls, and instrumentation. Tools used include LabVIEW, MATLAB/Simulink, and ANSYS.
+      </p>
 
       <div class="project-grid">
         <!-- Heat Pipe -->
@@ -96,7 +267,6 @@
             </div>
           </details>
         </div>
-
       </div>
     </section>
   </main>
@@ -104,5 +274,20 @@
   <footer>
     <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
   </footer>
+
+  <script>
+    /* ---------- Theme toggle (same as index.html) ---------- */
+    const html = document.documentElement;
+    const toggle = document.getElementById("themeToggle");
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) html.setAttribute("data-theme", savedTheme);
+
+    toggle.addEventListener("click", () => {
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  </script>
 </body>
 </html>
