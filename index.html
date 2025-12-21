@@ -501,171 +501,45 @@
 
   <!-- SCRIPTS -->
   <script>
-    /* ---------- Theme toggle ---------- */
-    const html = document.documentElement;
-    const toggle = document.getElementById("themeToggle");
+(async function () {
+  if (!navigator.geolocation) return;
 
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) html.setAttribute("data-theme", savedTheme);
+  navigator.geolocation.getCurrentPosition(async pos => {
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
 
-    toggle.addEventListener("click", () => {
-      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      html.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    });
+    // Reverse geocode (Open-Meteo)
+    const geoRes = await fetch(
+      `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}`
+    );
+    const geo = await geoRes.json();
+    const place = geo.results?.[0];
 
-    /* ---------- Weather (Open-Meteo + reverse geocode for location label) ---------- */
-    const weatherBtn = document.getElementById("weatherBtn");
-    const weatherLocation = document.getElementById("weatherLocation");
-    const weatherMeta = document.getElementById("weatherMeta");
-    const weatherMain = document.getElementById("weatherMain");
-    const weatherTemp = document.getElementById("weatherTemp");
-    const weatherDesc = document.getElementById("weatherDesc");
-    const weatherSub = document.getElementById("weatherSub");
-    const forecastTitle = document.getElementById("forecastTitle");
-    const forecastGrid = document.getElementById("forecastGrid");
-    const weatherFooter = document.getElementById("weatherFooter");
-    const detailLink = document.getElementById("detailLink");
+    const city = place?.name || "Your area";
+    const state = place?.admin1 || "";
 
-    function dowShort(isoDate) {
-      const d = new Date(isoDate + "T00:00:00");
-      return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
-    }
+    document.getElementById("weatherLocation").textContent =
+      `${city}${state ? ", " + state : ""}`;
 
-    function weatherCodeToText(code) {
-      // Open-Meteo WMO codes (condensed)
-      const map = new Map([
-        [0, "Clear"],
-        [1, "Mainly Clear"], [2, "Partly Cloudy"], [3, "Overcast"],
-        [45, "Fog"], [48, "Rime Fog"],
-        [51, "Light Drizzle"], [53, "Drizzle"], [55, "Heavy Drizzle"],
-        [56, "Freezing Drizzle"], [57, "Heavy Freezing Drizzle"],
-        [61, "Light Rain"], [63, "Rain"], [65, "Heavy Rain"],
-        [66, "Freezing Rain"], [67, "Heavy Freezing Rain"],
-        [71, "Light Snow"], [73, "Snow"], [75, "Heavy Snow"],
-        [77, "Snow Grains"],
-        [80, "Rain Showers"], [81, "Heavy Showers"], [82, "Violent Showers"],
-        [85, "Snow Showers"], [86, "Heavy Snow Showers"],
-        [95, "Thunderstorm"],
-        [96, "Thunderstorm + Hail"], [99, "Thunderstorm + Heavy Hail"],
-      ]);
-      return map.get(code) || "Conditions";
-    }
+    // Weather preview
+    const wRes = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=fahrenheit`
+    );
+    const w = await wRes.json();
+    const cw = w.current_weather;
 
-    function weatherCodeToIcon(code) {
-      if (code === 0) return "☀️";
-      if (code === 1 || code === 2) return "⛅";
-      if (code === 3) return "☁️";
-      if (code === 45 || code === 48) return "🌫️";
-      if ([51,53,55,56,57].includes(code)) return "🌦️";
-      if ([61,63,65,66,67,80,81,82].includes(code)) return "🌧️";
-      if ([71,73,75,77,85,86].includes(code)) return "❄️";
-      if ([95,96,99].includes(code)) return "⛈️";
-      return "🌤️";
-    }
+    document.getElementById("weatherTemp").textContent =
+      Math.round(cw.temperature) + "°F";
 
-    async function reverseGeocode(lat, lon) {
-      // Lightweight label; no key required
-      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-      const res = await fetch(url, { headers: { "Accept": "application/json" } });
-      const data = await res.json();
-      const a = data.address || {};
-      const city = a.city || a.town || a.village || a.hamlet || a.suburb || a.county;
-      const state = a.state || a.region;
-      if (city && state) return `${city}, ${state}`;
-      if (city) return city;
-      if (state) return state;
-      return "Local Weather";
-    }
+    document.getElementById("weatherDesc").textContent =
+      cw.weathercode === 0 ? "Clear" : "See full forecast";
 
-    async function fetchWeather(lat, lon) {
-      const url =
-        `https://api.open-meteo.com/v1/forecast?` +
-        `latitude=${lat}&longitude=${lon}` +
-        `&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m` +
-        `&daily=weather_code,temperature_2m_max,temperature_2m_min` +
-        `&temperature_unit=fahrenheit&windspeed_unit=mph` +
-        `&timezone=auto`;
-
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Weather fetch failed");
-      return res.json();
-    }
-
-    function setLoading(isLoading) {
-      weatherBtn.disabled = isLoading;
-      weatherBtn.textContent = isLoading ? "Loading…" : "Check weather";
-      weatherBtn.style.opacity = isLoading ? "0.85" : "1";
-    }
-
-    async function getWeather() {
-      if (!navigator.geolocation) return;
-
-      setLoading(true);
-
-      navigator.geolocation.getCurrentPosition(async (pos) => {
-        try {
-          const { latitude, longitude } = pos.coords;
-
-          // Location label (best-effort)
-          try {
-            const label = await reverseGeocode(latitude, longitude);
-            weatherLocation.textContent = label;
-          } catch (_) {
-            weatherLocation.textContent = "Local Weather";
-          }
-
-          const data = await fetchWeather(latitude, longitude);
-
-          const c = data.current;
-          const descText = weatherCodeToText(c.weather_code);
-          const feels = Math.round(c.apparent_temperature);
-          const temp = Math.round(c.temperature_2m);
-          const wind = Math.round(c.wind_speed_10m);
-
-          weatherMain.style.display = "flex";
-          weatherTemp.textContent = `${temp}°F`;
-          weatherDesc.textContent = `${weatherCodeToIcon(c.weather_code)} ${descText}`;
-          weatherSub.textContent = `Feels like ${feels}°F · Wind ${wind} mph`;
-
-          // 7 day
-          const days = data.daily.time;
-          const hi = data.daily.temperature_2m_max;
-          const lo = data.daily.temperature_2m_min;
-          const codes = data.daily.weather_code;
-
-          forecastGrid.innerHTML = "";
-          for (let i = 0; i < Math.min(7, days.length); i++) {
-            const d = document.createElement("div");
-            d.className = "day";
-            d.innerHTML = `
-              <div class="dow">${dowShort(days[i])}</div>
-              <div class="icon">${weatherCodeToIcon(codes[i])}</div>
-              <div class="hi">${Math.round(hi[i])}°</div>
-              <div class="lo">${Math.round(lo[i])}°</div>
-            `;
-            forecastGrid.appendChild(d);
-          }
-
-          forecastTitle.style.display = "block";
-          forecastGrid.style.display = "grid";
-          weatherFooter.style.display = "block";
-
-          // “Detailed forecast” (no key)
-          detailLink.href = `https://www.open-meteo.com/en/weather/forecast?lat=${latitude}&lon=${longitude}`;
-
-          setLoading(false);
-        } catch (e) {
-          setLoading(false);
-          weatherMeta.textContent = "Could not load weather. Location permission required.";
-        }
-      }, () => {
-        setLoading(false);
-        weatherMeta.textContent = "Location permission required to load local forecast.";
-      }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 600000 });
-    }
-
-    weatherBtn.addEventListener("click", getWeather);
-  </script>
+    // AccuWeather link (search-based, always works)
+    const query = encodeURIComponent(`${city} ${state}`);
+    document.getElementById("weatherLink").href =
+      `https://www.accuweather.com/en/search-locations?query=${query}`;
+  });
+})();
+</script>
 </body>
 </html>
