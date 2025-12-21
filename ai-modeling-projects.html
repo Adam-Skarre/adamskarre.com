@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quantitative Modeling and Simulation | Adam Skarre</title>
   <link rel="stylesheet" href="style.css" />
-
+  
   <style>
-    /* ---------- THEME VARIABLES (shared across site) ---------- */
+    /* --- THEME VARIABLES (shared) --- */
     :root {
       --bg: #ffffff;
       --text: #111111;
@@ -31,20 +31,11 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
+      transition: background 220ms ease, color 220ms ease;
     }
 
-    a { color: inherit; text-decoration: none; }
-
-    /* ---------- NAV ---------- */
-    header {
-      position: sticky;
-      top: 0;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-      backdrop-filter: saturate(140%) blur(10px);
-    }
-
+    /* --- NAV --- */
+    header { position: sticky; top: 0; z-index: 1000; background: var(--bg); border-bottom: 1px solid var(--border); }
     .nav {
       max-width: 1100px;
       margin: 0 auto;
@@ -53,132 +44,120 @@
       align-items: center;
       justify-content: space-between;
     }
-
-    .nav-left {
-      font-weight: 600;
-      font-size: 1.1rem;
+    .nav-left a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
     }
-
     .nav-right {
       display: flex;
-      gap: 1.5rem;
       align-items: center;
+      gap: 1.25rem;
     }
+    .nav-right a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    .nav-right a:hover { opacity: 1; }
 
-    /* ---------- THEME TOGGLE ---------- */
+    /* --- THEME TOGGLE --- */
     .theme-switch {
-      width: 66px;
-      height: 34px;
+      width: 52px;
+      height: 28px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--card);
-      position: relative;
-      cursor: pointer;
-      padding: 4px;
       display: inline-flex;
       align-items: center;
+      padding: 2px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
     }
-
     .theme-knob {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       border-radius: 999px;
       background: var(--bg);
-      border: 1px solid var(--border);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       transform: translateX(0);
-      transition: transform 220ms ease;
-      display: grid;
-      place-items: center;
+      transition: transform 220ms ease, background 220ms ease;
     }
+    [data-theme="dark"] .theme-knob { transform: translateX(24px); }
 
-    [data-theme="dark"] .theme-knob {
-      transform: translateX(32px);
-    }
+    .theme-knob svg { width: 16px; height: 16px; fill: var(--text); }
+    .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun { display: none; }
+    [data-theme="dark"] .icon-moon { display: inline-flex; }
 
-    .icon-sun, .icon-moon { display: none; width: 18px; height: 18px; }
-    [data-theme="light"] .icon-sun { display: block; }
-    [data-theme="dark"] .icon-moon { display: block; }
-
-    .icon-sun svg { fill: #f5c518; }
-    .icon-moon svg { fill: #cfd6e6; }
-
-    /* ---------- CONTENT ---------- */
-    main {
+    /* --- PAGE LAYOUT / CARDS --- */
+    .section {
       max-width: 1100px;
-      margin: 0 auto;
+      margin: auto;
       padding: 3rem 1rem;
     }
-
-    .section h2 {
-      margin-bottom: 1.5rem;
-    }
-
     .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
     }
-
     .project-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 10px;
       padding: 1.5rem;
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
-    .project-card h4 {
-      margin: 0 0 0.5rem 0;
-      text-align: center;
-    }
-
-    .project-card p {
-      color: var(--muted);
-      text-align: center;
-    }
+    .project-card h4 { margin: 0.2rem 0 0.5rem; }
+    .project-card p { color: var(--text); opacity: 0.9; }
 
     .project-card img {
       max-width: 100%;
+      height: auto;
       margin-top: 1rem;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     details {
       margin-top: 1rem;
+      text-align: left;
       width: 100%;
     }
-
     summary {
       font-weight: 700;
       cursor: pointer;
       margin-bottom: 0.5rem;
     }
 
+    a { color: inherit; }
+    a:hover { text-decoration: underline; }
+
     footer {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1rem 3rem;
       text-align: center;
+      padding: 2rem 1rem;
       font-size: 0.9rem;
       color: var(--muted);
       border-top: 1px solid var(--border);
+      background: var(--bg);
     }
   </style>
 </head>
-
 <body>
-  <!-- NAV -->
   <header>
     <div class="nav">
       <div class="nav-left">
         <a href="index.html">Adam Skarre</a>
       </div>
+
       <nav class="nav-right">
         <a href="projects.html">Projects</a>
         <a href="blog.html">Blog</a>
@@ -186,11 +165,15 @@
 
         <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
           <span class="theme-knob">
-            <span class="icon-sun">
-              <svg viewBox="0 0 24 24"><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/></svg>
+            <span class="icon-sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.41 0l.7.7A1 1 0 0 1 4.93 7.75l-.7-.7a1 1 0 0 1 0-1.41Zm12.44 12.44a1 1 0 0 1 1.41 0l.7.7a1 1 0 1 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 18.36a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Zm12.44-12.44a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
+              </svg>
             </span>
-            <span class="icon-moon">
-              <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+            <span class="icon-moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3a7 7 0 1 0 11.5 11.5Z"/>
+              </svg>
             </span>
           </span>
         </button>
@@ -198,26 +181,120 @@
     </div>
   </header>
 
-  <!-- CONTENT -->
   <main>
     <section class="section">
       <h2>Quantitative Modeling and Simulation</h2>
       <div class="project-grid">
 
-        <!-- Existing project cards unchanged -->
-        <!-- (Your full project content remains exactly as in the original file) -->
+        <!-- SKARRE SIGNAL -->
+        <div class="project-card">
+          <h4>Engineering Models, Optimization, and Comparison of Algorithmic Trading</h4>
+          <p>Independent research project modeling financial strategies with calculus-based signal generation and real-time performance benchmarking.</p>
+          <img src="assets/images/skarre-dashboard-preview.png" alt="Skarre Tracking Signal Dashboard" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              This project investigates whether structured, engineering-based techniques can outperform passive benchmarks in algorithmic trading.<br><br>
+              <strong>Research Objectives:</strong>
+              <ul>
+                <li>Apply mathematical modeling and calculus to extract actionable structure from market data</li>
+                <li>Develop a signal generation system using slope and acceleration of price curves</li>
+                <li>Optimize entry/exit thresholds for dynamic market regimes</li>
+                <li>Benchmark performance against passive strategies like SPY and QQQ</li>
+              </ul>
+              <strong>Methodology:</strong>
+              <ul>
+                <li>Uses Savitzky–Golay filters to smooth price curves while preserving turning points</li>
+                <li>Computes first (slope) and second (curvature) derivatives to detect inflection trends</li>
+                <li>Applies threshold logic to trigger trades based on derivative magnitude and direction</li>
+                <li>Performs backtests with Sharpe ratio, drawdown, ROI, win rate, and trade count</li>
+                <li>Benchmarked against SPY buy-and-hold to assess relative edge</li>
+              </ul>
+              <strong>System Features:</strong>
+              <ul>
+                <li>Real-time ticker selection and signal overlay via Streamlit</li>
+                <li>Moving slope and acceleration visualizations</li>
+                <li>Heatmap-based parameter optimization with adjustable entry/exit zones</li>
+                <li>Walk-forward validation and fold-specific Sharpe analysis</li>
+                <li>Trade log download and performance history export</li>
+              </ul>
+            </p>
+          </details>
+          <p><a href="https://skarre-tracking-signal-dashboard.streamlit.app/" target="_blank">Launch Live Dashboard</a></p>
+        </div>
+
+        <!-- WIND TURBINE STUDY -->
+        <div class="project-card">
+          <h4>Wind Turbine Impact Study: Monte Carlo Forecasting</h4>
+          <p>Data-driven simulation assessing the impact of wind turbines on renewable energy capacity in the U.S. and Europe.</p>
+          <img src="assets/images/wind-turbine-preview.png" alt="Wind Turbine Study Preview" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Built as part of the Data-Driven Decisions course, this project evaluates the variability and potential of wind energy using Monte Carlo simulation.<br><br>
+              <strong>Study Goals:</strong>
+              <ul>
+                <li>Model uncertainty in wind turbine output across different regions</li>
+                <li>Compare U.S. renewable capacity to Germany, Denmark, and the UK</li>
+                <li>Project renewable potential under optimistic and policy-driven scenarios</li>
+                <li>Visualize distributions, outliers, and projected capacity curves</li>
+              </ul>
+              <strong>Methodology:</strong>
+              <ul>
+                <li>Generated thousands of wind output scenarios using Monte Carlo simulation in Python</li>
+                <li>Used numpy.random.normal to represent wind performance variability</li>
+                <li>Compared real-world vs. theoretical performance using histograms and overlaid mean curves</li>
+                <li>Incorporated region-specific assumptions about capacity, wind strength, and policy ambition</li>
+              </ul>
+              <strong>Outcome:</strong>
+              <ul>
+                <li>U.S. performance lags behind Europe due to underutilization and slower growth rate</li>
+                <li>Monte Carlo results quantify uncertainty and help guide future energy investment decisions</li>
+                <li>Supports policy discussions on renewables by grounding them in statistical simulation</li>
+              </ul>
+            </p>
+          </details>
+          <p><a href="https://cooperrc.github.io/data-driven-decisions/module_04/wind-turbine-impact.html" target="_blank">View Interactive Case Study</a></p>
+        </div>
+
+        <!-- TRADEHPC ENGINE -->
+        <div class="project-card">
+          <h4>TradeHPC: High-Performance Rust Engine for Predictive Market Modeling</h4>
+          <p>A modular trading engine written in Rust, simulating high-speed financial computation pipelines for backtesting and predictive modeling.</p>
+          <img src="assets/images/tradehpc-preview.png" alt="TradeHPC Engine Screenshot" />
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              This project simulates the backbone of a high-frequency or signal-based trading system, using Rust for performance and system control.<br><br>
+              <strong>Core Capabilities:</strong>
+              <ul>
+                <li>Models how a real-time engine ingests and processes synthetic market data</li>
+                <li>Performs intensive floating-point computation using array simulation logic</li>
+                <li>Prints dynamic output such as simulated Sharpe ratios and momentum scores</li>
+                <li>Exposes a clean modular architecture via main.rs, gpu.rs, and mod.rs</li>
+              </ul>
+              <strong>Design Approach:</strong>
+              <ul>
+                <li>Simulates compute-heavy tasks typical in quantitative research or order execution</li>
+                <li>Structured to be extensible — future GPU acceleration and real-time integration possible</li>
+                <li>Demonstrates strong command of systems-level performance techniques in Rust</li>
+              </ul>
+              <strong>Status:</strong> Early-stage simulation focused on architecture and testing infrastructure. GPU modules and live market data hooks are planned for future versions.
+            </p>
+          </details>
+          <p><a href="#" target="_blank">Project Link: Coming Soon</a></p>
+        </div>
 
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
   </footer>
 
-  <!-- THEME SCRIPT -->
   <script>
+    /* ---------- Theme toggle (same as index.html) ---------- */
     const html = document.documentElement;
     const toggle = document.getElementById("themeToggle");
 
