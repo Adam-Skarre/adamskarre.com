@@ -2,206 +2,230 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blog | Adam Skarre</title>
-
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* Page layout (keeps your existing site look; minimal overrides) */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 3.25rem 1rem 4rem;
+    /* --- THEME VARIABLES (same system as labratory.html) --- */
+    :root{
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#555;
+      --card:#f4f4f5;
+      --border:#e5e7eb;
+      --shadow:0 10px 30px rgba(0,0,0,0.08);
+      --chip: rgba(17,17,17,0.06);
+    }
+    [data-theme="dark"]{
+      --bg:#0f1115;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --card:#1c1f26;
+      --border:#2a2f3a;
+      --shadow:0 12px 40px rgba(0,0,0,0.35);
+      --chip: rgba(229,231,235,0.08);
     }
 
-    .page-title {
-      font-size: clamp(2.2rem, 4vw, 3rem);
-      letter-spacing: -0.02em;
-      margin: 0 0 0.75rem 0;
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    a{ color:inherit; text-decoration:none; }
+
+    /* --- NAV (match labratory.html / index.html look) --- */
+    header{
+      position: sticky;
+      top:0;
+      background: var(--bg);
+      border-bottom:1px solid var(--border);
+      z-index:100;
+      backdrop-filter: saturate(140%) blur(10px);
+    }
+    .nav{
+      max-width:1100px;
+      margin:0 auto;
+      padding:1rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .nav-left{
+      font-weight:600;
+      font-size:1.1rem;
+    }
+    .nav-right{
+      display:flex;
+      gap:1.5rem;
+      align-items:center;
     }
 
-    .page-subtitle {
-      margin: 0 0 2.5rem 0;
-      color: var(--muted, #555);
-      max-width: 70ch;
-      line-height: 1.6;
+    /* --- THEME TOGGLE (exactly the same as labratory.html) --- */
+    .theme-switch{
+      width:66px;
+      height:34px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: var(--card);
+      position:relative;
+      cursor:pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+      display:inline-flex;
+      align-items:center;
+      padding:4px;
     }
-
-    .posts {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .post-card {
-      background: var(--card, #f4f4f5);
-      border: 1px solid var(--border, #e5e7eb);
-      border-radius: 16px;
-      padding: 1.25rem 1.25rem 1.15rem;
-      transition: transform 0.15s ease, border-color 0.15s ease;
-    }
-
-    .post-card:hover {
-      transform: translateY(-2px);
-      border-color: color-mix(in srgb, var(--border, #e5e7eb), var(--text, #111) 12%);
-    }
-
-    .post-meta {
-      display: flex;
-      gap: 0.6rem;
-      align-items: center;
-      color: var(--muted, #555);
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .post-title {
-      font-size: 1.15rem;
-      margin: 0 0 0.6rem 0;
-      line-height: 1.3;
-    }
-
-    .post-excerpt {
-      margin: 0 0 0.9rem 0;
-      color: var(--muted, #555);
-      line-height: 1.55;
-      font-size: 0.95rem;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .tag {
-      font-size: 0.78rem;
-      padding: 0.22rem 0.55rem;
-      border-radius: 999px;
-      border: 1px solid var(--border, #e5e7eb);
-      background: var(--bg, #fff);
-      color: var(--muted, #555);
-    }
-
-    .read-link {
-      display: inline-flex;
-      gap: 0.35rem;
-      align-items: center;
-      font-weight: 550;
-      border-bottom: 1px solid color-mix(in srgb, var(--text, #111), transparent 55%);
-      padding-bottom: 2px;
-    }
-
-    footer {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1.75rem 1rem 2.25rem;
-      color: var(--muted, #555);
-      font-size: 0.9rem;
-      border-top: 1px solid var(--border, #e5e7eb);
-    }
-
-    /* Theme toggle (fixes the “mini sun” issue by rendering exactly one sun + one moon via SVG) */
-    .theme-switch {
-      --track: color-mix(in srgb, var(--card, #f4f4f5), var(--bg, #fff) 35%);
-      --ring: color-mix(in srgb, var(--border, #e5e7eb), var(--text, #111) 10%);
-      --knob: var(--bg, #fff);
-      --sun: #f5c542;
-      --moon: color-mix(in srgb, var(--text, #111), transparent 20%);
-
-      position: relative;
-      width: 66px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid var(--ring);
-      background: var(--track);
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 6px;
-      cursor: pointer;
-      box-shadow: 0 1px 10px rgba(0,0,0,0.06);
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .theme-switch:focus-visible {
-      outline: 2px solid color-mix(in srgb, var(--text, #111), transparent 65%);
-      outline-offset: 3px;
-    }
-
-    .theme-switch .icon {
-      width: 16px;
-      height: 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-    }
-
-    .theme-switch .icon svg {
-      width: 16px;
-      height: 16px;
-      display: block;
-    }
-
-    .theme-switch .sun svg { fill: var(--sun); }
-    .theme-switch .moon svg { fill: var(--moon); }
-
-    .theme-switch .knob {
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      background: var(--knob);
-      border: 1px solid color-mix(in srgb, var(--ring), transparent 35%);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    .theme-knob{
+      width:26px;
+      height:26px;
+      border-radius:999px;
+      background: var(--bg);
+      border:1px solid var(--border);
+      box-shadow:0 8px 18px rgba(0,0,0,0.18);
       transform: translateX(0);
-      transition: transform 180ms ease;
-      z-index: 1;
+      transition: transform 220ms ease;
+      display:grid;
+      place-items:center;
+    }
+    [data-theme="dark"] .theme-knob{ transform: translateX(32px); }
+
+    .icon-sun,.icon-moon{ width:18px; height:18px; display:none; }
+    [data-theme="light"] .icon-sun{ display:block; }
+    [data-theme="dark"]  .icon-moon{ display:block; }
+
+    .icon-sun svg{ fill:#f5c518; }
+    .icon-moon svg{ fill:#cfd6e6; }
+
+    .theme-switch:focus-visible{
+      outline:2px solid rgba(47,111,235,0.55);
+      outline-offset:3px;
     }
 
-    html[data-theme="dark"] .theme-switch .knob {
-      transform: translateX(32px);
+    /* --- PAGE LAYOUT --- */
+    main{ max-width:1100px; margin:0 auto; padding:3rem 1rem; }
+
+    h1{
+      font-size: 3.1rem;
+      letter-spacing: -0.03em;
+      margin: 0 0 1.25rem 0;
+    }
+    .muted{
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 2.5rem 0;
+      max-width: 62ch;
+    }
+
+    .post-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .post-card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:1.5rem;
+      box-shadow: var(--shadow);
+      display:flex;
+      flex-direction:column;
+      min-height: 230px;
+    }
+
+    .meta{
+      font-size: .9rem;
+      color: var(--muted);
+      display:flex;
+      gap:.6rem;
+      flex-wrap:wrap;
+      margin-bottom:.65rem;
+    }
+
+    .post-title{
+      font-size: 1.25rem;
+      margin: 0 0 .75rem 0;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .excerpt{
+      margin: 0 0 1.1rem 0;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1 1 auto;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.5rem;
+      margin-top: .4rem;
+      margin-bottom: 1rem;
+    }
+    .chip{
+      font-size:.82rem;
+      padding:.25rem .6rem;
+      border-radius:999px;
+      background: var(--chip);
+      border: 1px solid var(--border);
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      font-weight:700;
+      padding-top:.25rem;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+    .cta span{
+      color: var(--muted);
+      font-weight:600;
+    }
+
+    footer{
+      max-width:1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem 1rem;
+      text-align:center;
+      font-size:.9rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
     }
   </style>
 </head>
 
 <body>
-  <!-- Header/Nav: keep consistent with your site -->
-  <header class="navbar">
-    <div class="nav-container" style="max-width:1100px;margin:0 auto;padding:1rem;display:flex;align-items:center;justify-content:space-between;">
-      <div class="logo" style="font-weight:700;font-size:1.2rem;">
-        <a href="index.html" style="color:inherit;text-decoration:none;">Adam Skarre</a>
+  <!-- NAV -->
+  <header>
+    <div class="nav">
+      <div class="nav-left">
+        <a href="index.html">Adam Skarre</a>
       </div>
 
-      <nav class="nav-links" style="display:flex;gap:1.25rem;align-items:center;">
-        <a href="projects.html" style="color:inherit;text-decoration:none;">Projects</a>
-        <a href="blog.html" style="color:inherit;text-decoration:none;font-weight:650;">Blog</a>
-        <a href="contact.html" style="color:inherit;text-decoration:none;">Contact</a>
+      <nav class="nav-right">
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
 
-        <button id="themeToggle"
-                class="theme-switch"
-                type="button"
-                aria-label="Toggle theme"
-                title="Toggle theme">
-          <span class="knob" aria-hidden="true"></span>
-
-          <span class="icon sun" aria-hidden="true">
-            <!-- Sun -->
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.41 0l.7.7a1 1 0 1 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41Zm13.45 13.45a1 1 0 0 1 1.41 0l.7.7a1 1 0 1 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 13a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2H2Zm19 0a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2h-1ZM4.22 20.36a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0ZM17.67 6.91a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
-            </svg>
-          </span>
-
-          <span class="icon moon" aria-hidden="true">
-            <!-- Moon -->
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3a7 7 0 1 0 11.5 11.5Z"/>
-            </svg>
+        <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span class="theme-knob">
+            <span class="icon-sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.41 0l.7.7A1 1 0 1 1 4.92 7.76l-.7-.7a1 1 0 0 1 0-1.41Zm13.45 13.45a1 1 0 0 1 1.41 0l.7.7a1 1 0 0 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 18.36a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Zm13.45-13.45a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
+              </svg>
+            </span>
+            <span class="icon-moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21.64 13a1 1 0 0 0-1.06-.27 8 8 0 0 1-10.31-10.3A1 1 0 0 0 9 1.36 10 10 0 1 0 22.64 14a1 1 0 0 0-1-.99ZM12 20a8 8 0 0 1-3.52-15.2 10 10 0 0 0 10.72 10.72A7.99 7.99 0 0 1 12 20Z"/>
+              </svg>
+            </span>
           </span>
         </button>
       </nav>
@@ -209,85 +233,76 @@
   </header>
 
   <main>
-    <h1 class="page-title">Blog</h1>
-    <p class="page-subtitle">
+    <h1>Blog</h1>
+    <p class="muted">
       Notes on engineering execution, quantitative modeling, and systems thinking—written to be practical, testable, and reusable.
     </p>
 
-    <section class="posts">
-      <!-- Existing post in your repo (blog/why-engineers-should-think-like-investors.html) -->
+    <section class="post-grid">
+      <!-- Post 1 -->
       <article class="post-card">
-        <div class="post-meta">
-          <span>Engineering × Finance</span>
-          <span>•</span>
-          <time datetime="2025-01-01">2025</time>
+        <div class="meta">
+          <span>Engineering × Finance</span><span>•</span><span>2025</span>
         </div>
         <h2 class="post-title">Why Engineers Should Think Like Investors</h2>
-        <p class="post-excerpt">
+        <p class="excerpt">
           How to evaluate trade-offs with expected value, downside risk, and constraints—so decisions hold up under scrutiny.
         </p>
-        <div class="tags">
-          <span class="tag">Decision-making</span>
-          <span class="tag">Trade-offs</span>
-          <span class="tag">Systems</span>
+        <div class="chips">
+          <span class="chip">Decision-making</span>
+          <span class="chip">Trade-offs</span>
+          <span class="chip">Systems</span>
         </div>
-        <a class="read-link" href="blog/why-engineers-should-think-like-investors.html">Read <span aria-hidden="true">→</span></a>
+        <a class="cta" href="blog-why-engineers-think-like-investors.html">Read <span>→</span></a>
       </article>
 
-      <!-- Optional placeholders (keep or delete) -->
+      <!-- Post 2 -->
       <article class="post-card">
-        <div class="post-meta">
-          <span>Quant Modeling</span>
-          <span>•</span>
-          <time datetime="2025-01-01">2025</time>
+        <div class="meta">
+          <span>Quant Modeling</span><span>•</span><span>2025</span>
         </div>
         <h2 class="post-title">Signals That Survive Reality Checks</h2>
-        <p class="post-excerpt">
+        <p class="excerpt">
           A checklist for avoiding overfit indicators: regimes, transaction costs, robustness tests, and measurement discipline.
         </p>
-        <div class="tags">
-          <span class="tag">Backtesting</span>
-          <span class="tag">Robustness</span>
-          <span class="tag">Metrics</span>
+        <div class="chips">
+          <span class="chip">Backtesting</span>
+          <span class="chip">Robustness</span>
+          <span class="chip">Metrics</span>
         </div>
-        <a class="read-link" href="blog.html">Coming soon <span aria-hidden="true">→</span></a>
+        <a class="cta" href="#" aria-disabled="true">Coming soon <span>→</span></a>
       </article>
 
+      <!-- Post 3 -->
       <article class="post-card">
-        <div class="post-meta">
-          <span>Simulation</span>
-          <span>•</span>
-          <time datetime="2025-01-01">2025</time>
+        <div class="meta">
+          <span>Simulation</span><span>•</span><span>2025</span>
         </div>
         <h2 class="post-title">Model vs. Data: A Practical Workflow</h2>
-        <p class="post-excerpt">
+        <p class="excerpt">
           Start with first principles, validate with measurements, then iterate—without hiding uncertainty or assumptions.
         </p>
-        <div class="tags">
-          <span class="tag">Validation</span>
-          <span class="tag">Uncertainty</span>
-          <span class="tag">Workflow</span>
+        <div class="chips">
+          <span class="chip">Validation</span>
+          <span class="chip">Uncertainty</span>
+          <span class="chip">Workflow</span>
         </div>
-        <a class="read-link" href="blog.html">Coming soon <span aria-hidden="true">→</span></a>
+        <a class="cta" href="#" aria-disabled="true">Coming soon <span>→</span></a>
       </article>
     </section>
   </main>
 
   <footer>
-    &copy; 2025 Adam Skarre. All rights reserved.
+    <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
   </footer>
 
   <script>
-    // Theme: keep identical behavior across pages
+    /* ---------- Theme toggle (same as labratory.html) ---------- */
     const html = document.documentElement;
     const toggle = document.getElementById("themeToggle");
 
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark" || savedTheme === "light") {
-      html.setAttribute("data-theme", savedTheme);
-    } else {
-      html.setAttribute("data-theme", "light");
-    }
+    if (savedTheme) html.setAttribute("data-theme", savedTheme);
 
     toggle.addEventListener("click", () => {
       const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
