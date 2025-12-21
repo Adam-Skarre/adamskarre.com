@@ -1,42 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Consulting Projects | Adam Skarre</title>
   <link rel="stylesheet" href="style.css" />
+  
   <style>
+    /* --- THEME VARIABLES (shared) --- */
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #555;
+      --card: #f4f4f5;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1115;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card: #1c1f26;
+      --border: #2a2f3a;
+      --shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #f9fafc;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 220ms ease, color 220ms ease;
     }
-    .navbar {
-      background: white;
-      padding: 1rem 2rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .nav-container {
+
+    /* --- NAV --- */
+    header { position: sticky; top: 0; z-index: 1000; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
-      margin: auto;
+      justify-content: space-between;
     }
-    .logo a {
+    .nav-left a {
       text-decoration: none;
-      color: black;
-      font-weight: bold;
-      font-size: 1.5rem;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
     }
-    .nav-links {
-      list-style: none;
+    .nav-right {
       display: flex;
-      gap: 1rem;
+      align-items: center;
+      gap: 1.25rem;
     }
+    .nav-right a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    .nav-right a:hover { opacity: 1; }
+
+    /* --- THEME TOGGLE --- */
+    .theme-switch {
+      width: 52px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      display: inline-flex;
+      align-items: center;
+      padding: 2px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+    .theme-knob {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: var(--bg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(0);
+      transition: transform 220ms ease, background 220ms ease;
+    }
+    [data-theme="dark"] .theme-knob { transform: translateX(24px); }
+
+    .theme-knob svg { width: 16px; height: 16px; fill: var(--text); }
+    .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun { display: none; }
+    [data-theme="dark"] .icon-moon { display: inline-flex; }
+
+    /* --- PAGE LAYOUT / CARDS --- */
     .section {
       max-width: 1100px;
       margin: auto;
@@ -48,98 +107,147 @@
       gap: 2rem;
     }
     .project-card {
-      background: white;
-      border-radius: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+    .project-card h4 { margin: 0.2rem 0 0.5rem; }
+    .project-card p { color: var(--text); opacity: 0.9; }
+
     .project-card img {
       max-width: 100%;
       height: auto;
       margin-top: 1rem;
-      border-radius: 4px;
+      border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+
     details {
       margin-top: 1rem;
       text-align: left;
       width: 100%;
     }
     summary {
-      font-weight: bold;
+      font-weight: 700;
       cursor: pointer;
       margin-bottom: 0.5rem;
     }
-    .project-card h4 {
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
-    }
-    .project-card p {
-      font-size: 0.95rem;
-    }
+
+    a { color: inherit; }
+    a:hover { text-decoration: underline; }
+
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
       font-size: 0.9rem;
-      color: #777;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: var(--bg);
     }
   </style>
 </head>
 <body>
   <header>
-    <nav class="navbar">
-      <div class="nav-container">
-        <h1 class="logo"><a href="index.html">Adam Skarre</a></h1>
-        <ul class="nav-links"></ul>
+    <div class="nav">
+      <div class="nav-left">
+        <a href="index.html">Adam Skarre</a>
       </div>
-    </nav>
+
+      <nav class="nav-right">
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+
+        <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span class="theme-knob">
+            <span class="icon-sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.41 0l.7.7A1 1 0 0 1 4.93 7.75l-.7-.7a1 1 0 0 1 0-1.41Zm12.44 12.44a1 1 0 0 1 1.41 0l.7.7a1 1 0 1 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 18.36a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Zm12.44-12.44a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
+              </svg>
+            </span>
+            <span class="icon-moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3a7 7 0 1 0 11.5 11.5Z"/>
+              </svg>
+            </span>
+          </span>
+        </button>
+      </nav>
+    </div>
   </header>
 
-  <section class="section">
-    <h2>Consulting Projects</h2>
-    <div class="project-grid">
+  <main>
+    <section class="section">
+      <h2>Consulting Projects</h2>
 
-      <div class="project-card">
-        <h4>Harvard Business School M&A Case</h4>
-        <p>Proposed IBM’s acquisition of Equinix with full financial modeling, synergy analysis, and market expansion strategy. Finalist ranking.</p>
-        <details>
-          <summary>See project details</summary>
-          <p>Collaborated on an acquisition strategy where IBM would acquire Equinix to enhance its hybrid cloud services. Conducted financial valuation, synergy estimation, and post-acquisition integration planning. Finalist placement in Harvard Case Competition.</p>
-          <p><strong>Note:</strong> Please inquire to see the project further.</p>
-        </details>
-        <img src="assets/images/harvard.png" alt="Harvard Case Competition Slide">
+      <div class="project-grid">
+
+        <div class="project-card">
+          <h4>Lightility | EV Infrastructure Company Consulting</h4>
+          <p>Performed market analysis and strategic business planning for an EV startup, including projections, partnerships, and M&A research.</p>
+
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Consulted for Lightility, a DMV-based EV infrastructure company, focusing on business development and strategic planning.<br><br>
+              <strong>Key Contributions:</strong>
+              <ul>
+                <li>Conducted market research on EV infrastructure adoption and competitor landscapes</li>
+                <li>Built financial projections and strategic growth models</li>
+                <li>Analyzed partnership opportunities with EV stakeholders and municipalities</li>
+                <li>Supported pitch materials and investor-facing presentation development</li>
+              </ul>
+              <strong>Tools / Skills:</strong> Market research, Excel modeling, business strategy, presentation design
+            </p>
+          </details>
+        </div>
+
+        <div class="project-card">
+          <h4>Harvard Business School | IBM Cloud Services M&A Case</h4>
+          <p>Collaborated on an acquisition proposal for IBM to expand its cloud services footprint using financial due diligence and valuation modeling.</p>
+
+          <details>
+            <summary>Project Details</summary>
+            <p>
+              Worked on an M&A strategy case focused on enhancing IBM’s cloud services through acquisition, with consideration of Equinix as a target.<br><br>
+              <strong>Key Contributions:</strong>
+              <ul>
+                <li>Performed discounted cash flow (DCF) valuation to estimate equity value</li>
+                <li>Conducted strategic rationale analysis and synergy modeling</li>
+                <li>Prepared structured recommendation deck with supporting evidence</li>
+                <li>Collaborated with a cross-functional team to refine investment thesis</li>
+              </ul>
+              <strong>Tools / Skills:</strong> Financial modeling, valuation, strategic consulting, teamwork
+            </p>
+          </details>
+        </div>
+
       </div>
-
-      <div class="project-card">
-        <h4>Quantum UP! Technology Integration</h4>
-        <p>Designed a national oversight system for quantum computing in finance and healthcare, integrating cryptography, ML, and compliance strategy.</p>
-        <details>
-          <summary>See project details</summary>
-          <p>Developed a regulatory framework for the Department of Quantum Resources (DQR) to oversee integration of quantum computing into healthcare and fintech. Focused on Post-Quantum Cryptography, data protection, ethical AI, and machine learning-driven security certifications. Placed 1st in the statewide Quantum UP! Challenge.</p>
-          <p><strong>Note:</strong> Please inquire to see the project further.</p>
-        </details>
-        <img src="assets/images/quantum-up.png" alt="Quantum Case Slide">
-      </div>
-
-      <div class="project-card">
-        <h4>Kogod EV Infrastructure Consulting</h4>
-        <p>Strategy for Lightility’s EV charger rollout, including market modeling, zoning logistics, and drone-captured keynote delivery.</p>
-        <details>
-          <summary>See project details</summary>
-          <p>Produced a strategic roadmap for a startup focused on EV infrastructure and smart city alignment. Performed industry analysis, customer segmentation, and capital budgeting. Delivered keynote using drone footage (DJI) and Final Cut Pro video. Placed 1st in the American University Kogod competition.</p>
-          <p><strong>Note:</strong> Please inquire to see the project further.</p>
-        </details>
-        <img src="assets/images/kogod.png" alt="Kogod Case Slide">
-      </div>
-
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
-    &copy; 2025 Adam Skarre. All rights reserved.
+    <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
   </footer>
+
+  <script>
+    /* ---------- Theme toggle (same as index.html) ---------- */
+    const html = document.documentElement;
+    const toggle = document.getElementById("themeToggle");
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) html.setAttribute("data-theme", savedTheme);
+
+    toggle.addEventListener("click", () => {
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  </script>
 </body>
 </html>
