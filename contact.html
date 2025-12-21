@@ -15,6 +15,28 @@
       --card: #f4f4f5;
       --border: #e5e7eb;
       --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      /* --- PAGE HEADER CARD (match Blog / Projects) --- */
+.page-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 2.2rem 2.2rem 1.9rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.page-title{
+  margin: 0 0 0.65rem 0;
+  font-size: 2.4rem;
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle{
+  margin: 0;
+  color: var(--muted);
+  max-width: 60ch;
+  line-height: 1.6;
+}
     }
 
     [data-theme="dark"] {
@@ -198,8 +220,12 @@
 
   <!-- CONTENT -->
   <main>
-    <h2>Contact</h2>
-    <p>If you’d like to get in touch, send a message below.</p>
+  <section class="page-card">
+    <h1 class="page-title">Contact</h1>
+    <p class="page-subtitle">
+      If you’d like to get in touch, send a message below.
+    </p>
+  </section>
 
     <form action="https://formspree.io/f/xwpogapy" method="POST">
       <label for="name">Name</label>
