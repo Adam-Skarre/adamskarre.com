@@ -464,162 +464,208 @@
     </section>
 
     <!-- WEATHER (Block 3) -->
-    <section class="card weather-card" aria-live="polite">
-  <div class="weather-head">
-    <div>
-      <div class="weather-kicker">Local weather this week</div>
-      <div class="weather-sub" id="wxSub">Uses browser location · Fahrenheit</div>
-    </div>
-    <button class="wx-btn" id="wxBtn" type="button">Check weather</button>
-  </div>
+    <section class="weather-wrap">
+      <div class="weather-title">Local weather this week</div>
 
-  <div class="wx-body" id="wxBody" hidden>
-    <div class="wx-top">
-      <div class="wx-title" id="wxPlace">Local Weather</div>
-      <div class="wx-now">
-        <div class="wx-temp" id="wxTemp">--°F</div>
-        <div class="wx-meta">
-          <div id="wxFeels">Feels like --°F</div>
-          <div id="wxCond">--</div>
+      <div class="weather-card" id="weatherCard" aria-live="polite">
+        <div class="weather-top">
+          <div class="weather-top-left">
+            <h3 id="weatherLocation">Local Weather</h3>
+            <div class="weather-meta" id="weatherMeta">Uses browser location · Fahrenheit</div>
+          </div>
+
+          <button class="weather-cta" id="weatherBtn" type="button">
+            Check weather
+          </button>
         </div>
+
+        <div class="weather-main" id="weatherMain" style="display:none;">
+          <div class="weather-temp" id="weatherTemp">—</div>
+          <div>
+            <div class="weather-desc" id="weatherDesc">—</div>
+            <div class="weather-sub" id="weatherSub">—</div>
+          </div>
+        </div>
+
+        <div class="forecast-title" id="forecastTitle" style="display:none;">7-Day Forecast</div>
+        <div class="forecast-grid" id="forecastGrid" style="display:none;"></div>
+
+        <div class="weather-footer" id="weatherFooter" style="display:none;">
+          <a class="weather-link" id="detailLink" href="#" target="_blank" rel="noreferrer">View detailed forecast →</a>
+        </div>
+
+        <div class="weather-note" id="weatherNote">No API key required.</div>
       </div>
-      <div class="wx-forecast-label">7-Day Forecast</div>
-    </div>
-
-    <div class="wx-grid" id="wxGrid"></div>
-
-    <a class="wx-link" id="wxLink" href="#" target="_blank" rel="noopener">
-      View detailed forecast →
-    </a>
-  </div>
-</section>
+    </section>
   </main>
 
   <!-- SCRIPTS -->
- <script>
-  // --- Theme toggle (smooth switch + persists) ---
-  const html = document.documentElement;
-  const toggle = document.getElementById("themeToggle");
+  <script>
+    /* ---------- Theme toggle ---------- */
+    const html = document.documentElement;
+    const toggle = document.getElementById("themeToggle");
 
-  function applyTheme(theme){
-    html.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-    toggle.setAttribute("aria-checked", theme === "dark" ? "true" : "false");
-  }
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) html.setAttribute("data-theme", savedTheme);
 
-  const savedTheme = localStorage.getItem("theme") || "light";
-  applyTheme(savedTheme);
+    toggle.addEventListener("click", () => {
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
 
-  toggle.addEventListener("click", () => {
-    const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    applyTheme(next);
-  });
+    /* ---------- Weather (Open-Meteo + reverse geocode for location label) ---------- */
+    const weatherBtn = document.getElementById("weatherBtn");
+    const weatherLocation = document.getElementById("weatherLocation");
+    const weatherMeta = document.getElementById("weatherMeta");
+    const weatherMain = document.getElementById("weatherMain");
+    const weatherTemp = document.getElementById("weatherTemp");
+    const weatherDesc = document.getElementById("weatherDesc");
+    const weatherSub = document.getElementById("weatherSub");
+    const forecastTitle = document.getElementById("forecastTitle");
+    const forecastGrid = document.getElementById("forecastGrid");
+    const weatherFooter = document.getElementById("weatherFooter");
+    const detailLink = document.getElementById("detailLink");
 
-  // --- Weather (Open-Meteo, Fahrenheit, 7-day, AccuWeather search link) ---
-  const wxBtn = document.getElementById("wxBtn");
-  const wxBody = document.getElementById("wxBody");
-  const wxPlace = document.getElementById("wxPlace");
-  const wxTemp = document.getElementById("wxTemp");
-  const wxFeels = document.getElementById("wxFeels");
-  const wxCond = document.getElementById("wxCond");
-  const wxGrid = document.getElementById("wxGrid");
-  const wxLink = document.getElementById("wxLink");
+    function dowShort(isoDate) {
+      const d = new Date(isoDate + "T00:00:00");
+      return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+    }
 
-  const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    function weatherCodeToText(code) {
+      // Open-Meteo WMO codes (condensed)
+      const map = new Map([
+        [0, "Clear"],
+        [1, "Mainly Clear"], [2, "Partly Cloudy"], [3, "Overcast"],
+        [45, "Fog"], [48, "Rime Fog"],
+        [51, "Light Drizzle"], [53, "Drizzle"], [55, "Heavy Drizzle"],
+        [56, "Freezing Drizzle"], [57, "Heavy Freezing Drizzle"],
+        [61, "Light Rain"], [63, "Rain"], [65, "Heavy Rain"],
+        [66, "Freezing Rain"], [67, "Heavy Freezing Rain"],
+        [71, "Light Snow"], [73, "Snow"], [75, "Heavy Snow"],
+        [77, "Snow Grains"],
+        [80, "Rain Showers"], [81, "Heavy Showers"], [82, "Violent Showers"],
+        [85, "Snow Showers"], [86, "Heavy Snow Showers"],
+        [95, "Thunderstorm"],
+        [96, "Thunderstorm + Hail"], [99, "Thunderstorm + Heavy Hail"],
+      ]);
+      return map.get(code) || "Conditions";
+    }
 
-  const codeToText = (code) => {
-    const map = {
-      0:"Clear", 1:"Mainly Clear", 2:"Partly Cloudy", 3:"Overcast",
-      45:"Fog", 48:"Fog",
-      51:"Drizzle", 53:"Drizzle", 55:"Drizzle",
-      61:"Rain", 63:"Rain", 65:"Heavy Rain",
-      71:"Snow", 73:"Snow", 75:"Heavy Snow",
-      80:"Rain Showers", 81:"Rain Showers", 82:"Violent Showers",
-      95:"Thunderstorm", 96:"Thunderstorm", 99:"Thunderstorm"
-    };
-    return map[code] || "Weather";
-  };
+    function weatherCodeToIcon(code) {
+      if (code === 0) return "☀️";
+      if (code === 1 || code === 2) return "⛅";
+      if (code === 3) return "☁️";
+      if (code === 45 || code === 48) return "🌫️";
+      if ([51,53,55,56,57].includes(code)) return "🌦️";
+      if ([61,63,65,66,67,80,81,82].includes(code)) return "🌧️";
+      if ([71,73,75,77,85,86].includes(code)) return "❄️";
+      if ([95,96,99].includes(code)) return "⛈️";
+      return "🌤️";
+    }
 
-  async function reverseGeocode(lat, lon){
-    // Free + no key, good enough for a city/state label
-    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-    const res = await fetch(url, { headers: { "Accept": "application/json" }});
-    const data = await res.json();
-    const a = data.address || {};
-    const city = a.city || a.town || a.village || a.hamlet || a.county || "Local";
-    const state = a.state || a.region || "";
-    return state ? `${city}, ${state}` : city;
-  }
+    async function reverseGeocode(lat, lon) {
+      // Lightweight label; no key required
+      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
+      const res = await fetch(url, { headers: { "Accept": "application/json" } });
+      const data = await res.json();
+      const a = data.address || {};
+      const city = a.city || a.town || a.village || a.hamlet || a.suburb || a.county;
+      const state = a.state || a.region;
+      if (city && state) return `${city}, ${state}`;
+      if (city) return city;
+      if (state) return state;
+      return "Local Weather";
+    }
 
-  async function getWeather(){
-    if (!navigator.geolocation) return;
+    async function fetchWeather(lat, lon) {
+      const url =
+        `https://api.open-meteo.com/v1/forecast?` +
+        `latitude=${lat}&longitude=${lon}` +
+        `&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m` +
+        `&daily=weather_code,temperature_2m_max,temperature_2m_min` +
+        `&temperature_unit=fahrenheit&windspeed_unit=mph` +
+        `&timezone=auto`;
 
-    wxBtn.disabled = true;
-    wxBtn.textContent = "Loading…";
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Weather fetch failed");
+      return res.json();
+    }
 
-    navigator.geolocation.getCurrentPosition(async (pos) => {
-      try{
-        const { latitude: lat, longitude: lon } = pos.coords;
+    function setLoading(isLoading) {
+      weatherBtn.disabled = isLoading;
+      weatherBtn.textContent = isLoading ? "Loading…" : "Check weather";
+      weatherBtn.style.opacity = isLoading ? "0.85" : "1";
+    }
 
-        // 7 day forecast + current, Fahrenheit
-        const url =
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
-          `&current=temperature_2m,apparent_temperature,weather_code` +
-          `&daily=temperature_2m_max,temperature_2m_min,weather_code` +
-          `&temperature_unit=fahrenheit&timezone=auto`;
+    async function getWeather() {
+      if (!navigator.geolocation) return;
 
-        const [wxRes, place] = await Promise.all([
-          fetch(url).then(r => r.json()),
-          reverseGeocode(lat, lon)
-        ]);
+      setLoading(true);
 
-        const cur = wxRes.current;
-        const daily = wxRes.daily;
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        try {
+          const { latitude, longitude } = pos.coords;
 
-        wxPlace.textContent = `${place} Weather`;
-        wxTemp.textContent = `${Math.round(cur.temperature_2m)}°F`;
-        wxFeels.textContent = `Feels like ${Math.round(cur.apparent_temperature)}°F`;
-        wxCond.textContent = codeToText(cur.weather_code);
+          // Location label (best-effort)
+          try {
+            const label = await reverseGeocode(latitude, longitude);
+            weatherLocation.textContent = label;
+          } catch (_) {
+            weatherLocation.textContent = "Local Weather";
+          }
 
-        // Build 6 tiles like Anaïs screenshot (today + next 5)
-        wxGrid.innerHTML = "";
-        const n = Math.min(6, daily.time.length);
+          const data = await fetchWeather(latitude, longitude);
 
-        for (let i = 0; i < n; i++){
-          const d = new Date(daily.time[i]);
-          const name = dayNames[d.getDay()];
-          const mm = d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
-          const hi = Math.round(daily.temperature_2m_max[i]);
-          const lo = Math.round(daily.temperature_2m_min[i]);
+          const c = data.current;
+          const descText = weatherCodeToText(c.weather_code);
+          const feels = Math.round(c.apparent_temperature);
+          const temp = Math.round(c.temperature_2m);
+          const wind = Math.round(c.wind_speed_10m);
 
-          const el = document.createElement("div");
-          el.className = "wx-day";
-          el.innerHTML = `
-            <div class="d">${name}, ${mm}</div>
-            <div class="t">${hi}°</div>
-            <div class="mm">${lo}°</div>
-          `;
-          wxGrid.appendChild(el);
+          weatherMain.style.display = "flex";
+          weatherTemp.textContent = `${temp}°F`;
+          weatherDesc.textContent = `${weatherCodeToIcon(c.weather_code)} ${descText}`;
+          weatherSub.textContent = `Feels like ${feels}°F · Wind ${wind} mph`;
+
+          // 7 day
+          const days = data.daily.time;
+          const hi = data.daily.temperature_2m_max;
+          const lo = data.daily.temperature_2m_min;
+          const codes = data.daily.weather_code;
+
+          forecastGrid.innerHTML = "";
+          for (let i = 0; i < Math.min(7, days.length); i++) {
+            const d = document.createElement("div");
+            d.className = "day";
+            d.innerHTML = `
+              <div class="dow">${dowShort(days[i])}</div>
+              <div class="icon">${weatherCodeToIcon(codes[i])}</div>
+              <div class="hi">${Math.round(hi[i])}°</div>
+              <div class="lo">${Math.round(lo[i])}°</div>
+            `;
+            forecastGrid.appendChild(d);
+          }
+
+          forecastTitle.style.display = "block";
+          forecastGrid.style.display = "grid";
+          weatherFooter.style.display = "block";
+
+          // “Detailed forecast” (no key)
+          detailLink.href = `https://www.open-meteo.com/en/weather/forecast?lat=${latitude}&lon=${longitude}`;
+
+          setLoading(false);
+        } catch (e) {
+          setLoading(false);
+          weatherMeta.textContent = "Could not load weather. Location permission required.";
         }
+      }, () => {
+        setLoading(false);
+        weatherMeta.textContent = "Location permission required to load local forecast.";
+      }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 600000 });
+    }
 
-        // “View detailed forecast” — do what Anaïs does: send them to AccuWeather.
-        // Without an AccuWeather API key we can’t reliably generate the exact location page,
-        // so we use AccuWeather’s search page with the resolved place string.
-        const q = encodeURIComponent(place);
-        wxLink.href = `https://www.accuweather.com/en/search-locations?query=${q}`;
-
-        wxBody.hidden = false;
-      } finally {
-        wxBtn.disabled = false;
-        wxBtn.textContent = "Check weather";
-      }
-    }, () => {
-      wxBtn.disabled = false;
-      wxBtn.textContent = "Check weather";
-    }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 5 * 60 * 1000 });
-  }
-
-  wxBtn.addEventListener("click", getWeather);
-</script>
+    weatherBtn.addEventListener("click", getWeather);
+  </script>
 </body>
 </html>
