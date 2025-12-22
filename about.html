@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | Adam Skarre</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    :root{
+      --bg:#f9fafc;
+      --panel:#ffffff;
+      --text:#111;
+      --muted:#5b6472;
+      --border:rgba(0,0,0,.08);
+      --shadow:0 10px 30px rgba(17,24,39,.06);
+      --radius:18px;
+      --chip:#f2f4f8;
+      --chipText:#2a3340;
+      --link:#0b63f6;
+    }
+    body.dark{
+      --bg:#0b0f17;
+      --panel:#0f1623;
+      --text:#eef2f7;
+      --muted:#a9b3c2;
+      --border:rgba(255,255,255,.10);
+      --shadow:0 16px 40px rgba(0,0,0,.35);
+      --chip:#121b2a;
+      --chipText:#d7dfeb;
+      --link:#7ab0ff;
+    }
+
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    a{color:inherit}
+
+    /* NAV (matches your current look) */
+    .navbar{background:var(--panel);box-shadow:0 1px 4px rgba(0,0,0,0.08);position:sticky;top:0;z-index:1000;border-bottom:1px solid var(--border)}
+    .nav-container{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:auto;padding:1rem 2rem}
+    .logo a{text-decoration:none;color:var(--text);font-weight:700;font-size:1.5rem}
+    .nav-right{display:flex;align-items:center;gap:1rem}
+    .nav-links{list-style:none;display:flex;gap:1rem;margin:0;padding:0}
+    .nav-links a{text-decoration:none;color:var(--text);font-weight:500;opacity:.9}
+    .nav-links a:hover{opacity:1;text-decoration:underline}
+
+    /* Toggle */
+    .toggle-wrap{
+      display:flex;align-items:center;gap:.5rem;
+      background:rgba(0,0,0,.04);
+      border:1px solid var(--border);
+      padding:.35rem .5rem;
+      border-radius:999px;
+    }
+    body.dark .toggle-wrap{background:rgba(255,255,255,.05)}
+    .toggle-btn{
+      width:38px;height:30px;border-radius:999px;border:1px solid var(--border);
+      background:var(--panel);
+      display:grid;place-items:center;
+      cursor:pointer;
+    }
+    .toggle-btn:active{transform:translateY(1px)}
+    .sun{
+      width:16px;height:16px;display:block;
+      fill:var(--text);
+      opacity:.9;
+    }
+
+    /* Page layout */
+    .container{max-width:1100px;margin:2rem auto;padding:0 2rem}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:1.25rem;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+      .nav-container{padding:1rem 1.25rem}
+      .container{padding:0 1.25rem}
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:1.75rem;
+    }
+
+    .hero h1{margin:.25rem 0 0 0;font-size:2.1rem;letter-spacing:-.02em}
+    .hero p{margin:.9rem 0 0 0;color:var(--muted);line-height:1.6;font-size:1.03rem}
+    .hero .kicker{
+      display:inline-flex;align-items:center;gap:.5rem;
+      color:var(--muted);
+      font-weight:600;
+      font-size:.95rem;
+    }
+    .pill-row{
+      margin-top:1.1rem;
+      display:flex;flex-wrap:wrap;gap:.5rem;
+    }
+    .pill{
+      background:var(--chip);
+      color:var(--chipText);
+      border:1px solid var(--border);
+      padding:.45rem .65rem;
+      border-radius:999px;
+      font-size:.9rem;
+      line-height:1;
+      white-space:nowrap;
+    }
+
+    .section-title{
+      display:flex;align-items:center;gap:.6rem;
+      font-weight:800;
+      letter-spacing:-.01em;
+      margin:0 0 1rem 0;
+      font-size:1.1rem;
+    }
+    .mini{
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.6;
+      margin:.5rem 0 0 0;
+    }
+
+    .link-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:.85rem;
+    }
+    .link-card{
+      display:flex;align-items:center;gap:.85rem;
+      text-decoration:none;
+      padding:1rem;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.015);
+    }
+    body.dark .link-card{background:rgba(255,255,255,.03)}
+    .link-card:hover{transform:translateY(-1px)}
+    .icon{
+      width:42px;height:42px;border-radius:12px;
+      display:grid;place-items:center;
+      border:1px solid var(--border);
+      background:var(--panel);
+      flex:0 0 auto;
+    }
+    .link-meta{display:flex;flex-direction:column;gap:.15rem}
+    .link-meta strong{font-size:1rem}
+    .link-meta span{color:var(--muted);font-size:.92rem}
+
+    /* Footer */
+    footer{
+      max-width:1100px;
+      margin:2.25rem auto 2rem auto;
+      padding:0 2rem;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+    .footer-inner{
+      border-top:1px solid var(--border);
+      padding:1.25rem 0;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:1rem;flex-wrap:wrap;
+    }
+    .footer-inner a{color:var(--link);text-decoration:none}
+    .footer-inner a:hover{text-decoration:underline}
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo"><a href="index.html">Adam Skarre</a></div>
+
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <div class="toggle-wrap" aria-label="Theme toggle">
+          <button class="toggle-btn" id="themeToggle" aria-label="Toggle dark mode" type="button">
+            <!-- sun icon -->
+            <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-9h2V1h-2v3zm9.66 1.46l-1.41-1.41-1.8 1.79 1.42 1.42 1.79-1.8zM20 11v2h3v-2h-3zM11 23h2v-3h-2v3zM4.95 19.78l1.41 1.41 1.8-1.79-1.42-1.42-1.79 1.8zm12.3-1.21l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM12 6a6 6 0 100 12 6 6 0 000-12z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="container">
+    <div class="grid">
+      <!-- Left: Hero/About -->
+      <section class="card hero">
+        <div class="kicker">About</div>
+        <h1>Hi, I’m Adam</h1>
+
+        <p>
+          I’m a mechanical engineering student with a design and manufacturing focus, with work spanning CAD,
+          quantitative modeling, and applied analysis. I’m drawn to problems at the intersection of engineering,
+          finance, and technology, and I build technically grounded projects that connect computation, mathematics,
+          and real-world decision making.
+        </p>
+
+        <div class="pill-row" aria-label="Interests">
+          <span class="pill">Mechanical Design</span>
+          <span class="pill">Manufacturing</span>
+          <span class="pill">CAD / Simulation</span>
+          <span class="pill">Quantitative Modeling</span>
+          <span class="pill">Finance + Engineering</span>
+          <span class="pill">Systems Thinking</span>
+          <span class="pill">AI / ML</span>
+        </div>
+
+        <p class="mini">
+          This site documents projects across design, manufacturing, quantitative modeling, and decision-oriented work.
+        </p>
+      </section>
+
+      <!-- Right: Links -->
+      <aside class="card">
+        <div class="section-title">Links</div>
+
+        <div class="link-grid">
+          <a class="link-card" href="https://www.linkedin.com/in/adam-skarre-a2b470227/" target="_blank" rel="noopener">
+            <div class="icon" aria-hidden="true">
+              <!-- LinkedIn icon -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.5 23.5h4V7.5h-4v16ZM8 7.5h3.8v2.2h.1c.5-1 1.9-2.2 4-2.2 4.3 0 5.1 2.8 5.1 6.5v9.5h-4v-8.4c0-2 0-4.6-2.8-4.6s-3.2 2.2-3.2 4.4v8.6H8v-16Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="link-meta">
+              <strong>LinkedIn</strong>
+              <span>Professional profile</span>
+            </div>
+          </a>
+
+          <a class="link-card" href="projects.html">
+            <div class="icon" aria-hidden="true">
+              <!-- folder icon -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M10 4l2 2h8a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="link-meta">
+              <strong>Projects</strong>
+              <span>Featured work + case studies</span>
+            </div>
+          </a>
+
+          <a class="link-card" href="contact.html">
+            <div class="icon" aria-hidden="true">
+              <!-- mail icon -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z" stroke="currentColor" stroke-width="2"/>
+                <path d="M22 8l-10 7L2 8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="link-meta">
+              <strong>Contact</strong>
+              <span>Get in touch</span>
+            </div>
+          </a>
+        </div>
+
+        <p class="mini" style="margin-top:1rem;">
+          If you add GitHub or a resume link later, duplicate one link-card block and swap the icon + URL.
+        </p>
+      </aside>
+    </div>
+
+    <!-- Optional: Second row (keeps the Anaïs-style “Interests + Links” feel without needing a photo) -->
+    <section class="card" style="margin-top:1.25rem;">
+      <div class="section-title">What I focus on</div>
+      <p class="mini" style="margin:0;">
+        Designing and building practical, technically rigorous projects: CAD and mechanical design workflows,
+        manufacturing-oriented problem solving, and quantitative models that translate messy constraints into decisions.
+      </p>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Adam Skarre. All rights reserved.</div>
+      <div>
+        <a href="index.html">Home</a>
+        <span style="opacity:.6;"> · </span>
+        <a href="projects.html">Projects</a>
+        <span style="opacity:.6;"> · </span>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle (persist across pages)
+    (function () {
+      const stored = localStorage.getItem('theme');
+      if (stored === 'dark') document.body.classList.add('dark');
+
+      const btn = document.getElementById('themeToggle');
+      btn.addEventListener('click', function () {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+      });
+    })();
+  </script>
+</body>
+</html>
