@@ -4,127 +4,266 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Electromechanical Systems Modeling | Adam Skarre</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="assets/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+  <link rel="shortcut icon" href="assets/favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="assets/favicon/site.webmanifest">
+
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Favicons (adjust paths if yours differ) -->
-  <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
-  <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
-
   <style>
-    /* Page-only layout helpers (keeps your site look, doesn’t fight style.css) */
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
-    .card { background: var(--card, #f4f4f5); border: 1px solid var(--border, rgba(0,0,0,.08)); border-radius: 18px; box-shadow: var(--shadow, 0 10px 30px rgba(0,0,0,.08)); }
-    .hero { padding: 26px; }
-    .hero-grid { display: grid; grid-template-columns: 96px 1fr; gap: 18px; align-items: center; }
-    .brandMark { width: 84px; height: 84px; border-radius: 16px; border: 1px solid var(--border, rgba(0,0,0,.08)); background: rgba(17,17,17,.03); display: grid; place-items: center; overflow: hidden; }
-    .brandMark img { width: 100%; height: 100%; object-fit: contain; padding: 12px; display:block; }
-    .hero h1 { margin: 0 0 6px; font-size: 2rem; letter-spacing: -0.02em; }
-    .hero p { margin: 0; color: var(--muted, #555); line-height: 1.55; }
-    .statusline { margin-top: 10px; color: var(--muted, #555); font-size: .95rem; }
-    .pills { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; }
-    .pill { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border, rgba(0,0,0,.08)); background: rgba(17,17,17,.04); font-size: .9rem; font-weight: 600; }
-
-    .two { margin-top: 18px; display: grid; grid-template-columns: 1.25fr .9fr; gap: 14px; }
-    @media (max-width: 900px){ .two { grid-template-columns: 1fr; } }
-
-    .box { padding: 18px; }
-    .box h2 { margin: 0 0 10px; font-size: 1.15rem; }
-    .box ul { margin: 0; padding-left: 18px; color: var(--muted, #555); line-height: 1.6; }
-    .artifactList { display: grid; gap: 10px; margin-top: 10px; }
-
-    .artifactBtn {
-      display:flex; justify-content: space-between; align-items: center;
-      padding: 14px 14px; border-radius: 14px;
-      border: 1px solid var(--border, rgba(0,0,0,.08));
-      background: rgba(255,255,255,.55);
-      text-decoration:none; color: var(--text, #111);
-      font-weight: 700;
+    :root{
+      --bg:#ffffff; --text:#111111; --muted:#555;
+      --card:#f4f4f5; --border:#e5e7eb;
+      --shadow:0 10px 30px rgba(0,0,0,0.08);
     }
-    [data-theme="dark"] .artifactBtn { background: rgba(17,17,17,.35); }
-    .artifactBtn span { color: var(--muted, #555); font-weight: 700; }
-    .artifactNote { margin-top: 10px; color: var(--muted, #555); font-size: .92rem; line-height: 1.45; }
-
-    .section { margin-top: 18px; padding: 18px; }
-    .section h2 { margin: 0 0 10px; font-size: 1.2rem; }
-    .section p { margin: 0; color: var(--muted, #555); line-height: 1.65; }
-
-    /* Gallery */
-    .gallery { margin-top: 18px; padding: 18px; }
-    .gallery h2 { margin: 0 0 10px; font-size: 1.2rem; }
-    .galGrid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    @media (max-width: 900px){ .galGrid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px){ .galGrid { grid-template-columns: 1fr; } }
-
-    .shot {
-      border-radius: 16px; overflow:hidden;
-      border: 1px solid var(--border, rgba(0,0,0,.08));
-      background: rgba(17,17,17,.03);
-      aspect-ratio: 16 / 10;
+    [data-theme="dark"]{
+      --bg:#0f1115; --text:#e5e7eb; --muted:#9ca3af;
+      --card:#1c1f26; --border:#2a2f3a;
+      --shadow:0 12px 40px rgba(0,0,0,0.35);
     }
-    .shot img { width:100%; height:100%; object-fit: cover; display:block; }
-    .shotCap { margin-top: 6px; color: var(--muted, #555); font-size: .9rem; }
 
-    /* Footer should be ONLY copyright */
-    .copyrightOnly {
-      padding: 24px 20px;
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit;text-decoration:none;}
+
+    header{
+      position:sticky; top:0;
+      background:var(--bg);
+      border-bottom:1px solid var(--border);
+      z-index:100;
+      backdrop-filter:saturate(140%) blur(10px);
+    }
+    .nav{
+      max-width:1100px;
+      margin:0 auto;
+      padding:1rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .nav-left{font-weight:600;font-size:1.1rem;}
+    .nav-right{display:flex;gap:1.5rem;align-items:center;}
+
+    /* Toggle (exact style) */
+    .theme-switch{
+      width:66px;height:34px;border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--card);
+      position:relative;cursor:pointer;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.35);
+      display:inline-flex;align-items:center;padding:4px;
+    }
+    .theme-knob{
+      width:26px;height:26px;border-radius:999px;
+      background:var(--bg);
+      border:1px solid var(--border);
+      box-shadow:0 8px 18px rgba(0,0,0,0.18);
+      transform:translateX(0);
+      transition:transform 220ms ease;
+      display:grid;place-items:center;
+    }
+    [data-theme="dark"] .theme-knob{transform:translateX(32px);}
+    .icon-sun,.icon-moon{width:18px;height:18px;display:none;}
+    [data-theme="light"] .icon-sun{display:block;}
+    [data-theme="dark"]  .icon-moon{display:block;}
+    .icon-sun svg{fill:#f5c518;}
+    .icon-moon svg{fill:#cfd6e6;}
+    .theme-switch:focus-visible{outline:2px solid rgba(47,111,235,0.55);outline-offset:3px;}
+
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding:2.25rem 1rem 3rem;
+    }
+
+    .hero{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:1.25rem;
+      box-shadow:var(--shadow);
+      padding:2.25rem 2rem;
+    }
+    .heroTop{
+      display:flex;
+      gap:1.25rem;
+      align-items:flex-start;
+    }
+    .badgeLogo{
+      width:68px;height:68px;
+      border-radius:1rem;
+      border:1px solid var(--border);
+      background:var(--bg);
+      display:grid;place-items:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .badgeLogo img{width:70%;height:auto;display:block;}
+    .hero h1{
+      margin:0;
+      font-size:2rem;
+      line-height:1.15;
+      letter-spacing:-0.02em;
+    }
+    .sub{
+      margin:0.65rem 0 0 0;
+      color:var(--muted);
+      line-height:1.6;
+      max-width:70ch;
+    }
+    .current{
+      margin-top:0.9rem;
+      color:var(--muted);
+      font-size:0.98rem;
+    }
+
+    .pills{
+      display:flex; flex-wrap:wrap; gap:0.6rem;
+      margin-top:1.25rem;
+    }
+    .pill{
+      font-size:0.85rem;
+      padding:0.45rem 0.75rem;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap:1rem;
+      margin-top:1rem;
+    }
+    .card{
+      background:var(--bg);
+      border:1px solid var(--border);
+      border-radius:1.25rem;
+      box-shadow:var(--shadow);
+      padding:1.5rem 1.5rem;
+      min-height: 180px;
+    }
+    .card h2{
+      margin:0 0 0.75rem 0;
+      font-size:1.15rem;
+      letter-spacing:-0.01em;
+    }
+    .bullets{
+      margin:0;
+      padding-left:1.1rem;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    .artifactList{display:grid;gap:0.75rem;margin-top:0.5rem;}
+    .artifactBtn{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0.95rem 1rem;
+      border-radius:0.95rem;
+      border:1px solid var(--border);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      font-weight:600;
+    }
+    .artifactBtn span{color:var(--muted);font-weight:600;}
+    .artifactNote{margin-top:0.75rem;color:var(--muted);font-size:0.95rem;line-height:1.55;}
+
+    .sectionBlock{
+      margin-top:1.5rem;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:1.25rem;
+      box-shadow:var(--shadow);
+      padding:1.5rem 1.5rem;
+    }
+    .sectionBlock h3{margin:0 0 0.6rem 0;font-size:1.15rem;}
+    .sectionBlock p{margin:0;color:var(--muted);line-height:1.7;}
+
+    footer{
+      max-width:1100px;
+      margin:0 auto;
+      padding:2rem 1rem 3rem;
       text-align:center;
-      color: var(--muted, #555);
-      font-size: .95rem;
+      font-size:0.9rem;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+    }
+
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr;}
+      .hero{padding:1.75rem 1.25rem;}
+      .card{padding:1.25rem;}
     }
   </style>
 </head>
 
 <body>
-  <!-- NAV (match your existing structure) -->
-  <div class="navbar">
-    <div class="nav-container">
-      <div class="logo"><a href="index.html">Adam Skarre</a></div>
+  <header>
+    <div class="nav">
+      <div class="nav-left"><a href="index.html">Adam Skarre</a></div>
+      <nav class="nav-right">
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
 
-      <ul class="nav-links">
-        <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-
-      <!-- TOGGLE: same mechanism as your other pages (id="themeToggle", data-theme on <html>) -->
-      <button class="toggle" id="themeToggle" aria-label="Toggle theme" type="button">
-        <span class="toggle-icon" aria-hidden="true">☀️</span>
-      </button>
+        <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span class="theme-knob">
+            <span class="icon-sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.41 0l.7.7A1 1 0 1 1 4.92 7.76l-.7-.7a1 1 0 0 1 0-1.41Zm13.45 13.45a1 1 0 0 1 1.41 0l.7.7a1 1 0 0 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 18.36a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Zm13.45-13.45a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
+              </svg>
+            </span>
+            <span class="icon-moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21.64 13a1 1 0 0 0-1.06-.27 8 8 0 0 1-10.31-10.3A1 1 0 0 0 9 1.36 10 10 0 1 0 22.64 14a1 1 0 0 0-1-.99ZM12 20a8 8 0 0 1-3.52-15.2 10 10 0 0 0 10.72 10.72A7.99 7.99 0 0 1 12 20Z"/>
+              </svg>
+            </span>
+          </span>
+        </button>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <main class="wrap">
-    <section class="card hero">
-      <div class="hero-grid">
-        <div class="brandMark">
-          <img src="assets/images/abb.jpg" alt="ABB logo">
+  <main>
+    <section class="hero">
+      <div class="heroTop">
+        <div class="badgeLogo">
+          <!-- Put your ABB logo image here if you want; otherwise keep as-is -->
+          <img src="assets/images/abb.jpg" alt="ABB" />
         </div>
 
         <div>
           <h1>Electromechanical Systems Modeling</h1>
-          <p>
-            Thermal performance modeling for an electrical enclosure: CAD parameterization,
-            CFD-based natural convection analysis, and iterative design evaluation across
-            operating constraints.
+          <p class="sub">
+            Thermal performance modeling for an electrical enclosure: CAD parameterization, CFD-based natural convection analysis, and iterative design evaluation across operating constraints.
           </p>
-          <div class="statusline"><strong>Current:</strong> in-progress senior design work — this page is updated as deliverables are submitted.</div>
+          <div class="current">
+            Current: in-progress senior design work — this page is updated as deliverables are submitted.
+          </div>
 
           <div class="pills">
-            <div class="pill">Senior Design</div>
-            <div class="pill">Siemens NX</div>
-            <div class="pill">ANSYS Fluent</div>
-            <div class="pill">Natural Convection</div>
-            <div class="pill">Iteration / DoE</div>
+            <span class="pill">Senior Design</span>
+            <span class="pill">Siemens NX</span>
+            <span class="pill">ANSYS Fluent</span>
+            <span class="pill">Natural Convection</span>
+            <span class="pill">Iteration / DoE</span>
           </div>
         </div>
       </div>
 
-      <div class="two">
-        <div class="card box">
+      <div class="grid">
+        <div class="card">
           <h2>What I Did</h2>
-          <ul>
+          <ul class="bullets">
             <li>Built a parameter-driven enclosure model to control geometry changes (louvers, cutouts, thickness, and key dimensions).</li>
             <li>Set up CFD workflows to estimate temperature rise and airflow patterns under natural convection assumptions.</li>
             <li>Ran comparisons across design variants and operating inputs to support tradeoffs and decision-making.</li>
@@ -132,77 +271,45 @@
           </ul>
         </div>
 
-        <div class="card box">
-        <h2>Progress</h2>
+        <div class="card">
+          <h2>Progress</h2>
 
-<div class="artifactList">
-  <a class="artifactBtn" href="abb-progress.html">
-    See progress <span>Open →</span>
-  </a>
-</div>
+          <div class="artifactList">
+            <a class="artifactBtn" href="abb.progress.html">
+              See progress <span>Open →</span>
+            </a>
+          </div>
 
-<div class="artifactNote">
-  Ongoing senior design work. Updated as modeling and validation milestones are completed.
-</div>
+          <div class="artifactNote">
+            Opens inside my site (no direct PDF links).
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="card section">
-      <h2>Project Context</h2>
+    <section class="sectionBlock">
+      <h3>Project Context</h3>
       <p>
-        Focus: enclosure thermal management and temperature rise under realistic constraints.
-        The work emphasizes disciplined modeling: controlling inputs, documenting assumptions,
-        and comparing variants consistently.
+        Focus: enclosure thermal management and temperature rise under realistic constraints. Emphasis on disciplined modeling: controlling inputs, documenting assumptions, and comparing variants consistently.
       </p>
-    </section>
-
-    <!-- GALLERY (replaces “Results”) -->
-    <section class="card gallery">
-      <h2>Gallery</h2>
-      <div class="galGrid">
-        <!-- Replace image paths + captions with your real screenshots -->
-        <div>
-          <div class="shot"><img src="assets/images/abb-gallery/abb-1.png" alt="ABB model screenshot 1"></div>
-          <div class="shotCap">CAD parameterization (NX) — key dimensions and controlled geometry.</div>
-        </div>
-        <div>
-          <div class="shot"><img src="assets/images/abb-gallery/abb-2.png" alt="ABB model screenshot 2"></div>
-          <div class="shotCap">CFD setup — boundary conditions and natural convection configuration.</div>
-        </div>
-        <div>
-          <div class="shot"><img src="assets/images/abb-gallery/abb-3.png" alt="ABB model screenshot 3"></div>
-          <div class="shotCap">Output view — temperature distribution and airflow interpretation.</div>
-        </div>
-      </div>
     </section>
   </main>
 
-  <!-- FOOTER: copyright only -->
-  <footer class="copyrightOnly">
-    © <span id="year"></span> Adam Skarre. All rights reserved.
+  <footer>
+    <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
   </footer>
 
   <script>
-    // Copyright year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Theme toggle (same pattern: data-theme on <html>, localStorage key "theme")
     const html = document.documentElement;
     const toggle = document.getElementById("themeToggle");
-    const icon = toggle.querySelector(".toggle-icon");
 
-    function applyTheme(theme) {
-      html.setAttribute("data-theme", theme);
-      localStorage.setItem("theme", theme);
-      icon.textContent = theme === "dark" ? "🌙" : "☀️";
-    }
-
-    const saved = localStorage.getItem("theme");
-    if (saved === "dark" || saved === "light") applyTheme(saved);
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) html.setAttribute("data-theme", savedTheme);
 
     toggle.addEventListener("click", () => {
-      const current = html.getAttribute("data-theme") || "light";
-      applyTheme(current === "dark" ? "light" : "dark");
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
     });
   </script>
 </body>
