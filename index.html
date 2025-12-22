@@ -190,6 +190,73 @@
       margin-bottom: 0.6rem;
       color: var(--muted);
     }
+    /* --- FEATURED PROJECTS --- */
+.fp-grid{
+  display:grid;
+  gap:1rem;
+  margin-top:1.25rem;
+}
+
+.fp-item{
+  display:grid;
+  grid-template-columns: 84px 1fr;
+  gap:1rem;
+  padding:1rem;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background: var(--bg);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.fp-item:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.fp-thumb{
+  width:84px;
+  height:84px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background: rgba(17,17,17,0.03);
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+
+[data-theme="dark"] .fp-thumb{
+  background: rgba(255,255,255,0.06);
+}
+
+.fp-thumb img{
+  width:100%;
+  height:100%;
+  object-fit: contain;   /* keeps logos from blowing up/cropping */
+  padding:10px;          /* breathing room for ABB/Lightility logos */
+  display:block;
+}
+
+.fp-body h3{
+  margin:0 0 .35rem 0;
+  font-size:1.05rem;
+}
+
+.fp-body p{
+  margin:0 0 .6rem 0;
+  color: var(--muted);
+  line-height:1.5;
+}
+
+.fp-link{
+  font-weight:600;
+  border-bottom:1px solid var(--text);
+  display:inline-block;
+}
+
+@media (max-width: 520px){
+  .fp-item{ grid-template-columns: 72px 1fr; }
+  .fp-thumb{ width:72px; height:72px; }
+}
 
     /* --- CAPABILITIES --- */
     .cap-grid {
@@ -427,46 +494,44 @@
       <a href="projects.html">View projects →</a>
     </section>
 
-   <section class="featured-projects">
+ <!-- FEATURED PROJECTS -->
+<section class="card featured">
   <h2>Featured Projects</h2>
 
-  <div class="featured-grid">
-    <!-- ABB -->
-    <a class="featured-card" href="projects.html#abb">
-      <div class="image-wrap">
-        <img src="assets/images/abb.jpg" alt="ABB project">
+  <div class="fp-grid">
+    <!-- 1 -->
+    <a class="fp-item" href="abb-temperature-enclosure.html">
+      <div class="fp-thumb">
+        <img src="assets/images/abb.jpg" alt="ABB logo" />
       </div>
-      <div class="card-text">
+      <div class="fp-body">
         <h3>ABB Temperature Enclosure Prediction</h3>
-        <p>
-          Thermal modeling to predict enclosure performance under operating constraints.
-        </p>
+        <p>Thermal modeling to predict enclosure performance under operating constraints.</p>
+        <span class="fp-link">View project →</span>
       </div>
     </a>
 
-    <!-- Wind Turbine -->
-    <a class="featured-card" href="projects.html#wind">
-      <div class="image-wrap">
-        <img src="assets/images/turbine.jpg" alt="Wind turbine Monte Carlo study">
+    <!-- 2 -->
+    <a class="fp-item" href="wind-turbine-monte-carlo.html">
+      <div class="fp-thumb">
+        <img src="assets/images/turbine.jpg" alt="Wind turbines" />
       </div>
-      <div class="card-text">
+      <div class="fp-body">
         <h3>Wind Turbine Monte Carlo Forecasting</h3>
-        <p>
-          Probabilistic simulation of energy output and uncertainty.
-        </p>
+        <p>Probabilistic simulation of energy output and uncertainty.</p>
+        <span class="fp-link">View project →</span>
       </div>
     </a>
 
-    <!-- EV / Lightility -->
-    <a class="featured-card" href="projects.html#ev">
-      <div class="image-wrap">
-        <img src="assets/images/lightility.jpg" alt="EV infrastructure modeling">
+    <!-- 3 -->
+    <a class="fp-item" href="ev-infrastructure-lightility.html">
+      <div class="fp-thumb">
+        <img src="assets/images/lightility.jpg" alt="Lightility logo" />
       </div>
-      <div class="card-text">
+      <div class="fp-body">
         <h3>EV Infrastructure Expansion Modeling</h3>
-        <p>
-          Energy and financial models guiding capital allocation for EV charging networks.
-        </p>
+        <p>Energy and financial models guiding capital allocation for EV charging networks.</p>
+        <span class="fp-link">View project →</span>
       </div>
     </a>
   </div>
