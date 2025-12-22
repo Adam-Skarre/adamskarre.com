@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Electromechanical Systems Modeling | Adam Skarre</title>
+
+  <!-- Favicons (adjust paths if yours differ) -->
+  <link rel="icon" type="image/png" href="assets/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+  <link rel="shortcut icon" href="assets/favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="assets/favicon/site.webmanifest">
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ===== Theme variables (match your site pattern) ===== */
+    :root{
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#555;
+      --card:#f4f4f5;
+      --border:#e5e7eb;
+      --shadow:0 10px 30px rgba(0,0,0,0.08);
+
+      --pill: rgba(17,17,17,0.06);
+      --pillText: rgba(17,17,17,0.8);
+
+      --btnBg:#ffffff;
+      --btnText:#111111;
+      --btnBorder: rgba(0,0,0,0.12);
+      --btnShadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    [data-theme="dark"]{
+      --bg:#0b0b0f;
+      --text:#f2f2f2;
+      --muted:#b8b8b8;
+      --card:#14141b;
+      --border:#2a2a36;
+      --shadow:0 10px 30px rgba(0,0,0,0.45);
+
+      --pill: rgba(255,255,255,0.08);
+      --pillText: rgba(255,255,255,0.85);
+
+      --btnBg:#14141b;
+      --btnText:#f2f2f2;
+      --btnBorder: rgba(255,255,255,0.14);
+      --btnShadow: 0 8px 20px rgba(0,0,0,0.45);
+    }
+
+    /* ===== Base ===== */
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:1100px; margin:0 auto; padding: 0 22px; }
+
+    /* ===== Navbar ===== */
+    .navbar{
+      position: sticky; top:0; z-index:1000;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-row{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 14px;
+    }
+    .brand{
+      font-weight:700;
+      letter-spacing:0.2px;
+    }
+    .nav-right{
+      display:flex; align-items:center; gap: 18px;
+    }
+    .nav-links{
+      display:flex; align-items:center; gap: 16px;
+      font-weight:600;
+      color: color-mix(in srgb, var(--text) 82%, transparent);
+    }
+    .nav-links a{
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+    .nav-links a:hover{
+      background: var(--pill);
+    }
+
+    /* ===== Toggle ===== */
+    .toggle{
+      border:1px solid var(--btnBorder);
+      background: var(--btnBg);
+      color: var(--btnText);
+      border-radius: 999px;
+      height: 38px;
+      padding: 0 12px;
+      display:flex; align-items:center; gap: 10px;
+      box-shadow: var(--btnShadow);
+      cursor:pointer;
+      user-select:none;
+      font-weight:700;
+    }
+    .toggle .dot{
+      width: 10px; height:10px; border-radius:999px;
+      background: color-mix(in srgb, var(--text) 70%, transparent);
+      opacity: 0.75;
+    }
+    .toggle .label{
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    /* ===== Cards / Sections ===== */
+    .page{ padding: 34px 0 54px; }
+    .hero{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+    .hero-top{
+      display:flex;
+      align-items:flex-start;
+      gap: 16px;
+    }
+    .thumb{
+      width: 86px; height: 86px;
+      border-radius: 16px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit: contain;
+      padding: 10px;
+      display:block;
+    }
+    .hero h1{
+      margin: 2px 0 8px;
+      font-size: 30px;
+      line-height: 1.15;
+      letter-spacing: -0.2px;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+      max-width: 72ch;
+    }
+    .chips{
+      display:flex; flex-wrap:wrap; gap: 8px;
+      margin-top: 14px;
+    }
+    .chip{
+      display:inline-flex; align-items:center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--pill);
+      color: var(--pillText);
+      font-weight: 650;
+      font-size: 12px;
+      border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+    }
+
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+      .nav-links{ display:none; }
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.1px;
+    }
+    .card p, .card li{
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    .card ul{ margin: 8px 0 0 18px; }
+
+    .links{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--btnBorder);
+      background: var(--btnBg);
+      box-shadow: var(--btnShadow);
+      font-weight: 750;
+    }
+    .btn span{
+      color: color-mix(in srgb, var(--text) 90%, transparent);
+    }
+    .btn small{
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    /* ===== Footer ===== */
+    footer{
+      border-top: 1px solid var(--border);
+      padding: 22px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .foot-row{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .foot-links{
+      display:flex; gap: 14px; flex-wrap: wrap;
+      font-weight: 650;
+    }
+    .foot-links a{ opacity: 0.9; }
+    .foot-links a:hover{ opacity: 1; text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="wrap">
+      <div class="nav-row">
+        <div class="brand"><a href="index.html">Adam Skarre</a></div>
+
+        <div class="nav-right">
+          <nav class="nav-links" aria-label="Primary">
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+          </nav>
+
+          <button class="toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="label" id="themeLabel">Light</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="wrap">
+      <section class="hero">
+        <div class="hero-top">
+          <div class="thumb" aria-hidden="true">
+            <!-- Replace with your ABB image path -->
+            <img src="assets/images/abb.jpg" alt="ABB logo">
+          </div>
+          <div>
+            <h1>Electromechanical Systems Modeling</h1>
+            <p class="sub">
+              Thermal performance modeling for an electrical enclosure: CAD parameterization, CFD-based natural convection analysis, and design iteration to improve temperature behavior across operating constraints.
+            </p>
+            <div class="chips" aria-label="Tags">
+              <span class="chip">ABB Senior Design</span>
+              <span class="chip">Siemens NX</span>
+              <span class="chip">ANSYS Fluent</span>
+              <span class="chip">Natural Convection</span>
+              <span class="chip">DoE / Iteration</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <section class="card">
+            <h2>What I Did</h2>
+            <ul>
+              <li>Built a parameter-driven enclosure model and controlled geometry changes (louvers, cutouts, thickness, etc.).</li>
+              <li>Set up CFD workflows to estimate temperature rise and airflow patterns under natural convection.</li>
+              <li>Ran iterative comparisons across design variants and operating assumptions to support decision-making.</li>
+              <li>Packaged results into presentation-ready outputs (figures, tables, and narrative for stakeholders).</li>
+            </ul>
+          </section>
+
+          <aside class="card">
+            <h2>Artifacts</h2>
+            <p>Link directly to PDFs so recruiters can verify substance fast.</p>
+
+            <div class="links">
+              <!-- Put your PDFs in assets/docs/abb/ (recommended) and update filenames below -->
+              <a class="btn" href="assets/docs/abb/ME01-Oral2.pdf" target="_blank" rel="noopener">
+                <span>Oral 2 (PDF)</span>
+                <small>Open →</small>
+              </a>
+              <a class="btn" href="assets/docs/abb/ME01-ABB-Enclosure-Temperature-Model.pdf" target="_blank" rel="noopener">
+                <span>Model Summary (PDF)</span>
+                <small>Open →</small>
+              </a>
+            </div>
+
+            <p style="margin-top:12px;">
+              If those filenames differ, match the link text to the exact file name in GitHub.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top:16px;">
+        <h2>Project Context</h2>
+        <p>
+          Focus: enclosure thermal management and temperature rise under realistic constraints. The work emphasizes modeling discipline (inputs, assumptions, repeatable runs), and traceable comparisons between baseline and modified designs.
+        </p>
+      </section>
+
+      <section class="card" style="margin-top:16px;">
+        <h2>Tools & Methods</h2>
+        <ul>
+          <li><strong>CAD:</strong> Siemens NX (parametric geometry control)</li>
+          <li><strong>Simulation:</strong> ANSYS Fluent (natural convection, steady-state comparisons)</li>
+          <li><strong>Engineering workflow:</strong> structured iteration + documentation + presentation packaging</li>
+        </ul>
+      </section>
+
+      <section class="card" style="margin-top:16px;">
+        <h2>Results</h2>
+        <p>
+          Add 3–6 concrete bullet outcomes here once you choose what’s shareable (temperature deltas, qualitative airflow improvements, weight/cost tradeoffs, or “baseline vs. variant” comparisons).
+        </p>
+        <ul>
+          <li>Baseline configuration established and documented</li>
+          <li>Variant set evaluated under consistent boundary conditions</li>
+          <li>Recommendation framed as a decision (not a screenshot dump)</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <div>© <span id="year"></span> Adam Skarre</div>
+        <div class="foot-links">
+          <a href="projects.html">Projects</a>
+          <a href="blog.html">Blog</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Theme toggle (same pattern across pages) =====
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const label = document.getElementById('themeLabel');
+
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') {
+        root.setAttribute('data-theme', saved);
+        label.textContent = saved.charAt(0).toUpperCase() + saved.slice(1);
+      } else {
+        root.setAttribute('data-theme', 'light');
+        label.textContent = 'Light';
+      }
+
+      btn.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme') || 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        label.textContent = next.charAt(0).toUpperCase() + next.slice(1);
+      });
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
