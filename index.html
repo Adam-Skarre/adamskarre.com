@@ -255,6 +255,20 @@
   font-weight: 800;
   letter-spacing: -0.02em;
 }
+    .forecast-grid{
+  display:flex;
+  gap:0.55rem;
+  justify-content:center;
+  align-items:stretch;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  padding:0.2rem 0.1rem 0.4rem 0.1rem;
+  -webkit-overflow-scrolling:touch;
+}
+.forecast-grid::-webkit-scrollbar{ height:8px; }
+.forecast-grid::-webkit-scrollbar-thumb{ background:rgba(0,0,0,0.18); border-radius:999px; }
+[data-theme="dark"] .forecast-grid::-webkit-scrollbar-thumb{ background:rgba(255,255,255,0.18); }
+.day{ min-width:92px; }
 
 .weather-cta {
   display: inline-flex;
@@ -295,6 +309,37 @@
   margin-top: 0.9rem;
   font-size: 0.85rem;
   opacity: 0.75;
+}
+    .weather-collapsed{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0.9rem;
+  padding:1.2rem 0.6rem;
+}
+
+.weather-prompt{
+  font-size:1.35rem;
+  font-weight:800;
+  letter-spacing:-0.02em;
+  text-align:center;
+  color:var(--weatherInk);
+}
+
+.weather-expanded{
+  padding-top:0.2rem;
+}
+
+.weather-header{
+  text-align:center;
+  margin-bottom:0.75rem;
+}
+
+.weather-location{
+  font-size:1.15rem;
+  font-weight:800;
+  letter-spacing:-0.01em;
 }
   </style>
 </head>
@@ -352,41 +397,42 @@
 
     </section>
 
-   <!-- WEATHER (Compact) -->
+<!-- WEATHER (Bottom card) -->
 <section class="weather-wrap">
-<!-- Local weather this week -->
-<div class="weather-card" id="weatherCard" aria-live="polite">
-  <div class="weather-top" style="display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px; text-align:center;">
-    <h3 id="weatherLocation" style="margin:0; font-size:24px; font-weight:700;">
-      What is the weather today?
-    </h3>
+  <div class="weather-title">Local weather this week</div>
 
-    <button class="weather-cta" id="weatherBtn" type="button">
-      Check Weather
-    </button>
+  <div class="weather-card" id="weatherCard" aria-live="polite">
+    <!-- collapsed state (Anaïs-like) -->
+    <div class="weather-collapsed" id="weatherCollapsed">
+      <div class="weather-prompt">What is the weather today?</div>
+      <button class="weather-cta" id="weatherBtn" type="button">Check Weather</button>
+    </div>
 
-    <div class="weather-meta" id="weatherMeta" style="margin-top:4px;">
-      <!-- status/errors go here -->
+    <!-- expanded state (after click) -->
+    <div class="weather-expanded" id="weatherExpanded" style="display:none;">
+      <div class="weather-header">
+        <div class="weather-location" id="weatherLocation">Local Weather</div>
+        <div class="weather-meta" id="weatherMeta">Uses browser location · Fahrenheit</div>
+      </div>
+
+      <div class="weather-main" id="weatherMain">
+        <div class="weather-temp" id="weatherTemp">—</div>
+        <div class="weather-right">
+          <div class="weather-desc" id="weatherDesc">—</div>
+          <div class="weather-sub" id="weatherSub">—</div>
+        </div>
+      </div>
+
+      <div class="forecast-title" id="forecastTitle">7-Day Forecast</div>
+      <div class="forecast-grid" id="forecastGrid"></div>
+
+      <div class="weather-footer" id="weatherFooter">
+        <a class="weather-link" id="detailLink" href="#" target="_blank" rel="noreferrer">
+          View detailed forecast →
+        </a>
+      </div>
     </div>
   </div>
-
-  <div class="weather-main" id="weatherMain" style="display:none; margin-top:18px; justify-content:center;">
-    <div class="weather-temp" id="weatherTemp">—</div>
-    <div>
-      <div class="weather-desc" id="weatherDesc">—</div>
-      <div class="weather-sub" id="weatherSub">—</div>
-    </div>
-  </div>
-
-  <div class="forecast-title" id="forecastTitle" style="display:none; margin-top:16px;">7-Day Forecast</div>
-  <div class="forecast-grid" id="forecastGrid" style="display:none;"></div>
-
-  <div class="weather-footer" id="weatherFooter" style="display:none; margin-top:14px;">
-    <a class="weather-link" id="detailLink" href="#" target="_blank" rel="noreferrer">
-      View detailed forecast →
-    </a>
-  </div>
-</div>
 </section>
   </main>
 
@@ -570,6 +616,37 @@ document.addEventListener("DOMContentLoaded", () => {
       weatherMeta.textContent = "Location permission required.";
     }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 600000 });
   }
+  .weather-collapsed{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0.9rem;
+  padding:1.2rem 0.6rem;
+}
+
+.weather-prompt{
+  font-size:1.35rem;
+  font-weight:800;
+  letter-spacing:-0.02em;
+  text-align:center;
+  color:var(--weatherInk);
+}
+
+.weather-expanded{
+  padding-top:0.2rem;
+}
+
+.weather-header{
+  text-align:center;
+  margin-bottom:0.75rem;
+}
+
+.weather-location{
+  font-size:1.15rem;
+  font-weight:800;
+  letter-spacing:-0.01em;
+}
 
   weatherBtn.addEventListener("click", getWeather);
 });
