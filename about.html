@@ -1,320 +1,409 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About | Adam Skarre</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    :root{
-      --bg:#f9fafc;
-      --panel:#ffffff;
-      --text:#111;
-      --muted:#5b6472;
-      --border:rgba(0,0,0,.08);
-      --shadow:0 10px 30px rgba(17,24,39,.06);
-      --radius:18px;
-      --chip:#f2f4f8;
-      --chipText:#2a3340;
-      --link:#0b63f6;
-    }
-    body.dark{
-      --bg:#0b0f17;
-      --panel:#0f1623;
-      --text:#eef2f7;
-      --muted:#a9b3c2;
-      --border:rgba(255,255,255,.10);
-      --shadow:0 16px 40px rgba(0,0,0,.35);
-      --chip:#121b2a;
-      --chipText:#d7dfeb;
-      --link:#7ab0ff;
+    /* --- THEME VARIABLES (match index.html) --- */
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #555;
+      --card: #f4f4f5;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+      --pill: rgba(17,17,17,0.06);
+      --pillText: rgba(17,17,17,0.8);
+
+      --btnBg: #ffffff;
+      --btnText: #111111;
+      --btnBorder: rgba(0,0,0,0.12);
+      --btnShadow: 0 8px 20px rgba(0,0,0,0.12);
     }
 
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    a{color:inherit}
+    [data-theme="dark"] {
+      --bg: #0f1115;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card: #1c1f26;
+      --border: #2a2f3a;
+      --shadow: 0 12px 40px rgba(0,0,0,0.35);
 
-    /* NAV (matches your current look) */
-    .navbar{background:var(--panel);box-shadow:0 1px 4px rgba(0,0,0,0.08);position:sticky;top:0;z-index:1000;border-bottom:1px solid var(--border)}
-    .nav-container{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:auto;padding:1rem 2rem}
-    .logo a{text-decoration:none;color:var(--text);font-weight:700;font-size:1.5rem}
-    .nav-right{display:flex;align-items:center;gap:1rem}
-    .nav-links{list-style:none;display:flex;gap:1rem;margin:0;padding:0}
-    .nav-links a{text-decoration:none;color:var(--text);font-weight:500;opacity:.9}
-    .nav-links a:hover{opacity:1;text-decoration:underline}
+      --pill: rgba(229,231,235,0.08);
+      --pillText: rgba(229,231,235,0.85);
 
-    /* Toggle */
-    .toggle-wrap{
-      display:flex;align-items:center;gap:.5rem;
-      background:rgba(0,0,0,.04);
-      border:1px solid var(--border);
-      padding:.35rem .5rem;
-      border-radius:999px;
-    }
-    body.dark .toggle-wrap{background:rgba(255,255,255,.05)}
-    .toggle-btn{
-      width:38px;height:30px;border-radius:999px;border:1px solid var(--border);
-      background:var(--panel);
-      display:grid;place-items:center;
-      cursor:pointer;
-    }
-    .toggle-btn:active{transform:translateY(1px)}
-    .sun{
-      width:16px;height:16px;display:block;
-      fill:var(--text);
-      opacity:.9;
+      --btnBg: rgba(255,255,255,0.14);
+      --btnText: #eaf1ff;
+      --btnBorder: rgba(255,255,255,0.18);
+      --btnShadow: 0 10px 26px rgba(0,0,0,0.45);
     }
 
-    /* Page layout */
-    .container{max-width:1100px;margin:2rem auto;padding:0 2rem}
-    .grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:1.25rem;
-    }
-    @media (max-width: 900px){
-      .grid{grid-template-columns:1fr}
-      .nav-container{padding:1rem 1.25rem}
-      .container{padding:0 1.25rem}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    .card{
-      background:var(--panel);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:1.75rem;
+    a { color: inherit; text-decoration: none; }
+
+    /* --- NAV (match index.html) --- */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      backdrop-filter: saturate(140%) blur(10px);
     }
 
-    .hero h1{margin:.25rem 0 0 0;font-size:2.1rem;letter-spacing:-.02em}
-    .hero p{margin:.9rem 0 0 0;color:var(--muted);line-height:1.6;font-size:1.03rem}
-    .hero .kicker{
-      display:inline-flex;align-items:center;gap:.5rem;
-      color:var(--muted);
-      font-weight:600;
-      font-size:.95rem;
-    }
-    .pill-row{
-      margin-top:1.1rem;
-      display:flex;flex-wrap:wrap;gap:.5rem;
-    }
-    .pill{
-      background:var(--chip);
-      color:var(--chipText);
-      border:1px solid var(--border);
-      padding:.45rem .65rem;
-      border-radius:999px;
-      font-size:.9rem;
-      line-height:1;
-      white-space:nowrap;
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .section-title{
-      display:flex;align-items:center;gap:.6rem;
-      font-weight:800;
-      letter-spacing:-.01em;
-      margin:0 0 1rem 0;
-      font-size:1.1rem;
-    }
-    .mini{
-      color:var(--muted);
-      font-size:.95rem;
-      line-height:1.6;
-      margin:.5rem 0 0 0;
+    .nav-left {
+      font-weight: 600;
+      font-size: 1.1rem;
     }
 
-    .link-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:.85rem;
+    .nav-right {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
     }
-    .link-card{
-      display:flex;align-items:center;gap:.85rem;
-      text-decoration:none;
-      padding:1rem;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background:rgba(0,0,0,.015);
-    }
-    body.dark .link-card{background:rgba(255,255,255,.03)}
-    .link-card:hover{transform:translateY(-1px)}
-    .icon{
-      width:42px;height:42px;border-radius:12px;
-      display:grid;place-items:center;
-      border:1px solid var(--border);
-      background:var(--panel);
-      flex:0 0 auto;
-    }
-    .link-meta{display:flex;flex-direction:column;gap:.15rem}
-    .link-meta strong{font-size:1rem}
-    .link-meta span{color:var(--muted);font-size:.92rem}
 
-    /* Footer */
-    footer{
-      max-width:1100px;
-      margin:2.25rem auto 2rem auto;
-      padding:0 2rem;
-      color:var(--muted);
-      font-size:.92rem;
+    /* --- THEME TOGGLE (exact index.html) --- */
+    .theme-switch {
+      width: 66px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      position: relative;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+      display: inline-flex;
+      align-items: center;
+      padding: 4px;
     }
-    .footer-inner{
-      border-top:1px solid var(--border);
-      padding:1.25rem 0;
-      display:flex;align-items:center;justify-content:space-between;
-      gap:1rem;flex-wrap:wrap;
+
+    .theme-knob {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+      transform: translateX(0);
+      transition: transform 220ms ease;
+      display: grid;
+      place-items: center;
     }
-    .footer-inner a{color:var(--link);text-decoration:none}
-    .footer-inner a:hover{text-decoration:underline}
+
+    [data-theme="dark"] .theme-knob { transform: translateX(32px); }
+
+    .icon-sun, .icon-moon { width: 18px; height: 18px; display: none; }
+    [data-theme="light"] .icon-sun { display: block; }
+    [data-theme="dark"]  .icon-moon { display: block; }
+
+    .icon-sun svg { fill: #f5c518; }
+    .icon-moon svg { fill: #cfd6e6; }
+
+    .theme-switch:focus-visible {
+      outline: 2px solid rgba(47,111,235,0.55);
+      outline-offset: 3px;
+    }
+
+    /* --- MAIN LAYOUT (match index.html) --- */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 1rem;
+      display: grid;
+      gap: 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    /* --- HERO (Anaïs-like but your style) --- */
+    .hero {
+      text-align: center;
+    }
+
+    .hero .kicker {
+      margin: 0 0 0.75rem 0;
+      font-weight: 650;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .hero h1 {
+      margin: 0 0 0.75rem 0;
+      font-size: 2.2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 .u {
+      border-bottom: 2px solid var(--text);
+      padding-bottom: 2px;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 720px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 1.02rem;
+    }
+
+    /* --- TWO COLUMN GRID (Interests + Links) --- */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    .card h2 {
+      margin: 0 0 1rem 0;
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .chip {
+      background: var(--pill);
+      color: var(--pillText);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.92rem;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .link-tile {
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      padding: 1.1rem;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+      transition: transform 140ms ease;
+      min-height: 92px;
+    }
+
+    .link-tile:hover { transform: translateY(-2px); }
+
+    .link-tile svg {
+      width: 42px;
+      height: 42px;
+      display: block;
+    }
+
+    /* --- FEATURED ARTICLES --- */
+    .articles {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .article {
+      display: grid;
+      gap: 0.25rem;
+      padding: 1.05rem 1.1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .article .title {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .article .meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .article a.read {
+      width: fit-content;
+      font-weight: 600;
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 2px;
+      margin-top: 0.2rem;
+    }
+
+    /* --- FOOTER (your index.html uses this class) --- */
+    .site-footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.75rem 1rem 2.25rem 1rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="nav-container">
-      <div class="logo"><a href="index.html">Adam Skarre</a></div>
-
-      <div class="nav-right">
-        <ul class="nav-links">
-          <li><a href="projects.html">Projects</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-
-        <div class="toggle-wrap" aria-label="Theme toggle">
-          <button class="toggle-btn" id="themeToggle" aria-label="Toggle dark mode" type="button">
-            <!-- sun icon -->
-            <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-9h2V1h-2v3zm9.66 1.46l-1.41-1.41-1.8 1.79 1.42 1.42 1.79-1.8zM20 11v2h3v-2h-3zM11 23h2v-3h-2v3zM4.95 19.78l1.41 1.41 1.8-1.79-1.42-1.42-1.79 1.8zm12.3-1.21l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM12 6a6 6 0 100 12 6 6 0 000-12z"/>
-            </svg>
-          </button>
-        </div>
+  <!-- NAV -->
+  <header>
+    <div class="nav">
+      <div class="nav-left">
+        <a href="index.html">Adam Skarre</a>
       </div>
+
+      <nav class="nav-right">
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+
+        <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span class="theme-knob">
+            <span class="icon-sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.41 0l.7.7A1 1 0 1 1 4.92 7.76l-.7-.7a1 1 0 0 1 0-1.41Zm13.45 13.45a1 1 0 0 1 1.41 0l.7.7a1 1 0 0 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 18.36a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Zm13.45-13.45a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
+              </svg>
+            </span>
+            <span class="icon-moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21.64 13a1 1 0 0 0-1.06-.27 8 8 0 0 1-10.31-10.3A1 1 0 0 0 9 1.36 10 10 0 1 0 22.64 14a1 1 0 0 0-1-.99ZM12 20a8 8 0 0 1-3.52-15.2 10 10 0 0 0 10.72 10.72A7.99 7.99 0 0 1 12 20Z"/>
+              </svg>
+            </span>
+          </span>
+        </button>
+      </nav>
     </div>
   </header>
 
-  <!-- CONTENT -->
-  <main class="container">
-    <div class="grid">
-      <!-- Left: Hero/About -->
-      <section class="card hero">
-        <div class="kicker">About</div>
-        <h1>Hi, I’m Adam</h1>
+  <main>
+    <!-- Block 1: Intro -->
+    <section class="card hero">
+      <div class="kicker">Hi, I’m Adam</div>
+      <h1>I’m passionate about <span class="u">innovation</span>.</h1>
+      <p>
+        I’m exploring engineering, technology, and business — building technically grounded work that connects design,
+        manufacturing, quantitative modeling, and real-world decision making.
+      </p>
+    </section>
 
-        <p>
-          I’m a mechanical engineering student with a design and manufacturing focus, with work spanning CAD,
-          quantitative modeling, and applied analysis. I’m drawn to problems at the intersection of engineering,
-          finance, and technology, and I build technically grounded projects that connect computation, mathematics,
-          and real-world decision making.
-        </p>
-
-        <div class="pill-row" aria-label="Interests">
-          <span class="pill">Mechanical Design</span>
-          <span class="pill">Manufacturing</span>
-          <span class="pill">CAD / Simulation</span>
-          <span class="pill">Quantitative Modeling</span>
-          <span class="pill">Finance + Engineering</span>
-          <span class="pill">Systems Thinking</span>
-          <span class="pill">AI / ML</span>
+    <!-- Block 2: Interests + Links -->
+    <section class="two-col">
+      <section class="card">
+        <h2>Interests</h2>
+        <div class="chips">
+          <span class="chip">Mechanical Design</span>
+          <span class="chip">Manufacturing</span>
+          <span class="chip">Quantitative Modeling</span>
+          <span class="chip">Applied Math</span>
+          <span class="chip">Financial Technology</span>
+          <span class="chip">Systems Thinking</span>
+          <span class="chip">Decision-Making</span>
+          <span class="chip">Automation</span>
+          <span class="chip">Software Engineering</span>
+          <span class="chip">Research</span>
         </div>
-
-        <p class="mini">
-          This site documents projects across design, manufacturing, quantitative modeling, and decision-oriented work.
-        </p>
       </section>
 
-      <!-- Right: Links -->
-      <aside class="card">
-        <div class="section-title">Links</div>
-
-        <div class="link-grid">
-          <a class="link-card" href="https://www.linkedin.com/in/adam-skarre-a2b470227/" target="_blank" rel="noopener">
-            <div class="icon" aria-hidden="true">
-              <!-- LinkedIn icon -->
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.5 23.5h4V7.5h-4v16ZM8 7.5h3.8v2.2h.1c.5-1 1.9-2.2 4-2.2 4.3 0 5.1 2.8 5.1 6.5v9.5h-4v-8.4c0-2 0-4.6-2.8-4.6s-3.2 2.2-3.2 4.4v8.6H8v-16Z" fill="currentColor"/>
-              </svg>
-            </div>
-            <div class="link-meta">
-              <strong>LinkedIn</strong>
-              <span>Professional profile</span>
-            </div>
+      <section class="card">
+        <h2>Links</h2>
+        <div class="links-grid">
+          <!-- LinkedIn -->
+          <a class="link-tile" href="https://www.linkedin.com/in/adam-skarre-a2b470227/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+              <path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.6 0 4.267 2.368 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM6.814 20.452H3.86V9h2.954v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.727v20.545C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.273V1.727C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
           </a>
 
-          <a class="link-card" href="projects.html">
-            <div class="icon" aria-hidden="true">
-              <!-- folder icon -->
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M10 4l2 2h8a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="link-meta">
-              <strong>Projects</strong>
-              <span>Featured work + case studies</span>
-            </div>
-          </a>
-
-          <a class="link-card" href="contact.html">
-            <div class="icon" aria-hidden="true">
-              <!-- mail icon -->
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z" stroke="currentColor" stroke-width="2"/>
-                <path d="M22 8l-10 7L2 8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="link-meta">
-              <strong>Contact</strong>
-              <span>Get in touch</span>
-            </div>
+          <!-- Placeholder tile (optional): replace when you decide (GitHub/X/Email) -->
+          <a class="link-tile" href="contact.html" aria-label="Contact">
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+              <path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
           </a>
         </div>
+      </section>
+    </section>
 
-        <p class="mini" style="margin-top:1rem;">
-          If you add GitHub or a resume link later, duplicate one link-card block and swap the icon + URL.
-        </p>
-      </aside>
-    </div>
+    <!-- Block 3: Featured Articles -->
+    <section class="card">
+      <h2>Featured articles</h2>
 
-    <!-- Optional: Second row (keeps the Anaïs-style “Interests + Links” feel without needing a photo) -->
-    <section class="card" style="margin-top:1.25rem;">
-      <div class="section-title">What I focus on</div>
-      <p class="mini" style="margin:0;">
-        Designing and building practical, technically rigorous projects: CAD and mechanical design workflows,
-        manufacturing-oriented problem solving, and quantitative models that translate messy constraints into decisions.
-      </p>
+      <div class="articles">
+        <!-- Replace href + text with your real URLs/titles -->
+        <div class="article">
+          <div class="title">UConn feature — Consulting case: [Title]</div>
+          <div class="meta">Short 1–2 line description of what the case was and what you contributed.</div>
+          <a class="read" href="#" target="_blank" rel="noreferrer">Read →</a>
+        </div>
+
+        <div class="article">
+          <div class="title">Harvard Business School feature — Case competition: [Title]</div>
+          <div class="meta">Short 1–2 line description of scope, outcome, and your role.</div>
+          <a class="read" href="#" target="_blank" rel="noreferrer">Read →</a>
+        </div>
+
+        <div class="article">
+          <div class="title">Feature — Consulting case: [Title]</div>
+          <div class="meta">Short 1–2 line description (what was analyzed, what was delivered, result).</div>
+          <a class="read" href="#" target="_blank" rel="noreferrer">Read →</a>
+        </div>
+      </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div>© <span id="year"></span> Adam Skarre. All rights reserved.</div>
-      <div>
-        <a href="index.html">Home</a>
-        <span style="opacity:.6;"> · </span>
-        <a href="projects.html">Projects</a>
-        <span style="opacity:.6;"> · </span>
-        <a href="contact.html">Contact</a>
-      </div>
-    </div>
-  </footer>
-
   <script>
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    /* ---------- Theme toggle (same as index.html) ---------- */
+    const html = document.documentElement;
+    const toggle = document.getElementById("themeToggle");
 
-    // Theme toggle (persist across pages)
-    (function () {
-      const stored = localStorage.getItem('theme');
-      if (stored === 'dark') document.body.classList.add('dark');
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) html.setAttribute("data-theme", savedTheme);
 
-      const btn = document.getElementById('themeToggle');
-      btn.addEventListener('click', function () {
-        document.body.classList.toggle('dark');
-        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-      });
-    })();
+    toggle.addEventListener("click", () => {
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
   </script>
+
+  <footer class="site-footer">
+    © 2025 Adam Skarre. All rights reserved.
+  </footer>
 </body>
 </html>
