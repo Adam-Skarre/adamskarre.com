@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ABB — Project Progress | Adam Skarre</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+
+  <style>
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
+    .card { background: var(--card, #f4f4f5); border: 1px solid var(--border, rgba(0,0,0,.08)); border-radius: 18px; box-shadow: var(--shadow, 0 10px 30px rgba(0,0,0,.08)); }
+    .section { padding: 18px; margin-bottom: 16px; }
+    .section h1 { margin: 0 0 6px; font-size: 1.6rem; }
+    .section h2 { margin: 18px 0 8px; font-size: 1.15rem; }
+    .section p { margin: 0; color: var(--muted, #555); line-height: 1.6; }
+
+    .frame {
+      width: 100%;
+      height: 78vh;
+      border: 1px solid var(--border, rgba(0,0,0,.08));
+      border-radius: 14px;
+      margin-top: 10px;
+    }
+
+    .meta {
+      margin-top: 8px;
+      color: var(--muted, #555);
+      font-size: .95rem;
+    }
+
+    .copyrightOnly {
+      padding: 24px 20px;
+      text-align: center;
+      color: var(--muted, #555);
+      font-size: .95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <div class="navbar">
+    <div class="nav-container">
+      <div class="logo"><a href="index.html">Adam Skarre</a></div>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="toggle" id="themeToggle" type="button">
+        <span class="toggle-icon">☀️</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="card section">
+      <h1>ABB — Electromechanical Systems Modeling</h1>
+      <p>
+        This page tracks active senior design progress. Content is updated as modeling,
+        validation, and presentation milestones are completed.
+      </p>
+      <div class="meta">Status: in progress</div>
+    </section>
+
+    <section class="card section">
+      <h2>Oral 2 — Current Milestone</h2>
+      <iframe
+        class="frame"
+        src="assets/docs/ME01-Oral2.pdf">
+      </iframe>
+    </section>
+
+    <section class="card section">
+      <h2>Model Summary — Working Document</h2>
+      <iframe
+        class="frame"
+        src="assets/docs/ME01-ABB-Enclosure-Temperature-Model.pdf">
+      </iframe>
+    </section>
+  </main>
+
+  <footer class="copyrightOnly">
+    © <span id="year"></span> Adam Skarre. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const html = document.documentElement;
+    const toggle = document.getElementById("themeToggle");
+    const icon = toggle.querySelector(".toggle-icon");
+
+    function applyTheme(theme) {
+      html.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      icon.textContent = theme === "dark" ? "🌙" : "☀️";
+    }
+
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark" || saved === "light") applyTheme(saved);
+
+    toggle.addEventListener("click", () => {
+      const current = html.getAttribute("data-theme") || "light";
+      applyTheme(current === "dark" ? "light" : "dark");
+    });
+  </script>
+</body>
+</html>
