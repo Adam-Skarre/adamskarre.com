@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* --- THEME VARIABLES (match Laboratory) --- */
+    /* ---------- THEME VARIABLES ---------- */
     :root {
       --bg: #ffffff;
       --text: #111111;
@@ -15,53 +15,6 @@
       --card: #f4f4f5;
       --border: #e5e7eb;
       --shadow: 0 10px 30px rgba(0,0,0,0.08);
-      /* --- PAGE HEADER CARD (match Blog / Projects) --- */
-.page-card{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 2.2rem 2.2rem 1.9rem;
-  box-shadow: var(--shadow);
-  margin-bottom: 2rem;
-}
-
-.page-title{
-  margin: 0 0 0.65rem 0;
-  font-size: 2.4rem;
-  letter-spacing: -0.02em;
-}
-
-.page-subtitle{
-  margin: 0;
-  color: var(--muted);
-  max-width: 60ch;
-  line-height: 1.6;
-}
-      /* --- CONSISTENT HERO BLOCK (use on Projects/Blog/Contact) --- */
-.page {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 3rem 1rem;
-}
-
-.page-hero {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 2.2rem 2.2rem;
-  box-shadow: var(--shadow);
-  margin-bottom: 2rem;
-}
-
-.page-hero h1, .page-hero h2 {
-  margin: 0 0 0.8rem 0;
-}
-
-/* Contact-only: keep the form narrower without shrinking the hero */
-.narrow {
-  max-width: 600px;
-  margin: 0 auto;
-}
     }
 
     [data-theme="dark"] {
@@ -82,7 +35,7 @@
 
     a { color: inherit; text-decoration: none; }
 
-    /* --- NAV (match Laboratory) --- */
+    /* ---------- NAV ---------- */
     header {
       position: sticky;
       top: 0;
@@ -112,7 +65,7 @@
       align-items: center;
     }
 
-    /* --- THEME TOGGLE (EXACT match to Laboratory) --- */
+    /* ---------- THEME TOGGLE ---------- */
     .theme-switch {
       width: 66px;
       height: 34px;
@@ -121,7 +74,6 @@
       background: var(--card);
       position: relative;
       cursor: pointer;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
       display: inline-flex;
       align-items: center;
       padding: 4px;
@@ -133,65 +85,79 @@
       border-radius: 999px;
       background: var(--bg);
       border: 1px solid var(--border);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
       transform: translateX(0);
       transition: transform 220ms ease;
       display: grid;
       place-items: center;
     }
 
-    [data-theme="dark"] .theme-knob { transform: translateX(32px); }
-
-    .icon-sun, .icon-moon {
-      width: 18px;
-      height: 18px;
-      display: none;
+    [data-theme="dark"] .theme-knob {
+      transform: translateX(32px);
     }
 
-    [data-theme="light"] .icon-sun { display: block; }
-    [data-theme="dark"]  .icon-moon { display: block; }
-
-    .icon-sun svg { fill: #f5c518; }
-    .icon-moon svg { fill: #cfd6e6; }
-
-    .theme-switch:focus-visible {
-      outline: 2px solid rgba(47,111,235,0.55);
-      outline-offset: 3px;
-    }
-
-    /* --- PAGE --- */
+    /* ---------- PAGE LAYOUT ---------- */
     main {
-      max-width: 600px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 3rem 1rem;
     }
 
-    h2 { margin: 0 0 1rem 0; }
-    p { margin: 0; color: var(--muted); line-height: 1.6; }
+    /* ---------- HERO (MATCH BLOG / PROJECTS) ---------- */
+    .page-hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2.4rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 3rem;
+    }
+
+    .page-hero h1 {
+      margin: 0 0 0.75rem 0;
+      font-size: 3rem;
+      letter-spacing: -0.02em;
+    }
+
+    .page-hero p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 70ch;
+      line-height: 1.6;
+    }
+
+    /* ---------- CONTACT FORM ---------- */
+    .form-wrap {
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
     form {
       display: grid;
       gap: 0.75rem;
-      margin-top: 1.5rem;
     }
 
-    label { font-weight: 600; }
+    label {
+      font-weight: 600;
+    }
 
     input, textarea {
-      padding: 0.8rem;
+      padding: 0.85rem;
       font-size: 1rem;
-      border-radius: 0.5rem;
+      border-radius: 0.6rem;
       border: 1px solid var(--border);
       background: var(--bg);
       color: var(--text);
     }
 
-    textarea { resize: vertical; }
+    textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
 
     button[type="submit"] {
-      margin-top: 0.5rem;
-      padding: 0.9rem;
-      border-radius: 0.7rem;
+      margin-top: 0.75rem;
+      padding: 0.95rem;
+      border-radius: 0.75rem;
       border: none;
       background: #111;
       color: #fff;
@@ -199,10 +165,11 @@
       cursor: pointer;
     }
 
+    /* ---------- FOOTER ---------- */
     footer {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 2rem 1rem 3rem;
+      padding: 2.5rem 1rem 3rem;
       text-align: center;
       font-size: 0.9rem;
       color: var(--muted);
@@ -213,45 +180,33 @@
 
 <body>
 
-  <!-- NAV -->
-  <header>
-    <div class="nav">
-      <div class="nav-left">
-        <a href="index.html">Adam Skarre</a>
-      </div>
-
-      <nav class="nav-right">
-        <a href="projects.html">Projects</a>
-        <a href="blog.html">Blog</a>
-        <a href="contact.html">Contact</a>
-
-        <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
-          <span class="theme-knob">
-            <span class="icon-sun" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.41 0l.7.7A1 1 0 1 1 4.92 7.76l-.7-.7a1 1 0 0 1 0-1.41Zm13.45 13.45a1 1 0 0 1 1.41 0l.7.7a1 1 0 0 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 18.36a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Zm13.45-13.45a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
-              </svg>
-            </span>
-            <span class="icon-moon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M21.64 13a1 1 0 0 0-1.06-.27 8 8 0 0 1-10.31-10.3A1 1 0 0 0 9 1.36 10 10 0 1 0 22.64 14a1 1 0 0 0-1-.99ZM12 20a8 8 0 0 1-3.52-15.2 10 10 0 0 0 10.72 10.72A7.99 7.99 0 0 1 12 20Z"/>
-              </svg>
-            </span>
-          </span>
-        </button>
-      </nav>
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <a href="index.html">Adam Skarre</a>
     </div>
-  </header>
 
-  <!-- CONTENT -->
-  <main>
-  <section class="page-card">
-    <h1 class="page-title">Contact</h1>
-    <p class="page-subtitle">
-      If you’d like to get in touch, send a message below.
-    </p>
+    <nav class="nav-right">
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+
+      <button class="theme-switch" id="themeToggle" type="button">
+        <span class="theme-knob">☀️</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="page-hero">
+    <h1>Contact</h1>
+    <p>If you’d like to get in touch, send a message below.</p>
   </section>
 
+  <!-- FORM -->
+  <div class="form-wrap">
     <form action="https://formspree.io/f/xwpogapy" method="POST">
       <label for="name">Name</label>
       <input id="name" name="name" type="text" required />
@@ -260,30 +215,30 @@
       <input id="email" name="email" type="email" required />
 
       <label for="message">Message</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
+      <textarea id="message" name="message" required></textarea>
 
       <button type="submit">Send</button>
     </form>
-  </main>
+  </div>
+</main>
 
-  <footer>
-    <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
-  </footer>
+<footer>
+  <p>&copy; 2025 Adam Skarre. All rights reserved.</p>
+</footer>
 
-  <script>
-    /* ---------- Theme toggle (same as Laboratory) ---------- */
-    const html = document.documentElement;
-    const toggle = document.getElementById("themeToggle");
+<script>
+  const html = document.documentElement;
+  const toggle = document.getElementById("themeToggle");
 
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) html.setAttribute("data-theme", savedTheme);
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) html.setAttribute("data-theme", savedTheme);
 
-    toggle.addEventListener("click", () => {
-      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      html.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    });
-  </script>
+  toggle.addEventListener("click", () => {
+    const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
+</script>
 
 </body>
 </html>
