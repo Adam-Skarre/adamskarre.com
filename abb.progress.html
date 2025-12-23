@@ -93,42 +93,52 @@
     }
     .nav-right a:hover{opacity:1}
 
-    /* THEME SWITCH (same markup + behavior; styling lives here so it’s consistent) */
-    .theme-switch{
-      border:1px solid var(--btnBorder);
-      background:var(--btnBg);
-      color:var(--btnText);
-      box-shadow:var(--btnShadow);
-      border-radius:999px;
-      padding:8px 10px;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:56px;
-      justify-content:center;
-      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    /* --- THEME TOGGLE (EXACT match to Laboratory) --- */
+    .theme-switch {
+      width: 66px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      position: relative;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+      display: inline-flex;
+      align-items: center;
+      padding: 4px;
     }
-    .theme-switch:active{transform: translateY(1px)}
-    .theme-knob{
-      width:32px;
-      height:18px;
-      border-radius:999px;
-      background:var(--pill);
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 4px;
+
+    .theme-knob {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+      transform: translateX(0);
+      transition: transform 220ms ease;
+      display: grid;
+      place-items: center;
     }
-    .theme-knob svg{
-      width:14px;height:14px;
-      fill:currentColor;
-      opacity:.85;
+
+    [data-theme="dark"] .theme-knob { transform: translateX(32px); }
+
+    .icon-sun, .icon-moon {
+      width: 18px;
+      height: 18px;
+      display: none;
     }
-    /* show sun/moon more clearly */
-    [data-theme="dark"] .icon-sun{opacity:.35}
-    [data-theme="light"] .icon-moon{opacity:.35}
+
+    [data-theme="light"] .icon-sun { display: block; }
+    [data-theme="dark"]  .icon-moon { display: block; }
+
+    .icon-sun svg { fill: #f5c518; }
+    .icon-moon svg { fill: #cfd6e6; }
+
+    .theme-switch:focus-visible {
+      outline: 2px solid rgba(47,111,235,0.55);
+      outline-offset: 3px;
+    }
 
     /* PAGE LAYOUT */
     main{
@@ -287,18 +297,16 @@
         <a href="blog.html">Blog</a>
         <a href="contact.html">Contact</a>
 
-        <!-- SAME toggle button markup as contact-3.html -->
         <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
           <span class="theme-knob">
             <span class="icon-sun" aria-hidden="true">
               <svg viewBox="0 0 24 24">
-                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 4.22a1 1 0 0 1 1.41 0l.7.7a1 1 0 1 1-1.41 1.42l-.7-.7a1 1 0 0 1 0-1.42ZM17.66 17.66a1 1 0 0 1 1.41 0l.7.7a1 1 0 0 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 13a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 19.78a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0ZM17.66 6.34a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
+                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.41 0l.7.7A1 1 0 1 1 4.92 7.76l-.7-.7a1 1 0 0 1 0-1.41Zm13.45 13.45a1 1 0 0 1 1.41 0l.7.7a1 1 0 0 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 18.36a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Zm13.45-13.45a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
               </svg>
             </span>
-
             <span class="icon-moon" aria-hidden="true">
               <svg viewBox="0 0 24 24">
-                <path d="M21 14.5A7.5 7.5 0 0 1 9.5 3a1 1 0 0 1 1.17 1.17A5.5 5.5 0 1 0 19.83 13.33 1 1 0 0 1 21 14.5Z"/>
+                <path d="M21.64 13a1 1 0 0 0-1.06-.27 8 8 0 0 1-10.31-10.3A1 1 0 0 0 9 1.36 10 10 0 1 0 22.64 14a1 1 0 0 0-1-.99ZM12 20a8 8 0 0 1-3.52-15.2 10 10 0 0 0 10.72 10.72A7.99 7.99 0 0 1 12 20Z"/>
               </svg>
             </span>
           </span>
@@ -347,17 +355,16 @@
   <footer>© 2025 Adam Skarre</footer>
 
   <script>
-    /* ---------- Theme toggle (SAME pattern as contact-3.html) ---------- */
-    const htmlEl = document.documentElement;
+    /* ---------- Theme toggle (same as Laboratory) ---------- */
+    const html = document.documentElement;
     const toggle = document.getElementById("themeToggle");
 
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) htmlEl.setAttribute("data-theme", savedTheme);
+    if (savedTheme) html.setAttribute("data-theme", savedTheme);
 
     toggle.addEventListener("click", () => {
-      const current = htmlEl.getAttribute("data-theme") || "light";
-      const next = current === "light" ? "dark" : "light";
-      htmlEl.setAttribute("data-theme", next);
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
       localStorage.setItem("theme", next);
     });
 
