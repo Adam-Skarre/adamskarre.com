@@ -4,159 +4,157 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ABB Progress | Adam Skarre</title>
-
-  <!-- Favicons (adjust paths if yours differ) -->
-  <link rel="icon" href="assets/favicon/favicon.ico" />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg" />
-  <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png" />
+  <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* =========================
-       THEME (match your site)
-    ========================== */
+    /* ---- Match your site look/feel + SAME toggle behavior as contact-3.html ---- */
+
     :root{
       --bg:#ffffff;
       --text:#111111;
-      --muted:#555555;
+      --muted:#555;
       --card:#f4f4f5;
       --border:#e5e7eb;
-      --shadow:0 10px 30px rgba(0,0,0,0.08);
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+
+      --pill: rgba(17,17,17,.06);
+      --pillText: rgba(17,17,17,.8);
 
       --btnBg:#ffffff;
       --btnText:#111111;
-      --btnBorder:rgba(0,0,0,0.12);
-      --btnShadow:0 8px 20px rgba(0,0,0,0.12);
+      --btnBorder: rgba(0,0,0,.12);
+      --btnShadow: 0 8px 20px rgba(0,0,0,.12);
     }
 
     [data-theme="dark"]{
-      --bg:#0b0f16;
-      --text:#eef2ff;
-      --muted:rgba(238,242,255,0.72);
-      --card:#101826;
-      --border:rgba(255,255,255,0.10);
-      --shadow:0 16px 40px rgba(0,0,0,0.45);
+      --bg:#0b0f14;
+      --text:#f3f4f6;
+      --muted:#a3a3a3;
+      --card:#111827;
+      --border:#1f2937;
+      --shadow:0 12px 30px rgba(0,0,0,.35);
 
-      --btnBg:#0f172a;
-      --btnText:#eef2ff;
-      --btnBorder:rgba(255,255,255,0.14);
-      --btnShadow:0 12px 26px rgba(0,0,0,0.45);
+      --pill: rgba(255,255,255,.08);
+      --pillText: rgba(255,255,255,.85);
+
+      --btnBg:#0b0f14;
+      --btnText:#f3f4f6;
+      --btnBorder: rgba(255,255,255,.14);
+      --btnShadow: 0 10px 24px rgba(0,0,0,.45);
     }
 
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       background:var(--bg);
       color:var(--text);
     }
 
-    a{ color:inherit; text-decoration:none; }
-
-    /* =========================
-       NAV (same structure)
-    ========================== */
+    /* NAV (same structure as contact-3.html) */
     header{
-      position:sticky;
+      position: sticky;
       top:0;
       z-index:1000;
-      background:var(--bg);
+      background:rgba(255,255,255,.8);
+      backdrop-filter:saturate(180%) blur(12px);
       border-bottom:1px solid var(--border);
+    }
+    [data-theme="dark"] header{
+      background:rgba(11,15,20,.75);
     }
 
     .nav{
       max-width:1100px;
       margin:0 auto;
-      padding:14px 22px;
+      padding:18px 20px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:16px;
     }
-
     .nav-left a{
-      font-weight:800;
-      letter-spacing:-0.02em;
-      font-size:20px;
+      font-weight:700;
+      font-size:22px;
+      color:var(--text);
+      text-decoration:none;
+      letter-spacing:-.02em;
     }
-
     .nav-right{
       display:flex;
       align-items:center;
       gap:18px;
-      font-weight:600;
     }
-
     .nav-right a{
-      opacity:0.92;
+      color:var(--text);
+      text-decoration:none;
+      font-weight:500;
+      opacity:.9;
     }
-    .nav-right a:hover{ opacity:1; }
+    .nav-right a:hover{opacity:1}
 
-    /* Toggle (must match your other pages) */
+    /* THEME SWITCH (same markup + behavior; styling lives here so it’s consistent) */
     .theme-switch{
-      margin-left:8px;
-      border:1px solid var(--border);
-      background:var(--card);
-      border-radius:999px;
-      padding:6px;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 6px 16px rgba(0,0,0,0.08);
-    }
-
-    .theme-knob{
-      width:44px;
-      height:28px;
-      border-radius:999px;
-      background:var(--btnBg);
       border:1px solid var(--btnBorder);
+      background:var(--btnBg);
+      color:var(--btnText);
       box-shadow:var(--btnShadow);
+      border-radius:999px;
+      padding:8px 10px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:56px;
+      justify-content:center;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+    .theme-switch:active{transform: translateY(1px)}
+    .theme-knob{
+      width:32px;
+      height:18px;
+      border-radius:999px;
+      background:var(--pill);
       position:relative;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:0 8px;
+      padding:0 4px;
     }
-
     .theme-knob svg{
-      width:16px;
-      height:16px;
+      width:14px;height:14px;
       fill:currentColor;
-      opacity:0.75;
+      opacity:.85;
     }
+    /* show sun/moon more clearly */
+    [data-theme="dark"] .icon-sun{opacity:.35}
+    [data-theme="light"] .icon-moon{opacity:.35}
 
-    [data-theme="dark"] .theme-knob .icon-sun{ opacity:0.35; }
-    [data-theme="light"] .theme-knob .icon-moon{ opacity:0.35; }
-
-    /* =========================
-       PAGE LAYOUT
-    ========================== */
+    /* PAGE LAYOUT */
     main{
       max-width:1100px;
       margin:0 auto;
-      padding:46px 22px 70px;
+      padding:38px 20px 56px;
     }
 
     .hero{
       background:var(--card);
       border:1px solid var(--border);
       border-radius:18px;
-      padding:28px;
       box-shadow:var(--shadow);
+      padding:26px 26px;
+      margin-top:14px;
       text-align:center;
     }
-
     .hero h1{
       margin:0 0 10px;
-      font-size:34px;
-      letter-spacing:-0.03em;
+      font-size:38px;
+      letter-spacing:-.03em;
     }
-
     .hero p{
       margin:0;
       color:var(--muted);
-      line-height:1.55;
+      line-height:1.5;
       font-size:16px;
     }
 
@@ -169,132 +167,114 @@
       overflow:hidden;
     }
 
-    .section-head{
-      padding:18px 18px 14px;
-      border-bottom:1px solid var(--border);
+    .sectionHead{
+      padding:18px 20px;
       display:flex;
-      align-items:flex-end;
+      align-items:flex-start;
       justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
+      gap:16px;
+      border-bottom:1px solid var(--border);
+      background:rgba(255,255,255,.35);
+    }
+    [data-theme="dark"] .sectionHead{
+      background:rgba(255,255,255,.03);
     }
 
-    .section-head-left h2{
+    .sectionTitle{
       margin:0;
       font-size:18px;
-      letter-spacing:-0.01em;
+      font-weight:700;
     }
-
-    .path{
-      margin-top:6px;
+    .sectionSub{
+      margin:6px 0 0;
       color:var(--muted);
       font-size:13px;
+      line-height:1.45;
     }
 
+    /* Viewer controls */
     .controls{
       display:flex;
       align-items:center;
       gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
-
     .btn{
-      appearance:none;
       border:1px solid var(--btnBorder);
       background:var(--btnBg);
       color:var(--btnText);
+      box-shadow:var(--btnShadow);
       border-radius:12px;
       padding:10px 12px;
-      font-weight:700;
+      font-weight:600;
       cursor:pointer;
-      box-shadow:0 8px 18px rgba(0,0,0,0.10);
-      line-height:1;
+      transition: transform .12s ease, box-shadow .12s ease;
+      user-select:none;
     }
-    .btn:active{ transform:translateY(1px); }
-
+    .btn:active{transform: translateY(1px)}
     .zoomWrap{
       display:flex;
       align-items:center;
       gap:10px;
       border:1px solid var(--btnBorder);
       background:var(--btnBg);
+      box-shadow:var(--btnShadow);
       border-radius:12px;
       padding:10px 12px;
-      box-shadow:0 8px 18px rgba(0,0,0,0.10);
+      min-width:240px;
     }
-
-    .zoomLabel{
-      font-weight:800;
+    .zoomPct{
       min-width:52px;
       text-align:right;
-      color:var(--btnText);
-      opacity:0.9;
+      font-weight:700;
     }
-
     input[type="range"]{
-      width:180px;
+      width:150px;
     }
 
+    /* Poster viewport */
     .viewer{
-      height:min(72vh, 900px);
-      background:rgba(0,0,0,0.06);
+      height:min(72vh, 780px);
+      background:rgba(0,0,0,.04);
       border-top:1px solid var(--border);
-    }
-
-    [data-theme="dark"] .viewer{
-      background:rgba(255,255,255,0.05);
-    }
-
-    .scroll{
-      height:100%;
       overflow:auto;
-      padding:22px;
+      padding:18px;
     }
-
-    .canvas{
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      min-width:fit-content;
+    [data-theme="dark"] .viewer{
+      background:rgba(255,255,255,.03);
     }
-
     .poster{
-      transform-origin: top center;
-      will-change: transform;
-      border-radius:12px;
-      box-shadow:0 18px 40px rgba(0,0,0,0.22);
+      transform-origin: top left;
+      display:block;
+      max-width:none; /* allow true zoom */
+      height:auto;
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+      border-radius:10px;
+      border:1px solid rgba(0,0,0,.08);
       background:#fff;
-      max-width:none; /* allow real size + zoom */
     }
 
-    .note{
-      padding:14px 18px 18px;
-      color:var(--muted);
-      font-size:14px;
-      border-top:1px solid var(--border);
-      text-align:center;
-    }
-
-    /* =========================
-       FOOTER (copyright only)
-    ========================== */
+    /* FOOTER: copyright only */
     footer{
       border-top:1px solid var(--border);
-      padding:18px 22px;
-      color:var(--muted);
+      padding:22px 20px;
       text-align:center;
-      font-size:14px;
+      color:var(--muted);
+      font-size:13px;
     }
 
-    @media (max-width:700px){
-      .nav-right{ gap:12px; }
-      input[type="range"]{ width:140px; }
-      .hero h1{ font-size:28px; }
+    @media (max-width: 720px){
+      .hero h1{font-size:30px}
+      .sectionHead{flex-direction:column}
+      .controls{justify-content:flex-start}
+      .zoomWrap{min-width:100%}
+      input[type="range"]{width:100%}
     }
   </style>
 </head>
 
 <body>
-  <!-- HEADER (same as your other pages) -->
   <header>
     <div class="nav">
       <div class="nav-left">
@@ -307,16 +287,18 @@
         <a href="blog.html">Blog</a>
         <a href="contact.html">Contact</a>
 
+        <!-- SAME toggle button markup as contact-3.html -->
         <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle theme">
           <span class="theme-knob">
             <span class="icon-sun" aria-hidden="true">
               <svg viewBox="0 0 24 24">
-                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Zm10-8a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1ZM4 12a1 1 0 0 1-1 1H2a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1Zm15.07-7.07a1 1 0 0 1 0 1.41l-.7.7a1 1 0 1 1-1.41-1.41l.7-.7a1 1 0 0 1 1.41 0ZM6.04 18.96a1 1 0 0 1 0 1.41l-.7.7a1 1 0 1 1-1.41-1.41l.7-.7a1 1 0 0 1 1.41 0Zm12.32 0a1 1 0 0 1-1.41 0l-.7-.7a1 1 0 1 1 1.41-1.41l.7.7a1 1 0 0 1 0 1.41ZM6.04 5.04a1 1 0 0 1-1.41 0l-.7-.7A1 1 0 1 1 5.34 2.93l.7.7a1 1 0 0 1 0 1.41Z"/>
+                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 4.22a1 1 0 0 1 1.41 0l.7.7a1 1 0 1 1-1.41 1.42l-.7-.7a1 1 0 0 1 0-1.42ZM17.66 17.66a1 1 0 0 1 1.41 0l.7.7a1 1 0 0 1-1.41 1.41l-.7-.7a1 1 0 0 1 0-1.41ZM2 13a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 19.78a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0ZM17.66 6.34a1 1 0 0 1 0-1.41l.7-.7a1 1 0 1 1 1.41 1.41l-.7.7a1 1 0 0 1-1.41 0Z"/>
               </svg>
             </span>
+
             <span class="icon-moon" aria-hidden="true">
               <svg viewBox="0 0 24 24">
-                <path d="M21.64 13a1 1 0 0 0-1.06-.27 8 8 0 0 1-10.31-10.3 1 1 0 0 0-1.33-1.06A10 10 0 1 0 21.64 13ZM12 20a8 8 0 0 1-3.52-15.2 10 10 0 0 0 10.72 10.72A7.99 7.99 0 0 1 12 20Z"/>
+                <path d="M21 14.5A7.5 7.5 0 0 1 9.5 3a1 1 0 0 1 1.17 1.17A5.5 5.5 0 1 0 19.83 13.33 1 1 0 0 1 21 14.5Z"/>
               </svg>
             </span>
           </span>
@@ -332,95 +314,75 @@
     </section>
 
     <section class="section" aria-label="Poster viewer">
-      <div class="section-head">
-        <div class="section-head-left">
-          <h2>Poster</h2>
+      <div class="sectionHead">
+        <div>
+          <div class="sectionTitle">Poster</div>
           
         </div>
 
         <div class="controls">
-          <button class="btn" id="zoomOut" type="button" aria-label="Zoom out">−</button>
+          <button class="btn" id="zoomOut" type="button">−</button>
 
           <div class="zoomWrap" aria-label="Zoom control">
-            <div class="zoomLabel" id="zoomPct">100%</div>
-            <input id="zoomRange" type="range" min="60" max="220" step="5" value="100" />
+            <div class="zoomPct" id="zoomPct">100%</div>
+            <input id="zoomRange" type="range" min="50" max="200" value="100" />
           </div>
 
-          <button class="btn" id="zoomIn" type="button" aria-label="Zoom in">+</button>
+          <button class="btn" id="zoomIn" type="button">+</button>
           <button class="btn" id="zoomReset" type="button">Reset</button>
         </div>
       </div>
 
-      <div class="viewer">
-        <div class="scroll" id="scrollArea">
-          <div class="canvas">
-            <!-- IMPORTANT: exact path you said -->
-            <img id="posterImg" class="poster" src="assets/images/poster.jpg" alt="ABB progress poster" />
-          </div>
-        </div>
-      </div>
-
-      <div class="note">
-        If the poster looks slightly blurry while zooming, pause movement for a second; the browser will re-render at the new scale.
+      <div class="viewer" id="viewer">
+        <img
+          id="posterImg"
+          class="poster"
+          src="assets/images/poster.jpg"
+          alt="ABB poster"
+        />
       </div>
     </section>
   </main>
 
-  <footer>© <span id="year"></span> Adam Skarre</footer>
+  <footer>© 2025 Adam Skarre</footer>
 
   <script>
-    /* =========================
-       THEME TOGGLE (same logic)
-    ========================== */
-    const html = document.documentElement;
-    const toggle = document.getElementById('themeToggle');
+    /* ---------- Theme toggle (SAME pattern as contact-3.html) ---------- */
+    const htmlEl = document.documentElement;
+    const toggle = document.getElementById("themeToggle");
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) html.setAttribute('data-theme', savedTheme);
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) htmlEl.setAttribute("data-theme", savedTheme);
 
-    toggle.addEventListener('click', () => {
-      const current = html.getAttribute('data-theme') || 'light';
-      const next = current === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+    toggle.addEventListener("click", () => {
+      const current = htmlEl.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      htmlEl.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
     });
 
-    /* Footer year */
-    document.getElementById('year').textContent = new Date().getFullYear();
+    /* ---------- Poster zoom + viewer ---------- */
+    const poster = document.getElementById("posterImg");
+    const zoomRange = document.getElementById("zoomRange");
+    const zoomPct = document.getElementById("zoomPct");
+    const zoomIn = document.getElementById("zoomIn");
+    const zoomOut = document.getElementById("zoomOut");
+    const zoomReset = document.getElementById("zoomReset");
 
-    /* =========================
-       POSTER VIEWER (zoom/scroll)
-    ========================== */
-    const poster = document.getElementById('posterImg');
-    const zoomRange = document.getElementById('zoomRange');
-    const zoomPct = document.getElementById('zoomPct');
-
-    const zoomIn = document.getElementById('zoomIn');
-    const zoomOut = document.getElementById('zoomOut');
-    const zoomReset = document.getElementById('zoomReset');
-
-    function applyZoom(v){
-      const scale = v / 100;
-      poster.style.transform = `scale(${scale})`;
-      zoomPct.textContent = `${v}%`;
-    }
-
-    function setZoom(v){
-      const min = parseInt(zoomRange.min, 10);
-      const max = parseInt(zoomRange.max, 10);
-      const clamped = Math.max(min, Math.min(max, v));
+    function setZoom(val) {
+      const clamped = Math.max(50, Math.min(200, val));
       zoomRange.value = clamped;
-      applyZoom(clamped);
+      zoomPct.textContent = clamped + "%";
+      poster.style.transform = "scale(" + (clamped / 100) + ")";
     }
 
-    zoomRange.addEventListener('input', (e) => setZoom(parseInt(e.target.value, 10)));
+    zoomRange.addEventListener("input", (e) => setZoom(parseInt(e.target.value, 10)));
 
-    zoomIn.addEventListener('click', () => setZoom(parseInt(zoomRange.value, 10) + 10));
-    zoomOut.addEventListener('click', () => setZoom(parseInt(zoomRange.value, 10) - 10));
-    zoomReset.addEventListener('click', () => setZoom(100));
+    zoomIn.addEventListener("click", () => setZoom(parseInt(zoomRange.value, 10) + 10));
+    zoomOut.addEventListener("click", () => setZoom(parseInt(zoomRange.value, 10) - 10));
+    zoomReset.addEventListener("click", () => setZoom(100));
 
-    /* initial */
-    applyZoom(parseInt(zoomRange.value, 10));
+    setZoom(100);
   </script>
 </body>
 </html>
