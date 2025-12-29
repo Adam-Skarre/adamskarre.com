@@ -104,11 +104,17 @@
   height:28px;     /* tweak 24–32 */
   width:auto;
   display:block;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px; /* touch target + visual anchor */
 }
 
-.brand-text{
-  font-size:1.05rem;
-  line-height:1;
+.brand-logo {
+  height: 40px;     /* this is the key change */
+  width: auto;
+  display: block;
 }
 
 .site-logo {
