@@ -79,6 +79,16 @@
       z-index: 100;
       backdrop-filter: saturate(140%) blur(10px);
     }
+    .logo-link {
+  display: flex;
+  align-items: center;
+}
+
+.site-logo {
+  height: 28px;          /* adjust: 24–32px is ideal */
+  width: auto;
+  display: block;
+}
 
     .nav {
       max-width: 1100px;
@@ -461,7 +471,9 @@
   <header>
     <div class="nav">
   <div class="nav-left">
-  <a href="index.html">Adam Skarre</a>
+  <a href="index.html" class="logo-link">
+    <img src="assets/images/logo.png" alt="Adam Skarre logo" class="site-logo">
+  </a>
 </div>
       <nav class="nav-right">
         <a href="about.html">About</a>
