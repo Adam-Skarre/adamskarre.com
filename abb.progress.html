@@ -365,28 +365,41 @@
       localStorage.setItem("theme", next);
     });
 
-    /* ---------- Poster zoom + viewer ---------- */
-    const poster = document.getElementById("posterImg");
-    const zoomRange = document.getElementById("zoomRange");
-    const zoomPct = document.getElementById("zoomPct");
-    const zoomIn = document.getElementById("zoomIn");
-    const zoomOut = document.getElementById("zoomOut");
-    const zoomReset = document.getElementById("zoomReset");
+/* ---------- Poster zoom + viewer ---------- */
+const posters = document.querySelectorAll(".poster");
+const zoomRange = document.getElementById("zoomRange");
+const zoomPct = document.getElementById("zoomPct");
+const zoomIn = document.getElementById("zoomIn");
+const zoomOut = document.getElementById("zoomOut");
+const zoomReset = document.getElementById("zoomReset");
 
-    function setZoom(val) {
-      const clamped = Math.max(50, Math.min(200, val));
-      zoomRange.value = clamped;
-      zoomPct.textContent = clamped + "%";
-      poster.style.transform = "scale(" + (clamped / 100) + ")";
-    }
+function setZoom(val) {
+  const clamped = Math.max(50, Math.min(200, val));
+  zoomRange.value = clamped;
+  zoomPct.textContent = clamped + "%";
 
-    zoomRange.addEventListener("input", (e) => setZoom(parseInt(e.target.value, 10)));
+  posters.forEach(p => {
+    p.style.transform = "scale(" + (clamped / 100) + ")";
+  });
+}
 
-    zoomIn.addEventListener("click", () => setZoom(parseInt(zoomRange.value, 10) + 10));
-    zoomOut.addEventListener("click", () => setZoom(parseInt(zoomRange.value, 10) - 10));
-    zoomReset.addEventListener("click", () => setZoom(100));
+zoomRange.addEventListener("input", (e) =>
+  setZoom(parseInt(e.target.value, 10))
+);
 
-    setZoom(100);
+zoomIn.addEventListener("click", () =>
+  setZoom(parseInt(zoomRange.value, 10) + 10)
+);
+
+zoomOut.addEventListener("click", () =>
+  setZoom(parseInt(zoomRange.value, 10) - 10)
+);
+
+zoomReset.addEventListener("click", () =>
+  setZoom(100)
+);
+
+setZoom(100);
   </script>
 </body>
 </html>
