@@ -244,26 +244,36 @@
     }
 
     /* Poster viewport */
-    .viewer{
-      height:min(72vh, 780px);
-      background:rgba(0,0,0,.04);
-      border-top:1px solid var(--border);
-      overflow:auto;
-      padding:18px;
-    }
-    [data-theme="dark"] .viewer{
-      background:rgba(255,255,255,.03);
-    }
-    .poster{
-      transform-origin: top left;
-      display:block;
-      max-width:none; /* allow true zoom */
-      height:auto;
-      box-shadow: 0 18px 40px rgba(0,0,0,.18);
-      border-radius:10px;
-      border:1px solid rgba(0,0,0,.08);
-      background:#fff;
-    }
+   .viewer{
+  height:auto;
+  background:rgba(0,0,0,.04);
+  border-top:1px solid var(--border);
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+#posterContainer{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  align-items:center;
+}
+
+.poster{
+  width:100%;
+  max-width:1000px;
+  height:auto;
+  display:block;
+
+  box-shadow:0 18px 40px rgba(0,0,0,.18);
+  border-radius:10px;
+  border:1px solid rgba(0,0,0,.08);
+  background:#fff;
+
+  transform-origin: top center;
+}
 
     /* FOOTER: copyright only */
     footer{
@@ -281,6 +291,30 @@
       .zoomWrap{min-width:100%}
       input[type="range"]{width:100%}
     }
+    @media (max-width: 720px){
+
+  .viewer{
+    padding:8px;
+  }
+
+  #posterContainer{
+    gap:12px;
+  }
+
+  .poster{
+    width:100%;
+    border-radius:6px;
+  }
+
+  .controls{
+    gap:8px;
+  }
+
+  .btn{
+    padding:8px 10px;
+    font-size:14px;
+  }
+}
   </style>
 </head>
 
@@ -374,13 +408,19 @@ const zoomOut = document.getElementById("zoomOut");
 const zoomReset = document.getElementById("zoomReset");
 
 function setZoom(val) {
+
   const clamped = Math.max(50, Math.min(200, val));
+
   zoomRange.value = clamped;
+
   zoomPct.textContent = clamped + "%";
 
   posters.forEach(p => {
-    p.style.transform = "scale(" + (clamped / 100) + ")";
+
+    p.style.width = clamped + "%";
+
   });
+
 }
 
 zoomRange.addEventListener("input", (e) =>
