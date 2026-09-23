@@ -11,6 +11,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
   <link rel="manifest" href="assets/favicon/site.webmanifest">
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="finance/teaser.css">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JZJDR5J9ZX"></script>
 
@@ -511,6 +512,12 @@
       <a href="projects.html">View projects →</a>
     </section>
 
+<section class="finance-feature" aria-labelledby="finance-feature-title">
+  <div class="finance-feature-main"><div><p class="finance-eyebrow">FEATURED / INTERACTIVE FINANCE</p><h2 id="finance-feature-title">Investment Lab</h2><p class="finance-summary">What makes an acquisition worth the price? Explore a working buyout model, build an operating plan, and compare industrial companies.</p><a class="finance-launch" id="finance-open" href="finance/">Launch the workspace <span aria-hidden="true">↗</span></a></div>
+  <div class="finance-mini"><div class="finance-mini-top"><strong>Try the investment case</strong><span>Gorman-Rupp / FY2025</span></div><label for="finance-entry">Entry enterprise value / EBITDA <output id="finance-entry-value" for="finance-entry">10.0×</output></label><input id="finance-entry" type="range" min="6" max="14" step="0.1" value="10" aria-describedby="finance-mini-disclosure"><div class="finance-mini-metrics" aria-live="polite"><div><strong id="finance-return">7.9%</strong><span>FIVE-YEAR EQUITY IRR</span></div><div><strong id="finance-moic">1.46×</strong><span>INVESTED CAPITAL MULTIPLE</span></div></div><p class="finance-mini-note" id="finance-verdict">Below the 20% return hurdle</p><p class="finance-mini-note" id="finance-mini-disclosure">Hypothetical acquisition · 4.5× debt · 9× exit. Move the slider to recalculate.</p></div></div>
+  <div class="finance-feature-bottom"><a href="finance/#operations">02 / Operating value creation <span aria-hidden="true">↗</span></a><a href="finance/#screening">03 / Industrial company screener <span aria-hidden="true">↗</span></a></div>
+</section>
+
  <!-- FEATURED PROJECTS -->
 <section class="card featured">
   <h2>Featured Projects</h2>
@@ -761,5 +768,6 @@
   <footer class="site-footer">
   © 2025 Adam Skarre. All rights reserved.
 </footer>
+<script type="module" src="finance/teaser.mjs"></script>
 </body>
 </html>

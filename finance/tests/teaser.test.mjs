@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {calculate} from '../model.mjs';
+import {caseFromSearch} from '../workspace.mjs';
+const {JSDOM}=await import(process.env.DOM_TEST_MODULE||'jsdom');
+const dom=new JSDOM(await fs.readFile(new URL('../../index.html',import.meta.url),'utf8'),{url:'https://portfolio.test/',runScripts:'outside-only'});
+Object.assign(globalThis,{window:dom.window,document:dom.window.document,location:dom.window.location});
+await import('../teaser.mjs');
+test('the homepage demonstration recalculates returns and links to the same scenario',()=>{
+  const $=s=>document.querySelector(s),slider=$('#finance-entry');
+  assert.equal($('#finance-return').textContent,'7.9%');
+  slider.value='7.5';slider.dispatchEvent(new dom.window.Event('input'));
+  const expected=calculate({entryMultiple:7.5});
+  assert.equal($('#finance-return').textContent,(expected.irr*100).toFixed(1)+'%');
+  assert.equal($('#finance-moic').textContent,expected.moic.toFixed(2)+'×');
+  assert.equal(caseFromSearch(new URL($('#finance-open').href).search).entryMultiple,7.5);
+  assert.equal(new URL($('#finance-open').href).pathname,'/finance/');
+  assert.equal($('#finance-verdict').textContent,'Clears the 20% return hurdle');
+});

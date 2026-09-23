@@ -8,7 +8,7 @@ Three independent educational case studies for Adam Skarre's portfolio:
 
 ## Run and validate
 
-Serve the repository with any static HTTP server and open `/finance/`. No build, API key, account, or database is required. `node --test finance/tests/model.test.mjs` runs the financial-engine checks. The module `model.mjs` is shared by the application and verification scripts. The Excel workbook contains a separate formula implementation that is reconciled against this engine during generation.
+Serve the repository with any static HTTP server and open `/finance/`. No build, API key, account, or database is required. `node --test finance/tests/model.test.mjs` runs the financial-engine checks. Run `npm install` followed by `npm test` for the full suite, including isolated DOM interaction tests. The test environment requires Node 24 or newer. The module `model.mjs` is shared by the application and verification scripts. The Excel workbook contains a separate formula implementation that is reconciled against this engine during generation.
 
 ## Data and honesty
 
@@ -31,3 +31,9 @@ The EBITDA proxy is operating income plus cash-flow D&A. It is not company-adjus
 ## Updating
 
 Replace each reported input from the linked source and update its fiscal date, retrieval date and accounting notes. Reconcile operating income, D&A, CFO, capex, cash and debt before calculating the common metrics. Do not blend reported and management-adjusted metrics or treat missing values as zero. Regenerate the workbook and PDF and rerun the engine and cross-implementation checks after any model change.
+
+## Interactive workflow
+
+The homepage teaser recalculates returns as visitors change entry price. The full workspace supports linked sliders and exact inputs, clickable entry/exit sensitivities, a target-return price action, three local comparison snapshots, and URL-based scenario sharing. Comparison data remains in browser local storage; no account or server storage is used. Shared URLs contain only validated public model assumptions.
+
+The HTML, CSS and JavaScript are published directly through the repository's existing GitHub Pages deployment. The PDF and workbook are supporting downloads under Research & memo; they are not required to use the projects.
