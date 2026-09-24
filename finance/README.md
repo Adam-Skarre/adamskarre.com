@@ -12,7 +12,7 @@ Serve the repository with any static HTTP server and open `/finance/`. No build,
 
 ## Data and honesty
 
-`data.mjs` contains the fixed FY2025 reporting snapshot, source URLs and fiscal dates. Values are stored in USD millions. This is a historical educational exercise prepared in September 2026, not live market data and not a contemporaneous 2025 investment decision. No association with, endorsement by, or work for a financial institution is represented.
+`data.mjs` contains the fixed audited FY2025 reporting snapshot, source URLs and fiscal dates. Values are stored in USD millions. This is a historical educational exercise prepared in September 2026, not live market data and not a contemporaneous 2025 investment decision. No association with, endorsement by, or work for a financial institution is represented.
 
 The EBITDA proxy is operating income plus cash-flow D&A. It is not company-adjusted EBITDA or a covenant definition. Company-level charges, accounting changes, cash availability, pension obligations and prospective acquisitions must be researched before valuation. The screener preserves important exceptions and does not imply that companies are for sale.
 
@@ -25,8 +25,8 @@ The EBITDA proxy is operating income plus cash-flow D&A. It is not company-adjus
 - Cash taxes are simplified, with no NOL, interest-deduction, acquisition tax or purchase-accounting analysis. This is not a full three-statement model.
 - Minimum cash is funded at acquisition and included in exit cash. Sources and uses show assumed old debt payoff and target cash. Under the debt-free/cash-free convention, old debt payoff cancels in sponsor funding.
 - Operating NWC uses receivables + inventory + prepaid/other current assets − accounts payable − accrued liabilities. Inventory initiatives lower the balance; only changes affect period cash flow.
-- The DCF is unlevered, discounted at year end, with a perpetual-growth terminal value. Terminal working-capital investment is recomputed at terminal growth. No market-estimated WACC is claimed.
-- Excel is the editable default model. Browser changes export as a current-case CSV; they do not alter the downloadable workbook or original base-case PDF.
+- The DCF is unlevered, discounted at year end, with a perpetual-growth terminal value. Terminal reinvestment equals positive normalized NOPAT multiplied by terminal growth divided by an assumed incremental return on invested capital. No market-estimated WACC is claimed.
+- The browser model is the primary interactive experience. Changes export as a current-case CSV; the downloadable Excel workbook and PDF retain the documented baseline case.
 
 ## Updating
 
@@ -37,3 +37,15 @@ Replace each reported input from the linked source and update its fiscal date, r
 The homepage teaser recalculates returns as visitors change entry price. The full workspace supports linked sliders and exact inputs, clickable entry/exit sensitivities, a target-return price action, three local comparison snapshots, and URL-based scenario sharing. Comparison data remains in browser local storage; no account or server storage is used. Shared URLs contain only validated public model assumptions.
 
 The HTML, CSS and JavaScript are published directly through the repository's existing GitHub Pages deployment. The PDF and workbook are supporting downloads under Research & memo; they are not required to use the projects.
+
+## September 2026 research upgrade
+
+The Financial model view is the default entry point. Its five worksheets expose cash flows and cell-level formula traces, three years of audited financials, financing and stress analysis, reinvestment-consistent DCF valuation, and the evidence register.
+
+`diligence-data.mjs` transcribes the FY2025 10-K and June 2026 10-Q in USD millions. `analysis.mjs` independently reconciles historical cash flow, total cash and end-market sales, constructs the LTM bridge, evaluates deterministic stresses and constrained debt capacity, and allocates operating-plan equity value across all initiative permutations. The six-order attribution is an allocation of model outputs, not a causal estimate.
+
+The LTM update remains separate from the FY2025 acquisition base. The case is a retrospective public-data exercise, not a statement of current buyout value. Debt payoff uses reported principal of $310.750m before unquantified transaction adjustments.
+
+The default DCF now assumes 12% terminal incremental ROIC; positive terminal NOPAT finances growth through a growth / ROIC reinvestment rate. This replaces the original capex-ratio terminal shortcut. The original discount-rate and growth assumptions remain explicit.
+
+The website leads with live calculations and current-case export. Excel and PDF are supporting baseline records; the same authoring scripts keep them reconciled after financial-engine changes.

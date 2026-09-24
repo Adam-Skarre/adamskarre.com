@@ -56,10 +56,14 @@ test('revolver draws are capped, charge opening interest and repay before term s
   const r=calculate({caseName:'Downside',capexRatio:.085,revolverLimit:200});
   for(const y of r.years){assert.ok(y.revolver<=200+1e-8);if(y.termSweep>0)near(y.revolver,0);near(y.interest,y.openingTerm*.08+y.openingRevolver*.09);}
 });
-test('terminal working capital uses terminal growth, not year-five forecast growth',()=>{
+test('terminal growth requires reinvestment at the assumed incremental ROIC',()=>{
   const r=calculate();const y=r.years.at(-1),g=defaults.terminalGrowth;
-  const expected=y.recurringEbitda*(1+g)-(y.recurringEbitda-y.revenue*defaults.daRatio)*(1+g)*.25-y.revenue*(1+g)*.032-y.nwc*g;
-  near(r.terminalFcf,expected);
+  const nopat=(y.recurringEbitda-y.revenue*defaults.daRatio)*(1+g)*.75;
+  near(r.terminalNopat,nopat);near(r.terminalReinvestment,nopat*g/.12);
+  near(r.terminalFcf,nopat*(1-g/.12));
+  const noGrowth=calculate({terminalGrowth:0});near(noGrowth.terminalReinvestment,0);near(noGrowth.terminalFcf,noGrowth.terminalNopat);
+  assert.ok(calculate({terminalRoic:.08}).dcfEV<r.dcfEV);
+  assert.throws(()=>calculate({terminalRoic:0}));
 });
 test('sensitivity center matches and price/multiple effects have correct direction',()=>{
   const r=calculate(),m=sensitivity(defaults,[9,10,11],[8,9,10]);near(m[1][1],r.irr);assert.ok(m[0][1]>m[1][1]&&m[1][1]>m[2][1]);assert.ok(m[1][2]>m[1][1]&&m[1][1]>m[1][0]);

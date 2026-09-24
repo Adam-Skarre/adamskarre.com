@@ -50,7 +50,7 @@ table([['Transaction assumption','Default case','Return / financing measure','Re
 text('Scenario discipline','h')
 table([['Scenario','Revenue path','Exit multiple','Gross IRR','MOIC'],['Downside','-8%, -2%, 1%, 2%, 2%','7.0x',pct(low['irr']),multiple(low['moic'])],['Base','4% annually','9.0x',pct(b['irr']),multiple(b['moic'])],['Upside','6%, 6%, 5%, 5%, 4%','10.0x',pct(u['irr']),multiple(u['moic'])]],[83,190,87,82,82])
 text('Scenarios also vary EBITDA margin: Base unchanged; Upside +0.3 to +1.0 percentage points; Downside -3.0 to -1.0 points versus FY2025. No operating initiatives are included in this table. Gross returns precede fund fees and carry.','small')
-text('The DCF assumes a 10.0% discount rate and 2.5% perpetual growth. These are illustrative assumptions, not market-derived estimates. No current share price, takeover premium or observed transaction multiple is used.','small')
+text('The DCF assumes a 10.0% discount rate, 2.5% perpetual growth and 12.0% terminal return on invested capital. Growth requires reinvestment. These are illustrative assumptions, not market-derived estimates. No current share price, takeover premium or observed transaction multiple is used.','small')
 
 story.append(PageBreak())
 head('02 / Operating value creation','An operating plan with costs','Pricing, process yield and inventory initiatives feed the same cash-flow, debt and returns model.')
@@ -76,11 +76,11 @@ text('Priority diligence questions','h')
 text('<b>Commercial:</b> Which customers and end markets drive backlog, cancellations and pricing power? <b>Operations:</b> What plant and SKU evidence supports yield and inventory targets? <b>Financial:</b> Which earnings adjustments are nonrecurring, and what cash effects accompany them? <b>Financing:</b> What are actual debt payoff, pension, lease and debt-like obligations, lender covenants and seasonal liquidity needs?')
 text('Definitions and scope','h')
 text('Screen EBITDA proxy = reported operating income + D&amp;A; FCF = operating cash flow - gross capex; net leverage = (book debt - cash) / EBITDA proxy. Fiscal dates and source notes appear in the interactive screen and workbook. Multiples used for illustrative valuation are user assumptions, not trading comparables.','small')
-text('The acquisition model covers five annual periods, sources and uses, debt sweeps, bounded revolver draws, cash taxes and a DCF cross-check. Interest uses beginning debt. No interim distributions are assumed. A funding shortfall suppresses returns. The model is not a full three-statement or purchase-accounting model; it omits tax-loss carryforwards, interest-deduction limits and intra-year financing. Debt payoff of $310m is an assumption; reported book debt is $307.531m.','small')
+text('The acquisition model covers five annual periods, sources and uses, debt sweeps, bounded revolver draws, cash taxes and a DCF cross-check. Interest uses beginning debt. No interim distributions are assumed. A funding shortfall suppresses returns. The model is not a full three-statement or purchase-accounting model; it omits tax-loss carryforwards, interest-deduction limits and intra-year financing. Estimated payoff uses $310.750m reported principal before break costs and accrued interest; book debt is $307.531m.','small')
 text('Primary sources','h')
 for peer in sorted(sources['peers'], key=lambda x: ['GRC','GGG','DCI','FLS','ITT'].index(x['ticker'])):
     text(f'<link href="{peer["url"]}" color="#225DA8">{peer["name"]}: FY2025 results and financial statements</link> | fiscal year ended {peer["period"]}','small')
-text('Historical inputs retrieved September 23, 2026. Gorman-Rupp condensed earnings-release statements are unaudited. This retrospective case uses FY2025 information; it is not a contemporaneous 2025 decision or a representation of executed investment work.','small')
+text('Historical inputs retrieved September 23, 2026. Gorman-Rupp annual financial inputs reconcile to the audited FY2025 10-K. This retrospective case uses FY2025 information; it is not a contemporaneous 2025 decision or a representation of executed investment work.','small')
 
 target=OUT/'investment-memo.pdf'
 doc=SimpleDocTemplate(str(target),pagesize=(612,792),rightMargin=44,leftMargin=44,topMargin=43,bottomMargin=53,title='Gorman-Rupp | Investment and operating case',author='Adam Skarre')

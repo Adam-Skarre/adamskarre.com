@@ -1,8 +1,8 @@
 export const source = {
-  title: 'Gorman-Rupp FY2025 earnings release',
-  url: 'https://www.sec.gov/Archives/edgar/data/42682/000119312526040888/grc-ex99.htm',
-  published: '2026-02-06', period: '2025-12-31', retrieved: '2026-09-23',
-  basis: 'Reported annual results. Condensed financial statements in the release are unaudited. USD millions.'
+  title: 'Gorman-Rupp FY2025 Form 10-K',
+  url: 'https://www.sec.gov/Archives/edgar/data/42682/000119312526084820/grc-20251231.htm',
+  published: '2026-03-02', period: '2025-12-31', retrieved: '2026-09-23',
+  basis: 'Audited consolidated financial statements, pp.29–31. USD millions; original SEC tables in thousands.'
 };
 export const history = [
   {year:2024,revenue:659.667,cogs:455.339,ebit:91.443,da:27.897,netIncome:40.115,interest:33.621,tax:10.378,cfo:69.830,capex:14.319,cash:24.213,bookDebt:366.597,receivables:87.636,inventory:99.205,prepaids:9.773,payables:24.752,accruals:44.275},
@@ -11,8 +11,8 @@ export const history = [
 export const company = {...history[1],name:'Gorman-Rupp',ticker:'GRC',sector:'Industrial pumps',source,
   ebitda:history[1].ebit+history[1].da,
   nwc:history[1].receivables+history[1].inventory+history[1].prepaids-history[1].payables-history[1].accruals,
-  debtPayoff:310,
-  debtPayoffNote:'Illustrative debt payoff assumption of $310m; confirm principal, accrued interest and break costs in diligence. Book debt is $307.531m.'
+  debtPayoff:310.750,
+  debtPayoffNote:'Debt payoff uses the reported $310.750m principal as an estimate. Principal less $3.219m unamortized fees equals the $307.531m carrying value. Accrued interest, break costs and a lender payoff letter remain diligence items.'
 };
 export const cases = {
   Base: {growth:[.04,.04,.04,.04,.04],marginChange:[0,0,0,0,0],exitMultiple:9},
@@ -23,7 +23,7 @@ export const defaults = {
   caseName:'Base',entryMultiple:10,exitMultiple:9,debtMultiple:4.5,interestRate:.08,
   amortization:.01,transactionFee:.02,financingFee:.02,exitFee:.01,minCash:20,revolverLimit:50,
   taxRate:.25,capexRatio:.032,daRatio:company.da/company.revenue,nwcRatio:company.nwc/company.revenue,
-  growth:.04,marginChange:0,hurdle:.20,wacc:.10,terminalGrowth:.025,
+  growth:.04,marginChange:0,hurdle:.20,wacc:.10,terminalGrowth:.025,terminalRoic:.12,
   usePlan:false,priceEnabled:true,yieldEnabled:true,inventoryEnabled:true,
   priceIncrease:.01,volumeLoss:.0025,contributionMargin:.35,scrapSaving:.006,inventoryDays:8,
   ramp:[.35,.75,1,1,1],implementationCost:[2,1,0,0,0],initiativeCapex:[3,0,0,0,0],

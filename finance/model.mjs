@@ -6,6 +6,7 @@ export function assumptions(overrides={}) {
   const bounded={entryMultiple:[2,25],exitMultiple:[2,25],debtMultiple:[0,8],interestRate:[.001,.30],amortization:[0,.25],transactionFee:[0,.1],financingFee:[0,.1],exitFee:[0,.1],minCash:[0,200],revolverLimit:[0,500],taxRate:[0,.5],capexRatio:[0,.2],daRatio:[0,.2],nwcRatio:[0,1],growth:[-.5,.5],marginChange:[-.15,.15],hurdle:[.01,.5],wacc:[.03,.3],terminalGrowth:[0,.08],priceIncrease:[0,.1],volumeLoss:[0,.1],contributionMargin:[0,1],scrapSaving:[0,.05],inventoryDays:[0,45],maxLeverage:[1,10],minCoverage:[1,5]};
   for(const [k,[min,max]] of Object.entries(bounded)) if(typeof a[k]!=='number'||!Number.isFinite(a[k])||a[k]<min||a[k]>max) throw new Error(`${k}: enter a number between ${min} and ${max}.`);
   if(a.terminalGrowth>=a.wacc) throw new Error('Terminal growth must be below the discount rate.');
+  if(typeof a.terminalRoic!=='number'||!Number.isFinite(a.terminalRoic)||a.terminalRoic<.01||a.terminalRoic>.5)throw new Error('Terminal ROIC must be between 1% and 50%.');
   for(const k of ['ramp','implementationCost','initiativeCapex']) if(!Array.isArray(a[k])||a[k].length!==5||a[k].some(v=>typeof v!=='number'||!Number.isFinite(v)||v<0)||(k==='ramp'&&a[k].some(v=>v>1))) throw new Error(`Invalid ${k} schedule.`);
   return a;
 }
@@ -74,8 +75,11 @@ export function calculate(overrides={}) {
   const creditPass=feasible&&minCoverage>=a.minCoverage&&maxNetLeverage<=a.maxLeverage;
   const maxBid=(exitEquity/Math.pow(1+a.hurdle,5)+initialDebt-a.minCash-financingFees)/(1+a.transactionFee);
   const terminalRevenue=last.revenue*(1+a.terminalGrowth),terminalEbitda=last.recurringEbitda*(1+a.terminalGrowth);
-  const terminalDa=terminalRevenue*a.daRatio,terminalCapex=terminalRevenue*a.capexRatio,terminalDeltaNwc=last.nwc*a.terminalGrowth;
-  const terminalFcf=terminalEbitda-Math.max(0,terminalEbitda-terminalDa)*a.taxRate-terminalCapex-terminalDeltaNwc;
+  const terminalDa=terminalRevenue*a.daRatio;
+  const terminalEbit=terminalEbitda-terminalDa;
+  const terminalNopat=terminalEbit-Math.max(0,terminalEbit)*a.taxRate;
+  const terminalReinvestment=terminalNopat>0?terminalNopat*a.terminalGrowth/a.terminalRoic:0;
+  const terminalFcf=terminalNopat-terminalReinvestment;
   const terminalValue=terminalFcf/(a.wacc-a.terminalGrowth);
   const pvForecast=years.reduce((s,y,i)=>s+y.ufcf/Math.pow(1+a.wacc,i+1),0);
   const pvTerminal=terminalValue/Math.pow(1+a.wacc,5), dcfEV=pvForecast+pvTerminal;
@@ -91,7 +95,7 @@ export function calculate(overrides={}) {
     {label:'Equity floor',value:Math.max(0,-(exitEV-exitCosts-last.term-last.revolver+last.cash))},
     {label:'Exit equity',value:exitEquity,total:true}
   ];
-  return {a,entryEV,initialDebt,transactionFees,financingFees,sponsorEquity,sellerEquity,uses,sources,sourceCheck:sources-uses,years,exitEV,exitCosts,exitEquity,moic,irr,feasible,minCoverage:Number.isFinite(minCoverage)?minCoverage:null,maxNetLeverage,creditPass,maxBid:Math.max(0,maxBid),maxBidMultiple:Math.max(0,maxBid)/company.ebitda,dcfEV,pvForecast,pvTerminal,terminalFcf,dcfEquity:dcfEV-company.debtPayoff+company.cash,terminalShare:pvTerminal/dcfEV,bridge,
+  return {a,entryEV,initialDebt,transactionFees,financingFees,sponsorEquity,sellerEquity,uses,sources,sourceCheck:sources-uses,years,exitEV,exitCosts,exitEquity,moic,irr,feasible,minCoverage:Number.isFinite(minCoverage)?minCoverage:null,maxNetLeverage,creditPass,maxBid:Math.max(0,maxBid),maxBidMultiple:Math.max(0,maxBid)/company.ebitda,dcfEV,pvForecast,pvTerminal,terminalFcf,terminalNopat,terminalReinvestment,dcfEquity:dcfEV-company.debtPayoff+company.cash,terminalShare:pvTerminal/dcfEV,bridge,
     bridgeCheck:bridge.slice(0,-1).reduce((s,v)=>s+v.value,0)-bridge.at(-1).value};
 }
 

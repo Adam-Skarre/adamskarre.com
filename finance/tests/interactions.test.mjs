@@ -78,3 +78,27 @@ test('company filters handle empty results and restore a usable company selectio
   assert.ok($('.screen-table tbody').textContent.includes('Graco'));
   change('#min-margin','0');click('[data-peer="GRC"]');assert.equal($('#valuation-company').value,'GRC');
 });
+test('cash-flow worksheet exposes live formulas and updates the connected case',()=>{
+  click('#reset');location.hash='financial-model';window.dispatchEvent(new dom.window.Event('hashchange'));
+  assert.equal($('#financial-model').hidden,false);assert.ok($('.cashflow-sheet').textContent.includes('Levered FCF'));
+  assert.equal($('.model-control-disclosure').open,false);$('.model-control-disclosure').open=true;
+  click('[data-trace="fcf"][data-year="2"]');assert.ok($('.formula-title').textContent.includes('2028'));assert.ok($('.formula-substitution').textContent.includes('53.916'));
+  change('[data-model-param="entryMultiple"]','8');assert.equal($('[data-input="entryMultiple"]').value,'8');assert.equal(metric(0),percent(calculate({entryMultiple:8}).irr));
+  assert.equal($('.model-control-disclosure').open,true);
+});
+test('audited history, LTM bridge and debt evidence are inspectable',()=>{
+  click('[data-model-pane="history"]');assert.ok($('#model-worksheet').textContent.includes('702.053'));assert.ok($('#model-worksheet').textContent.includes('106.228'));
+  click('[data-model-pane="credit"]');assert.ok($('#model-worksheet').textContent.includes('310.750'));assert.ok($('#model-worksheet').textContent.includes('Combined stress'));
+});
+test('DCF worksheet applies real sensitivities and exposes reinvestment',()=>{
+  click('[data-model-pane="valuation"]');assert.ok($('#model-worksheet').textContent.includes('Reinvestment = NOPAT'));
+  click('[data-wacc="0.09"][data-terminal="0.02"]');assert.equal($('[data-input="wacc"]').value,'9');assert.equal($('[data-input="terminalGrowth"]').value,'2');
+  change('[data-model-param="terminalRoic"]','15');assert.equal($('[data-input="terminalRoic"]').value,'15');
+  click('[data-model-pane="evidence"]');assert.ok($('#model-worksheet').textContent.includes('Source register'));click('#reset');
+});
+test('invalid worksheet edits hide stale results while leaving controls usable',()=>{
+  click('[data-model-pane="cashflow"]');
+  input('[data-model-param="entryMultiple"]','');assert.equal($('#model-worksheet').hidden,true);assert.equal($('.model-input-error').hidden,false);
+  change('[data-model-param="entryMultiple"]','2');assert.equal($('#error').hidden,false);assert.notEqual($('#financial-model').inert,true);
+  change('[data-model-param="entryMultiple"]','10');assert.equal($('#error').hidden,true);assert.equal($('#model-worksheet').hidden,false);assert.equal(metric(0),'7.9%');
+});
