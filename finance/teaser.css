@@ -1,4 +1,4 @@
-.finance-feature{background:#10243a;color:#fff;border:1px solid #263d54;border-radius:16px;overflow:hidden;box-shadow:0 16px 45px #10243a16}
+.finance-feature{background:#142b2d;color:#fff;border:1px solid #254446;border-radius:10px;overflow:hidden;box-shadow:0 16px 45px #10243a16}
 .finance-feature-main{display:grid;grid-template-columns:1.2fr 1fr;gap:44px;padding:36px}
 .finance-feature .finance-eyebrow{font-size:11px;letter-spacing:.14em;color:#9cbddf;font-weight:650;margin:0 0 16px}
 .finance-feature h2{font-family:Georgia,serif;font-size:36px;font-weight:400;letter-spacing:-.04em;line-height:1.1;margin:0 0 14px}

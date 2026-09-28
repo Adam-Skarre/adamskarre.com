@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Industrial investment analysis by Adam Skarre: a sourced acquisition model, operating value creation plan, and public-company screener.">
-  <title>Investment Lab | Adam Skarre</title>
+  <meta name="description" content="A Gorman-Rupp industrial buyout case study by Adam Skarre. Investment judgment, sourced financial research, operating strategy and a live cash-flow model.">
+  <title>Gorman-Rupp Buyout Case | Adam Skarre</title>
   <link rel="canonical" href="https://adamskarre.com/finance/">
-  <meta property="og:title" content="Investment Lab | Adam Skarre">
-  <meta property="og:description" content="An interactive acquisition model, operating value creation simulator, and industrial company screener. Change assumptions and compare investment outcomes.">
+  <meta property="og:title" content="Gorman-Rupp Buyout Case | Adam Skarre">
+  <meta property="og:description" content="Can operating improvements justify the acquisition price? Explore the investment thesis, audit the cash flows and test the conclusion.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://adamskarre.com/finance/">
   <link rel="icon" href="../assets/favicon/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="finance.css">
   <link rel="stylesheet" href="workbench.css">
+  <link rel="stylesheet" href="case-study.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to analysis</a>
-  <header class="site-header"><a class="brand" href="../index.html">Adam Skarre<span>Investment Lab</span></a><nav aria-label="Portfolio"><a href="../projects.html">All projects</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></nav></header>
+  <header class="site-header"><a class="brand" href="../index.html">Adam Skarre<span>Investment case study</span></a><nav aria-label="Portfolio"><a href="../projects.html">All projects</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></nav></header>
   <main id="main">
-    <div class="page-heading lab-heading"><div><p class="eyebrow">INVESTMENT LAB / THREE INTERACTIVE PROJECTS</p><h1>Underwrite the deal.<br>Build the upside.</h1><p class="intro">Move the assumptions. Compare the outcomes. Explore how price, financing, and operations drive an investment decision.</p><div class="hero-tags"><span>Acquisition modeling</span><span>Operating strategy</span><span>Company research</span></div></div><div class="lab-hero-aside"><span class="live-badge"><i></i> Interactive model</span><strong>One business.<br>Every decision connected.</strong><p>Change entry price or leverage to see returns update. Then test the operating plan against the same investment.</p><span class="hero-source">FY2025 historical data · Hypothetical transaction</span></div></div>
-    <nav class="project-tabs" aria-label="Investment projects"><a href="#financial-model" data-view="financial-model">Financial model</a><a href="#underwriting" data-view="underwriting">Investment case</a><a href="#operations" data-view="operations">Value creation</a><a href="#screening" data-view="screening">Company screener</a><a href="#research" data-view="research">Research & memo</a></nav>
+    <nav class="project-tabs" aria-label="Case study sections"><a href="#case-study" data-view="case-study">Project overview</a><a href="#financial-model" data-view="financial-model">Cash-flow model</a><a href="#underwriting" data-view="underwriting">Deal assumptions</a><a href="#operations" data-view="operations">Operating plan</a><a href="#screening" data-view="screening">Peer research</a><a href="#research" data-view="research">Investment memo</a></nav>
     <div class="case-bar" id="case-bar"><div><strong>Gorman-Rupp <span class="ticker">GRC</span></strong><span class="case-caption">Hypothetical acquisition · five-year hold</span></div><div class="scenario" role="group" aria-label="Operating scenario"><button data-case="Downside">Downside</button><button data-case="Base" aria-pressed="true">Base</button><button data-case="Upside">Upside</button></div><button class="text-button" id="reset">Reset assumptions</button></div>
     <div class="workspace-toolbar"><div><button id="save-case" class="toolbar-button">＋ Save case to compare</button><button id="share-case" class="toolbar-button">↗ Share this scenario</button></div><span>Assumptions update all linked views</span></div>
     <div id="share-panel" class="share-panel" hidden><label for="share-url">Scenario link</label><input id="share-url" readonly type="text"><button id="close-share" class="toolbar-button">Close</button><p>Anyone with this link can open the same assumptions. Saved comparisons stay in your browser.</p></div>
@@ -26,8 +26,9 @@
     <div class="notice">Independent case study using sourced financials and hypothetical transaction terms. Explore the assumptions and sources in Research &amp; memo.</div><div id="toast" class="toast" role="status" hidden></div>
     <div id="error" role="alert" hidden></div>
 
-    <section id="financial-model" class="view" aria-label="Financial model and calculations"></section>
-    <section id="underwriting" class="view" aria-label="Acquisition analysis">
+    <section id="case-study" class="view" aria-label="Gorman-Rupp investment case study"></section>
+    <section id="financial-model" class="view" hidden aria-label="Financial model and calculations"></section>
+    <section id="underwriting" class="view" hidden aria-label="Acquisition analysis">
       <div class="quick-cases"><span>START WITH A QUESTION</span><button data-preset="price">What if we pay less? <b>8× entry ↗</b></button><button data-preset="downside">What breaks in a downturn? <b>Stress the case ↗</b></button><button data-preset="operations">Can operations change the return? <b>Add the plan ↗</b></button></div>
       <div class="analysis-layout"><aside class="input-panel"><div class="panel-label">TRANSACTION ASSUMPTIONS</div><h2>Set the investment case</h2><p>Drag a slider or enter an exact value. Results recalculate as you edit.</p>
         <label>Entry EV / EBITDA <span class="unit">×</span><input data-input="entryMultiple" type="number" min="2" max="25" step="any" value="10"><input data-slider="entryMultiple" aria-label="Entry multiple slider" type="range" min="2" max="25" step=".05"></label>
@@ -60,6 +61,6 @@
     </section>
 
     <section id="research" class="view" hidden aria-label="Research and investment memo"><div class="section-intro"><div><p class="eyebrow">INVESTMENT COMMITTEE MEMO</p><h2>The recommendation follows the model.</h2><p>The live memo uses the selected scenario. Inspect the financial model for formulas, cash flows and source reconciliations.</p></div><div class="actions"><a class="button secondary" href="#financial-model">Open live calculations</a><button class="button secondary" id="print-memo">Print live memo</button></div></div><div id="memo"></div><div id="methodology"></div></section>
-    <footer class="footer"><span>Adam Skarre · Independent investment projects · September 2026</span><a href="../projects.html">Back to portfolio</a></footer>
+    <footer class="footer"><span>Adam Skarre · Independent investment case study · September 2026</span><a href="../projects.html">Back to portfolio</a></footer>
   <noscript><p class="notice">Enable JavaScript to use the interactive models. The <a href="downloads/industrial-investment-model.xlsx">Excel model</a> remains available.</p></noscript></main><script type="module" src="app.mjs"></script>
 </body></html>

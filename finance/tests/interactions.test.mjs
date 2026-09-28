@@ -18,8 +18,10 @@ const change=(s,value)=>{$(s).value=value;$(s).dispatchEvent(new dom.window.Even
 const metric=i=>all('#underwriting-results .metric-value')[i].textContent;
 const percent=value=>(value*100).toFixed(1)+'%';
 
-test('initial render populates all three projects and the memo without an input error',()=>{
+test('initial render opens the portfolio overview and populates every analytical view',()=>{
   assert.equal($('#error').hidden,true);assert.equal(metric(0),'7.9%');
+  assert.equal($('#case-study').hidden,false);assert.equal($('#financial-model').hidden,true);
+  assert.equal(document.body.dataset.view,'case-study');assert.ok($('#case-study h1').textContent.includes('Gorman-Rupp'));
   assert.equal(all('.screen-table tbody tr').length,5);
   assert.ok($('#operations-results').textContent.includes('10.6%'));
   assert.ok($('#memo').textContent.includes('Reprice the acquisition'));
@@ -101,4 +103,32 @@ test('invalid worksheet edits hide stale results while leaving controls usable',
   input('[data-model-param="entryMultiple"]','');assert.equal($('#model-worksheet').hidden,true);assert.equal($('.model-input-error').hidden,false);
   change('[data-model-param="entryMultiple"]','2');assert.equal($('#error').hidden,false);assert.notEqual($('#financial-model').inert,true);
   change('[data-model-param="entryMultiple"]','10');assert.equal($('#error').hidden,true);assert.equal($('#model-worksheet').hidden,false);assert.equal(metric(0),'7.9%');
+});
+test('guided portfolio cases change the actual investment model and preserve the written baseline',()=>{
+  const original=$('.study-verdict').textContent;
+  for(const [id,patch] of [['plan',{usePlan:true}],['downside',{caseName:'Downside',exitMultiple:7}],['price',{entryMultiple:calculate().maxBidMultiple}],['base',{}]]){
+    click(`[data-study-case="${id}"]`);
+    assert.equal($('[data-study-irr]').textContent,percent(calculate(patch).irr));
+    assert.equal(metric(0),percent(calculate(patch).irr));
+    assert.equal($(`[data-study-case="${id}"]`).getAttribute('aria-pressed'),'true');
+    assert.equal($('.study-verdict').textContent,original);
+    assert.equal($('#error').hidden,true);
+  }
+});
+test('custom model assumptions are identified separately on the portfolio overview',()=>{
+  input('[data-input="entryMultiple"]','8.3');
+  assert.ok($('#study-live-result').textContent.includes('CUSTOM INVESTMENT CASE'));
+  assert.equal(all('[data-study-case][aria-pressed="true"]').length,0);
+  assert.equal($('[data-study-irr]').textContent,percent(calculate({entryMultiple:8.3}).irr));
+  click('[data-study-case="base"]');
+});
+test('portfolio evidence links open the relevant worksheet without resetting the case',()=>{
+  click('[data-study-case="plan"]');click('[data-open-sheet="history"]');
+  window.dispatchEvent(new dom.window.Event('hashchange'));
+  assert.equal(location.hash,'#financial-model');assert.equal($('#financial-model').hidden,false);
+  assert.ok($('#model-worksheet').textContent.includes('Reconcile net income'));
+  assert.equal(metric(0),'10.6%');
+  click('[data-open-sheet="evidence"]');
+  assert.ok($('#model-worksheet').textContent.includes('Source register'));
+  click('#reset');
 });

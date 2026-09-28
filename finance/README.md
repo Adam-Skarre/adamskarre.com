@@ -1,6 +1,6 @@
-# Investment analysis projects
+# Gorman-Rupp investment case study
 
-Three independent educational case studies for Adam Skarre's portfolio:
+One independent portfolio case study connecting three analytical components:
 
 1. **Acquisition analysis:** five-year Gorman-Rupp LBO, cash-flow and debt schedules, sources and uses, live entry/exit sensitivities, equity return attribution, price at a target IRR, and a DCF cross-check.
 2. **Value creation:** pricing, process yield, and inventory initiatives with realization delays, implementation costs, incremental depreciation, and linked financing effects.
@@ -40,7 +40,7 @@ The HTML, CSS and JavaScript are published directly through the repository's exi
 
 ## September 2026 research upgrade
 
-The Financial model view is the default entry point. Its five worksheets expose cash flows and cell-level formula traces, three years of audited financials, financing and stress analysis, reinvestment-consistent DCF valuation, and the evidence register.
+The Financial model view contains five worksheets exposing cash flows and cell-level formula traces, three years of audited financials, financing and stress analysis, reinvestment-consistent DCF valuation, and the evidence register.
 
 `diligence-data.mjs` transcribes the FY2025 10-K and June 2026 10-Q in USD millions. `analysis.mjs` independently reconciles historical cash flow, total cash and end-market sales, constructs the LTM bridge, evaluates deterministic stresses and constrained debt capacity, and allocates operating-plan equity value across all initiative permutations. The six-order attribution is an allocation of model outputs, not a causal estimate.
 
@@ -48,4 +48,10 @@ The LTM update remains separate from the FY2025 acquisition base. The case is a 
 
 The default DCF now assumes 12% terminal incremental ROIC; positive terminal NOPAT finances growth through a growth / ROIC reinvestment rate. This replaces the original capex-ratio terminal shortcut. The original discount-rate and growth assumptions remain explicit.
 
-The website leads with live calculations and current-case export. Excel and PDF are supporting baseline records; the same authoring scripts keep them reconciled after financial-engine changes.
+The portfolio overview introduces the investment case and connects to live calculations and current-case export. Excel and PDF are supporting baseline records; the same authoring scripts keep them reconciled after financial-engine changes.
+
+## Portfolio presentation
+
+The Project overview is the default entry point. It introduces the investment question, documents the baseline conclusion, explains three underwriting judgments, and links each to the underlying work. Four guided cases run the same financial engine: baseline, operating plan, downside, and a bid price solved for the return hurdle. Changes carry into every model view. The written baseline conclusion remains fixed and labeled, while custom scenarios are identified separately.
+
+The homepage and projects listing present one flagship case. The operating plan and peer research are supporting parts of that case, not separate claimed engagements. No actual transaction, client work, measured operating improvement or institutional endorsement is represented.
