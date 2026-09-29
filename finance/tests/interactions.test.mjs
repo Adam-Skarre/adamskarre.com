@@ -132,3 +132,31 @@ test('portfolio evidence links open the relevant worksheet without resetting the
   assert.ok($('#model-worksheet').textContent.includes('Source register'));
   click('#reset');
 });
+test('real transaction research changes earnings credits without mutating the buyout case',()=>{
+  location.hash='deal-evidence';window.dispatchEvent(new dom.window.Event('hashchange'));
+  assert.equal($('#deal-evidence').hidden,false);
+  assert.ok($('#spx-results').textContent.includes('16.11×'));
+  input('[data-deal-input="synergyCredit"]','0');
+  assert.ok($('#spx-results .deal-formula').textContent.includes('14.20×'));
+  assert.equal($('#synergyCredit-output').textContent,'0%');
+  input('[data-deal-input="restructuringCredit"]','0');
+  assert.ok($('#spx-results').textContent.includes('$288.0m'));
+  assert.equal(metric(0),'7.9%');
+});
+test('Fill-Rite controls distinguish final cash funding from credited economic cost',()=>{
+  click('[data-deal="fill"]');
+  assert.ok($('#fill-results').textContent.includes('12.90×'));
+  input('[data-deal-input="taxCredit"]','0');
+  assert.ok($('#fill-results').textContent.includes('15.22×'));
+  change('[data-deal-select="priceBasis"]','final');
+  assert.ok($('#fill-results .deal-formula').textContent.includes('528.0'));
+  assert.ok($('#deal-detail').textContent.includes('Funding reconciliation'));
+});
+test('missing transaction data is visible and no fabricated multiple is rendered',()=>{
+  click('[data-deal="sundyne"]');
+  assert.ok($('#deal-detail').textContent.includes('Unavailable'));
+  assert.ok($('#deal-detail').textContent.includes('two unknowns'));
+  assert.equal(all('#deal-detail [data-deal-input]').length,0);
+  click('[data-deal="spx"]');
+  assert.equal($('[data-deal-input="synergyCredit"]').value,'0');
+});

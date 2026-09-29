@@ -1,5 +1,6 @@
 import {renderWorkbench,initWorkbench,selectWorksheet} from './workbench.mjs';
 import {initCaseStudy,renderCaseStudy} from './case-study.mjs';
+import {initDealEvidence} from './deal-evidence.mjs';
 import {company,history,source,defaults,cases,peers} from './data.mjs';
 import {calculate,sensitivity,screenPeers,csv} from './model.mjs';
 import {caseFromSearch,caseLink,caseLabel,readSavedCases,caseParameters} from './workspace.mjs';
@@ -104,7 +105,7 @@ function renderComparison(){
 }
 function download(text,name,type='text/csv;charset=utf-8'){const blob=new Blob([text],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function exportForecast(){if(!current)return;const r=current,rows=[['Adam Skarre — Gorman-Rupp independent acquisition model'],['Basis','USD millions; hypothetical acquisition; FY2025 historical inputs'],['Historical source',source.url],['Case',r.a.caseName],['Operating initiatives',r.a.usePlan?'Included':'Excluded'],[],['Assumption','Value'],...Object.entries(r.a).map(([k,v])=>[k,Array.isArray(v)?v.join(' / '):v]),[],['Metric',...r.years.map(y=>y.year)],...['revenue','recurringEbitda','implementationCost','ebitda','da','ebit','interest','taxes','capex','nwc','deltaNwc','fcf','ufcf','openingTerm','mandatory','termSweep','term','openingRevolver','draw','revolverRepay','revolver','cash','shortfall'].map(k=>[k,...r.years.map(y=>y[k])]),[],['Sponsor equity',r.sponsorEquity],['Exit equity',r.exitEquity],['IRR',r.irr],['MOIC',r.moic],['DCF enterprise value',r.dcfEV],['Terminal NOPAT',r.terminalNopat],['Terminal reinvestment',r.terminalReinvestment],['Terminal FCFF',r.terminalFcf]];download(csv(rows),'gorman-rupp-current-case.csv');}
-function route(){const allowed=['case-study','financial-model','underwriting','operations','screening','research'];let view=location.hash.slice(1);if(!allowed.includes(view))view='case-study';document.body.dataset.view=view;$$('.view').forEach(v=>v.hidden=v.id!==view);$$('[data-view]').forEach(a=>{a.classList.toggle('active',a.dataset.view===view);if(a.dataset.view===view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});$('#case-bar').hidden=view==='screening'||view==='case-study';document.title=`${{'case-study':'Gorman-Rupp Buyout Case','financial-model':'Financial Model',underwriting:'Acquisition Analysis',operations:'Value Creation',screening:'Company Screener',research:'Investment Memo'}[view]} | Adam Skarre`;}
+function route(){const allowed=['deal-evidence','case-study','financial-model','underwriting','operations','screening','research'];let view=location.hash.slice(1);if(!allowed.includes(view))view='case-study';document.body.dataset.view=view;$$('.view').forEach(v=>v.hidden=v.id!==view);$$('[data-view]').forEach(a=>{a.classList.toggle('active',a.dataset.view===view);if(a.dataset.view===view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});$('#case-bar').hidden=['screening','case-study','deal-evidence'].includes(view);document.title=`${{'deal-evidence':'Industrial Transaction Research','case-study':'Gorman-Rupp Buyout Case','financial-model':'Financial Model',underwriting:'Acquisition Analysis',operations:'Value Creation',screening:'Company Screener',research:'Investment Memo'}[view]} | Adam Skarre`;}
 function changeInput(el){
   if(el.type!=='checkbox'&&(el.value===''||!el.checkValidity())){el.setAttribute('aria-invalid','true');render();return;}
   el.removeAttribute('aria-invalid');state[el.dataset.input]=el.type==='checkbox'?el.checked:(Number(el.value)+Number(el.dataset.offset??0))/Number(el.dataset.scale??1);render();
@@ -135,4 +136,5 @@ $('#print-memo').addEventListener('click',()=>{if(current)window.print();});
 window.addEventListener('hashchange',route);
 initWorkbench(patch=>{state={...state,...patch};syncInputs();render();},exportForecast);
 initCaseStudy(next=>{state=next;syncInputs();render();},pane=>{selectWorksheet(pane);location.hash='financial-model';});
+initDealEvidence();
 syncInputs();render();renderScreening();renderValuation();route();if(initialMessage)toast(initialMessage);

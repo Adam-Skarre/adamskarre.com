@@ -55,3 +55,11 @@ The portfolio overview introduces the investment case and connects to live calcu
 The Project overview is the default entry point. It introduces the investment question, documents the baseline conclusion, explains three underwriting judgments, and links each to the underlying work. Four guided cases run the same financial engine: baseline, operating plan, downside, and a bid price solved for the return hurdle. Changes carry into every model view. The written baseline conclusion remains fixed and labeled, while custom scenarios are identified separately.
 
 The homepage and projects listing present one flagship case. The operating plan and peer research are supporting parts of that case, not separate claimed engagements. No actual transaction, client work, measured operating improvement or institutional endorsement is represented.
+
+## Transaction evidence
+
+`transactions.mjs` contains announced terms for Fill-Rite, SPX FLOW and Sundyne with a primary-source register. Fill-Rite also retains the later final consideration and actual purchase-price funding. The research compares valuation conventions rather than aggregating unlike multiples into a median.
+
+The interactive Transaction research view reconstructs SPX FLOW's TTM earnings and positive management add-backs, infers forward EBITDA from a rounded announced multiple, and tests credit to expected synergies. Historical add-back credit and the forward synergy illustration are intentionally independent; public disclosures do not supply a defensible linkage. Fill-Rite tax-benefit credit reduces the economic valuation numerator without reducing closing funding. Missing Sundyne tax-benefit and standalone EBITDA figures remain null; neither is reverse-engineered from inconsistent bases.
+
+Research exports are JSON snapshots of the source register, disclosed facts, baseline calculations and current analyst settings. These are selected historical announcement snapshots, not a complete comparable universe or evidence supporting the illustrative LBO entry and exit multiples. The original buyout conclusion is conditional on those assumptions and is not an executable acquisition recommendation.
